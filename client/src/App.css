@@ -1,38 +1,178 @@
-.App {
-  text-align: center;
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Remove default margin */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+  padding: 0;
+  font: inherit;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role="list"],
+ol[role="list"] {
+  list-style: none;
 }
 
-.App-header {
-  background-color: #282c34;
+/* dark mode user-agent-styles */
+html {
+  color-scheme: dark light;
+  font-family: "Roboto", sans-serif;
+}
+
+/* Set core root defaults */
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+/* Set core body defaults */
+body {
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+a {
+  text-decoration: none;
   color: white;
+  cursor: pointer;
 }
 
-.App-link {
-  color: #61dafb;
+/* Make images easier to work with */
+img,
+picture,
+svg,
+video {
+  max-width: 100%;
+  display: block;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
   }
-  to {
-    transform: rotate(360deg);
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
+}
+
+
+/* Navbar */
+.navbar {
+  background-color: rgb(0, 53, 69);
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 1em;
+  font-size: larger;
+  font-weight: bolder;
+}
+
+.nav-links{
+  display: flex;
+  color: #fff;
+  text-decoration: none;
+}
+
+.nav-links a{
+  padding: 1em 0;
+  margin: 0 2em;
+}
+
+.nav-links a:hover {
+  text-decoration: underline;
+}
+
+
+/* Auth Page */
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 5em 0em;
+}
+
+.auth-container h1 {
+  font-size: 2em;
+  font-weight: bold;
+}
+
+.auth-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 3em 0;
+}
+
+.auth-form {
+  display: inline-block;
+  border: 1px solid #ccc;
+  padding: 5em 2em;
+  border-radius: 15px;
+}
+
+:is(.auth-form input, .auth-form select) {
+  margin-bottom: 10px;
+  padding: 10px;
+  width: 100%;
+  margin: 1em 0;
+  border-radius: 0.5em;
+  border: 2px solid rgb(0, 53, 69);
+}
+
+:is(.auth-form input:focus, .auth-form select:focus, .auth-form input:hover, .auth-form select:hover) {
+  background-color: rgb(0, 53, 69);
+  outline: none;
+}
+
+.auth-form button {
+  margin: 2em 0;
+  padding: 1em 0;
+  width: 100%;
+  color: #fff;
+  border: 2px solid rgb(0, 53, 69);
+  border-radius: 10em;
+  cursor: pointer;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+:is(.auth-form button:hover, .auth-form button:focus) {
+  background-color: rgb(0, 53, 69);
 }
