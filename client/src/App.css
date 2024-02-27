@@ -89,6 +89,21 @@ select {
   }
 }
 
+/* General */
+.error-message {
+  color: red;
+  margin-bottom: 1em;
+}
+
+.success-message {
+  color: green;
+  margin-bottom: 1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: xx-large;
+  font-weight: bold;
+}
 
 /* Navbar */
 .navbar {
@@ -138,6 +153,7 @@ select {
   justify-content: center;
   align-items: center;
   margin: 3em 0;
+  max-width: 800px;
 }
 
 .auth-form {
