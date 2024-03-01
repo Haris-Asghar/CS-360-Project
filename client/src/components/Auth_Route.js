@@ -1,15 +1,15 @@
 import { useCookies } from 'react-cookie';
 import { Link } from 'react-router-dom';
+import { ultraSignOutHandler } from '../pages/Auth';
 
-
-const Auth_Route = ({ children }) => {
+const Auth_Route = ({ children, actual_role }) => {
     const [cookies, setCookie] = useCookies(['employee_token']);
     const token = window.localStorage.getItem('employeeID');
+    const role = window.localStorage.getItem('employeeRole');
 
     const signOutHandler = () => {
-        localStorage.removeItem('employeeID');
+        ultraSignOutHandler();
         setCookie('employee_token', '');
-        window.location.href = '/';
     };
 
     if (!cookies.employee_token && !token) {
@@ -24,6 +24,9 @@ const Auth_Route = ({ children }) => {
     else {
         if (cookies.employee_token || token) {
             if (window.location.pathname !== "/") {
+                if (actual_role !== role) {
+                    return <>You are not authorized to view this page. <button><Link to="/">Login</Link></button></>;
+                }
                 return children;
             }
             return <>You are logged in. Please sign out first

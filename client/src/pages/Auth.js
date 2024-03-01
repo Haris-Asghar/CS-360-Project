@@ -1,7 +1,13 @@
-import { useState } from 'react';
 import axios from 'axios';
+import { useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
+
+const ultraSignOutHandler = () => {
+    localStorage.removeItem('employeeID');
+    localStorage.removeItem('employeeRole');
+    window.location.href = '/';
+};
 
 const Auth = () => {
     const [role, setRole] = useState('');
@@ -18,8 +24,14 @@ const Auth = () => {
             .then((response) => {
                 alert('Logged in');
                 setCookie('employee_token', response.data.token);
+                window.localStorage.setItem('employeeRole', response.data.employeeRole);
                 window.localStorage.setItem('employeeID', response.data.employeeID);
-                navigate('/home');
+                if (response.data.employeeRole === 'Admin') {
+                    navigate('/admin/home');
+                }
+                else {
+                    navigate('/employee/home');
+                }
             })
             .catch((error) => {
                 setErrors({ user: error.response.data });
@@ -69,3 +81,4 @@ const Auth = () => {
 };
 
 export default Auth;
+export {ultraSignOutHandler};

@@ -32,7 +32,7 @@ router.post("/login", async (req, res) => {
     if(!match) return res.status(400).send("Wrong password");
 
     const token = jwt.sign({id: employee._id}, "secret");
-    res.status(200).send({token, employeeID: employee._id});
+    res.status(200).send({token, employeeID: employee._id, employeeRole: employee.role});
 });   
 
 

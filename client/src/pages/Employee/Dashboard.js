@@ -6,7 +6,7 @@ const EmployeeDashboard = () => {
     return (
         <div>
             <h1>Welcome to Employee Attendance System</h1>
-            <button onClick={() => navigate('/addUser')}>Add New Users</button>
+            <button onClick={() => navigate('/admin/addUser')}>Add New Users</button>
         </div>
     );
 };

@@ -1,28 +1,29 @@
+import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import AdminDashboard from './pages/Admin/Home';
-import EmployeeDashboard from './pages/Admin/Home';
 import Auth from './pages/Auth';
 import AddUser from './pages/Admin/AddUser';
+import AdminDashboard from './pages/Admin/Dashboard';
+import EmployeeDashboard from './pages/Employee/Dashboard';
 import NavbarWrapper from './components/Navbar';
 import AuthRoute from './components/Auth_Route';
 
 function App() {
-  const role = "employee";
-  const role1 = "admin"
   return (
     <div className="App">
       <Router>
         <Routes>
-          <Route path="/" element={<AuthRoute route={"/"}><Auth /></AuthRoute>} />
-          {role1 && role1 === "admin" && (<>
-            <Route path="/home" element={<AuthRoute><NavbarWrapper><AdminDashboard /></NavbarWrapper></AuthRoute>} />
-            <Route path="/addUser" element={<AuthRoute><NavbarWrapper><AddUser /></NavbarWrapper></AuthRoute>} />
-          </>
-          )}
-          {role && role === "employee" && (
-            <Route path="/home" element={<AuthRoute><NavbarWrapper><EmployeeDashboard /></NavbarWrapper></AuthRoute>} />
-          )}
+          {/* Public Routes */}
+          <Route path="/" element={<AuthRoute><Auth /></AuthRoute>} />
+
+          {/* Admin Routes */}
+          <Route path="/admin/home" element={<ProtectedRoute role="Admin"><AdminDashboard /></ProtectedRoute>} />
+          <Route path="/admin/addUser" element={<ProtectedRoute role="Admin"><AddUser /></ProtectedRoute>} />
+
+          {/* Employee Routes */}
+          <Route path="/employee/home" element={<ProtectedRoute role="Employee"><EmployeeDashboard /></ProtectedRoute>} />
+          
+          {/* Page Not Found */}
           <Route path="*" element={<h1>Page Not Found</h1>} />
         </Routes>
       </Router>
@@ -30,5 +31,12 @@ function App() {
   );
 }
 
-export default App;
+const ProtectedRoute = ({ role, children }) => {
+  return (
+    <AuthRoute actual_role={role}>
+      <NavbarWrapper>{children}</NavbarWrapper>
+    </AuthRoute>
+  );
+};
 
+export default App;
