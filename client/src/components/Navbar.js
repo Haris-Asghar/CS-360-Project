@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 
@@ -10,6 +9,7 @@ const Navbar = () => {
         setCookie('employee_token', '');
         window.location.href = '/';
     };
+
     return (
         <div className="navbar">
             <h1>Employee Management System</h1>
@@ -22,4 +22,13 @@ const Navbar = () => {
     );
 };
 
-export default Navbar;
+const NavbarWrapper = ({ children }) => {
+    const isHomeRoute = window.location.pathname === "/";
+    return isHomeRoute ? null :
+        <>
+            <Navbar />
+            {children}
+        </>;
+};
+
+export default NavbarWrapper;

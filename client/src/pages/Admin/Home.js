@@ -1,7 +1,6 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const Home = () => {
+const AdminDashboard = () => {
     const navigate = useNavigate();
 
     return (
@@ -12,4 +11,4 @@ const Home = () => {
     );
 };
 
-export default Home;
+export default AdminDashboard;
