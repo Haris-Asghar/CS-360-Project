@@ -1,35 +1,45 @@
-import { useCookies } from 'react-cookie';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { ultraSignOutHandler } from '../pages/Auth';
+import { UserContext } from "./User_Context";
 
 const Auth_Route = ({ children, actual_role }) => {
-    const [cookies, setCookie] = useCookies(['employee_token']);
-    const token = window.localStorage.getItem('employeeID');
-    const role = window.localStorage.getItem('employeeRole');
+    const { user, setUser } = useContext(UserContext);
+    const role = user.role;
+    const username = user.username;
 
     const signOutHandler = () => {
-        ultraSignOutHandler();
-        setCookie('employee_token', '');
+        setUser({ "username": "", "role": "" });
+        sessionStorage.clear();
+        window.location.href = '/';
     };
 
-    if (!cookies.employee_token && !token) {
+    if (!username) {
         if (window.location.pathname !== "/") {
             return <>
                 You are not logged in. Please log in to view this page.
+                <p>Username: {user.username}</p>
+                <p>Role: {user.role}</p>
                 <button><Link to="/">Login</Link></button>
             </>;
         }
         return children;
     }
     else {
-        if (cookies.employee_token || token) {
+        if (username) {
             if (window.location.pathname !== "/") {
                 if (actual_role !== role) {
-                    return <>You are not authorized to view this page. <button><Link to="/">Login</Link></button></>;
+                    return <>
+                        You are not authorized to view this page.
+                        <p>Username: {user.username}</p>
+                        <p>Role: {user.role}</p>
+                        <button><Link to="/">Login</Link></button></>;
                 }
                 return children;
             }
-            return <>You are logged in. Please sign out first
+            return <>
+                You are logged in. Please sign out first
+                <p>Username: {user.username}</p>
+                <p>Role: {user.role}</p>
                 <button><Link to="/" onClick={signOutHandler}>Sign Out</Link></button>
             </>
         }
