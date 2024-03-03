@@ -1,15 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { useCookies } from 'react-cookie';
-import { ultraSignOutHandler } from '../pages/Auth';
+import { UserContext } from './User_Context';
 
 const Navbar = () => {
-    const [_, setCookie] = useCookies(['employee_token']);
-    const role = window.localStorage.getItem('employeeRole');
+    const { user, setUser } = useContext(UserContext);
+    const role = user.role;
 
     const signOutHandler = () => {
-        ultraSignOutHandler();
-        setCookie('employee_token', '');
+        setUser({ "username": "", "role": "" });
+        sessionStorage.clear();
+        window.location.href = '/';
     };
 
     return (

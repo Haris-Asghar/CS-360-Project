@@ -1,19 +1,13 @@
 import axios from 'axios';
-import { useState } from 'react';
-import { useCookies } from 'react-cookie';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-const ultraSignOutHandler = () => {
-    localStorage.removeItem('employeeID');
-    localStorage.removeItem('employeeRole');
-    window.location.href = '/';
-};
+import { UserContext } from '../components/User_Context';
 
 const Auth = () => {
+    const { user, setUser } = useContext(UserContext);
     const [role, setRole] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [_, setCookie] = useCookies(['employee_token']);
     const [errors, setErrors] = useState({});
     const navigate = useNavigate();
 
@@ -23,9 +17,7 @@ const Auth = () => {
             .post('http://localhost:3001/auth/login', { role, username, password })
             .then((response) => {
                 alert('Logged in');
-                setCookie('employee_token', response.data.token);
-                window.localStorage.setItem('employeeRole', response.data.employeeRole);
-                window.localStorage.setItem('employeeID', response.data.employeeID);
+                setUser({ "username": username, "role": role });
                 if (response.data.employeeRole === 'Admin') {
                     navigate('/admin/home');
                 }
@@ -81,4 +73,3 @@ const Auth = () => {
 };
 
 export default Auth;
-export {ultraSignOutHandler};
