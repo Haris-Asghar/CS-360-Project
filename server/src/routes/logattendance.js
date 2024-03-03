@@ -3,7 +3,7 @@ import AttendanceModel from "../models/Attendance.js";
 
 const router = express.Router();
 router.post("/log-attendance", async (req, res) => {
-    try {
+    try { 
         // Extract username from request body
         const { username } = req.body;
 
