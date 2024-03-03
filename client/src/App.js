@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Auth from './pages/Auth';
 import AddUser from './pages/Admin/AddUser';
 import AdminDashboard from './pages/Admin/Dashboard';
-import EmployeeDashboard from './pages/Employee/EmployeeDashboard'
+import EmployeeDashboard from './pages/Employee/Dashboard'
 //import MarkAttendance from './pages/Employee/MarkAttendance';
 import NavbarWrapper from './components/Navbar';
 import AuthRoute from './components/Auth_Route';
