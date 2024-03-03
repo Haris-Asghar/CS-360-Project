@@ -2,21 +2,32 @@ import axios from 'axios';
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../components/User_Context';
+import Swal from 'sweetalert2';
 
 const Auth = () => {
-    const { user, setUser } = useContext(UserContext);
+    const { setUser } = useContext(UserContext);
     const [role, setRole] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState({});
     const navigate = useNavigate();
 
+    const showAlert = (username) => {
+        Swal.fire({
+            title: 'Successful!',
+            text: `Welcome! ${username}`,
+            icon: 'success',
+            showConfirmButton: false,
+            timer: 2000
+        });
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
         axios
             .post('http://localhost:3001/auth/login', { role, username, password })
             .then((response) => {
-                alert('Logged in');
+                showAlert(username);
                 setUser({ "username": username, "role": role });
                 if (response.data.employeeRole === 'Admin') {
                     navigate('/admin/home');

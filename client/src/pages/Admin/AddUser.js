@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 const AddUser = () => {
     const [role, setRole] = useState('');
@@ -12,6 +13,16 @@ const AddUser = () => {
     const [pnumber, setPnumber] = useState('');
     const [errors, setErrors] = useState({});
     const [success, setSuccess] = useState(false);
+
+    const showAlert = (username) => {
+        Swal.fire({
+            title: 'Successful!',
+            text: `User ${username} added successfully!`,
+            icon: 'success',
+            showConfirmButton: false,
+            timer: 2000
+        });
+    };
 
     const handleSubmit = (e) => {
         setSuccess(false);
@@ -35,7 +46,7 @@ const AddUser = () => {
         axios
             .post('http://localhost:3001/auth/register', {role, username, fname, lname, salary, email, pnumber, password})
             .then((response) => {
-                alert('User Added');
+                showAlert(username);
                 setSuccess(true);
             })
             .catch((error) => {

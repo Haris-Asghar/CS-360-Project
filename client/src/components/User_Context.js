@@ -1,5 +1,3 @@
-// User_Context.js
-
 import React, { createContext, useState, useEffect } from 'react';
 import { enc, AES } from 'crypto-js';
 

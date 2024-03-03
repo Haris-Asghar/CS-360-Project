@@ -4,7 +4,7 @@ import { UserContext } from '../../components/User_Context';
 
 const AdminDashboard = () => {
     const navigate = useNavigate();
-    const { user, setUser } = useContext(UserContext);
+    const { user } = useContext(UserContext);
 
     return (
         <div>
