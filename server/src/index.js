@@ -3,6 +3,8 @@ import cors from "cors";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import { employeeRouter } from "./routes/employee.js";
+import { attendanceRouter } from "./routes/attendance-info.js";
+import { logattendanceRouter } from "./routes/logattendance.js";
 
 dotenv.config();
 
@@ -24,3 +26,4 @@ mongoose.connect(`mongodb+srv://${username}:${password}@${dbName}.c0zyvyg.mongod
   });
 
 app.use("/auth", employeeRouter);
+app.use("/log", logattendanceRouter);
