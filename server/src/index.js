@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import { employeeRouter } from "./routes/employee.js";
 import { logattendanceRouter } from "./routes/logattendance.js";
+import { attendanceRouter } from "./routes/employeedashboard.js";
 
 dotenv.config();
 
@@ -25,4 +26,5 @@ mongoose.connect(`mongodb+srv://${username}:${password}@${dbName}.c0zyvyg.mongod
   });
 
 app.use("/auth", employeeRouter);
+app.use("/attendance",attendanceRouter);
 app.use("/log", logattendanceRouter);
