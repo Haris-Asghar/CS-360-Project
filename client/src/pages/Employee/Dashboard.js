@@ -37,6 +37,12 @@ const EmployeeDashboard = () => {
 
     const attendanceHandler = (e) => {
         e.preventDefault();
+        const today = new Date();
+        // Check if today is Saturday (6) or Sunday (0)
+        if (today.getDay() === 6 || today.getDay() === 0) {
+            showAlert("Error!", "Attendance cannot be marked on Saturdays and Sundays!", "error");
+            return;
+        }
         axios
             .post('http://localhost:3001/log/log-attendance', { username: user.username })
             .then((response) => {
