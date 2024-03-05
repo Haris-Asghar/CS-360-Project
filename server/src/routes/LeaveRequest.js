@@ -37,6 +37,25 @@ router.get("/leave-requests", async (req, res) => {
     }
 });
 
+router.get("/leave-request/:username", async (req, res) => {
+    try {
+        const { username } = req.params;
+
+        // Retrieve leave requests by username
+        const leaveRequests = await LeaveRequestModel.find({ username });
+        
+        if (!leaveRequests || leaveRequests.length === 0) {
+            return res.status(404).json({ error: "Leave requests not found for this username" });
+        }
+
+        res.status(200).json(leaveRequests);
+    } catch (error) {
+        console.error("Error fetching leave requests by username:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
+
+
 router.put("/approve-leave/:id", async (req, res) => {
     try {
         const { id } = req.params;
@@ -66,3 +85,4 @@ router.put("/reject-leave/:id", async (req, res) => {
 });
 
 export {router as leaveRequestRouter};
+

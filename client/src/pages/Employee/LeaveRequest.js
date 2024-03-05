@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 import './leaveRequest.css'; // Import CSS file
 import { UserContext } from '../../components/User_Context';
@@ -14,6 +14,20 @@ const LeaveRequest = () => {
     const [otherReason, setOtherReason] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+    const [employeeLeaveHistory, setEmployeeLeaveHistory] = useState([]);
+
+    useEffect(() => {
+        const fetchEmployeeLeaveHistory = async () => {
+            try {
+                const response = await axios.get(`http://localhost:3001/leave/leave-request/${user.username}`);
+                setEmployeeLeaveHistory(response.data);
+            } catch (error) {
+                console.error('Error fetching employee leave history:', error);
+            }
+        };
+
+        fetchEmployeeLeaveHistory();
+    }, [user.username]);
 
     const handleLeaveSubmit = (e) => {
         e.preventDefault();
@@ -109,6 +123,30 @@ const LeaveRequest = () => {
                     Submit
                 </button>
             </form>
+            <div className="user-leave-history">
+                <h2>Your Leave History</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Leave Reason</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {employeeLeaveHistory.map((leave, index) => (
+                            <tr key={index}>
+                                <td>{new Date(leave.startDate).toLocaleDateString()}</td>
+                                <td>{new Date(leave.endDate).toLocaleDateString()}</td>
+                                <td>{leave.leaveReason}</td>
+                                <td>{leave.status}</td>
+                            </tr>
+
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 };

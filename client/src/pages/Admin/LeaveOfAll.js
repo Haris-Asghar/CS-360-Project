@@ -22,6 +22,38 @@ const AdminDashboard = () => {
         fetchLeaveHistory();
     }, []);
 
+    const handleApproveLeave = async (id) => {
+        try {
+            await axios.put(`http://localhost:3001/leave/approve-leave/${id}`);
+            // Update leave history after approving leave
+            const updatedLeaveHistory = leaveHistory.map(leave => {
+                if (leave._id === id) {
+                    leave.status = 'Approved';
+                }
+                return leave;
+            });
+            setLeaveHistory(updatedLeaveHistory);
+        } catch (error) {
+            console.error('Error approving leave:', error);
+        }
+    };
+
+    const handleRejectLeave = async (id) => {
+        try {
+            await axios.put(`http://localhost:3001/leave/reject-leave/${id}`);
+            // Update leave history after rejecting leave
+            const updatedLeaveHistory = leaveHistory.map(leave => {
+                if (leave._id === id) {
+                    leave.status = 'Rejected';
+                }
+                return leave;
+            });
+            setLeaveHistory(updatedLeaveHistory);
+        } catch (error) {
+            console.error('Error rejecting leave:', error);
+        }
+    };
+
     if (loading) {
         return <div className="loading">Loading...</div>;
     }
@@ -43,6 +75,7 @@ const AdminDashboard = () => {
                             <th>End Date</th>
                             <th>Leave Reason</th>
                             <th>Status</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -53,6 +86,14 @@ const AdminDashboard = () => {
                                 <td>{new Date(leave.endDate).toLocaleDateString()}</td>
                                 <td>{leave.leaveReason}</td>
                                 <td>{leave.status}</td>
+                                <td>
+                                    {leave.status === 'Pending' && (
+                                        <>
+                                            <button onClick={() => handleApproveLeave(leave._id)}>Approve</button>
+                                            <button onClick={() => handleRejectLeave(leave._id)}>Reject</button>
+                                        </>
+                                    )}
+                                </td>
                             </tr>
                         ))}
                     </tbody>
@@ -63,3 +104,4 @@ const AdminDashboard = () => {
 };
 
 export default AdminDashboard;
+
