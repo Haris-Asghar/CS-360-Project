@@ -9,11 +9,16 @@ const EmployeeDashboard = () => {
     const [attendanceData, setAttendanceData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [currentMonth, setCurrentMonth] = useState('');
 
     useEffect(() => {
         const fetchAttendanceData = async () => {
             try {
                 const response = await axios.get(`http://localhost:3001/attendance/attendance-info/${user.username}`);
+                const currentDate = new Date();
+                const monthNames = ["January", "February", "March", "April", "May", "June",
+                                    "July", "August", "September", "October", "November", "December"];
+                setCurrentMonth(monthNames[currentDate.getMonth()]);
                 setAttendanceData(response.data);
                 setLoading(false);
             } catch (error) {
@@ -71,14 +76,15 @@ const EmployeeDashboard = () => {
         <div className="container">
             <h1>Employee Dashboard</h1>
             <div className="summary">
-                <h2>Attendance Summary for Current Month</h2>
-                <p>Total Days This Month: {totalDaysThisMonth}</p>
+                <h2>Attendance Summary for {currentMonth}</h2>
+                <p>Total Days of Job: {totalDaysThisMonth}</p>
                 <p>Number of Attendances: {numAttendancesThisMonth}</p>
                 <p>Number of Absences: {numAbsencesThisMonth}</p>
+                <p>Number of Leaves Allowed: 3</p>
                 <p>Number of Leaves Remaining: {numLeavesRemaining}</p>
             </div>
             <div className="records">
-                <h2>Attendance Records for Current Month</h2>
+                <h2>Attendance Records for {currentMonth}</h2>
                 <ul>
                     {attendanceRecordsThisMonth.map((record, index) => (
                         <li key={index}>
