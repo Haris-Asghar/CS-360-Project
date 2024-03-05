@@ -7,12 +7,21 @@ router.post("/log-attendance", async (req, res) => {
         // Extract username from request body
         const { username } = req.body;
 
-        // Get the current time
-        const currentTime = new Date();
+        // Get the current date
+        const currentDate = new Date();
+        
+        // Check if attendance record already exists for the same username and the same date
+        const existingAttendance = await AttendanceModel.findOne({ username, log: { $gte: new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()), $lt: new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() + 1) } });
+
+        // If attendance record already exists for the same username and the same date, send a response
+        if (existingAttendance) {
+            return res.status(400).json({ error: "Attendance already logged for today" });
+        }
+
         // Create a new attendance record with current time
         const newAttendance = new AttendanceModel({
             username,
-            log: currentTime,
+            log: currentDate,
             leave: false // Assuming attendance is not leave
         });
 
@@ -27,3 +36,4 @@ router.post("/log-attendance", async (req, res) => {
 });
 
 export { router as logattendanceRouter };
+
