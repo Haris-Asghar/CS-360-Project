@@ -43,7 +43,7 @@ const EmployeeDashboard = () => {
                 showAlert("Successful!", "Attendance Marked", "success");
             })
             .catch((error) => {
-                showAlert("Error!", error.message, "error");
+                showAlert("Error!", "Attendance already marked for the day!!", "error");
             });
     };
 
