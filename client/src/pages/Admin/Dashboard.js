@@ -12,6 +12,8 @@ const AdminDashboard = () => {
             <p>Role: {user.role}</p>
             <h1>Welcome to Employee Attendance System</h1>
             <button onClick={() => navigate('/admin/addUser')}>Add New Users</button>
+            <div></div>
+            <button onClick={() => navigate('/admin/leaveOfAll')}>View Leaves of All Employees</button>
         </div>
     );
 };

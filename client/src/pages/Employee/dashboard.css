@@ -15,7 +15,7 @@ body {
     padding: 20px;
 }
 
-h1 {
+.dashboard-title {
     text-align: center;
     color: black;
     font-size: 30px;

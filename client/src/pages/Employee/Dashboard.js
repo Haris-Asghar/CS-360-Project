@@ -3,6 +3,7 @@ import axios from 'axios';
 import './dashboard.css'; // Import CSS file
 import { UserContext } from '../../components/User_Context';
 import Swal from 'sweetalert2';
+import { Link } from 'react-router-dom'; // Import Link component for navigation
 
 const EmployeeDashboard = () => {
     const { user } = useContext(UserContext);
@@ -74,7 +75,7 @@ const EmployeeDashboard = () => {
 
     return (
         <div className="container">
-            <h1>Employee Dashboard</h1>
+            <h1 className="dashboard-title">Employee Dashboard</h1>
             <div className="summary">
                 <h2>Attendance Summary for {currentMonth}</h2>
                 <p>Total Days of Job: {totalDaysThisMonth}</p>
@@ -98,8 +99,15 @@ const EmployeeDashboard = () => {
                 <h2>Mark Attendance</h2>
                 <button onClick={attendanceHandler}>Mark</button>
             </div>
+            <div className="apply-leave">
+                <h2>Apply for Leave</h2>
+                <Link to="/employee/applyLeave">
+                    <button>Apply</button>
+                </Link>
+            </div>
         </div>
     );
 };
 
 export default EmployeeDashboard;
+

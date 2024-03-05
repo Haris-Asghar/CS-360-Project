@@ -8,6 +8,8 @@ import EmployeeDashboard from './pages/Employee/Dashboard'
 //import MarkAttendance from './pages/Employee/MarkAttendance';
 import NavbarWrapper from './components/Navbar';
 import AuthRoute from './components/Auth_Route';
+import LeaveRequest from './pages/Employee/LeaveRequest';
+import LeaveofAllEmployees from './pages/Admin/LeaveOfAll';
 
 function App() {
   return (
@@ -20,9 +22,11 @@ function App() {
           {/* Admin Routes */}
           <Route path="/admin/home" element={<ProtectedRoute role="Admin"><AdminDashboard /></ProtectedRoute>} />
           <Route path="/admin/addUser" element={<ProtectedRoute role="Admin"><AddUser /></ProtectedRoute>} />
+          <Route path="/admin/leaveOfAll" element={<ProtectedRoute role="Admin"><LeaveofAllEmployees/></ProtectedRoute>} />
 
           {/* Employee Routes */}
           <Route path="/employee/home" element={<ProtectedRoute role="Employee"><EmployeeDashboard /></ProtectedRoute>} />
+          <Route path="/employee/applyLeave" element={<ProtectedRoute role="Employee"><LeaveRequest /></ProtectedRoute>} />
           
           {/* Page Not Found */}
           <Route path="*" element={<h1>Page Not Found</h1>} />
