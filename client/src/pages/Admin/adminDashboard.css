@@ -1,52 +1,42 @@
-.container {
+.container1 {
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
 }
 
-.dashboard-title {
+.container1 .dashboard-title {
     text-align: center;
     margin-bottom: 20px;
 }
 
-.leave-history {
+.container1 .leave-history {
     margin-top: 20px;
 }
 
-table {
+.container1 .leave-history table {
     width: 100%;
     border-collapse: collapse;
 }
 
-th, td {
-    border: 1px solid #ddd;
+.container1 .leave-history th, td {
     padding: 8px;
     text-align: left;
 }
 
-th {
-    background-color: #f2f2f2;
+.container1 .leave-history th {
     font-weight: bold;
 }
 
-tr:nth-child(even) {
-    background-color: #f2f2f2;
+.container1 .pending {
+    background-color: #a48c00; /* yellow */
 }
 
-tr:hover {
-    background-color: #ddd;
+.container1 .approved {
+    background-color: #009100; /* light green */
 }
 
-.pending {
-    background-color: #ffd700; /* yellow */
-}
-
-.approved {
-    background-color: #90ee90; /* light green */
-}
-
-.rejected {
-    background-color: #ffcccb; /* light pink */
+.container1 .rejected {
+    background-color: #7e0301; /* light pink */
 }
 
 .loading, .error {

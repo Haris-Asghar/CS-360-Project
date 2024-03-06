@@ -63,7 +63,7 @@ const AdminDashboard = () => {
     }
 
     return (
-        <div className="container">
+        <div className="container1">
             <h1 className="dashboard-title">Admin Dashboard</h1>
             <div className="leave-history">
                 <h2>Leave History</h2>

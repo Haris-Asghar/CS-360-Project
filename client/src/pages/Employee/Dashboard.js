@@ -74,7 +74,7 @@ const EmployeeDashboard = () => {
     const { totalDaysThisMonth, numAttendancesThisMonth, numAbsencesThisMonth, numLeavesRemaining, attendanceRecordsThisMonth } = attendanceData;
 
     return (
-        <div className="container">
+        <div className="container2">
             <h1 className="dashboard-title">Employee Dashboard</h1>
             <div className="summary">
                 <h2>Attendance Summary for {currentMonth}</h2>
