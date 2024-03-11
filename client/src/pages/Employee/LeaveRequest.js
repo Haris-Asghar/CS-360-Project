@@ -1,10 +1,9 @@
 import React, { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
-import './dashboard.css'; // Import CSS file
 import { UserContext } from '../../components/User_Context';
 import Swal from 'sweetalert2';
-import DatePicker from 'react-datepicker'; // Import Datepicker library
-import 'react-datepicker/dist/react-datepicker.css'; // Import Datepicker CSS
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const LeaveRequest = () => {
     const { user } = useContext(UserContext);

@@ -1,33 +1,25 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import AttendanceDetails from './AttendanceDetails';
-import './dashboard.css';
 
 const EmployeeDashboard = () => {
     return (
-        <div className="container2">
-            <h1 className="dashboard-title">Employee Dashboard</h1>
-            <AttendanceDetails />
-            <div className="action-section">
-                <div className="action-item">
-                    <h2>View Attendance</h2>
-                    <Link to="/employee/attendance-records" className="dashboard-link">
-                        <button className="dashboard-button">View Attendance</button>
+        <div className='container'>
+            <div className='dashboard_nav'>
+                <h1>My Dashboard</h1>
+                <div className='dashboard_links'>
+                    <Link to="/employee/applyLeave">
+                        <button className='button'>Request for Leave</button>
                     </Link>
-                </div>
-                <div className="action-item">
-                    <h2>Mark Attendance</h2>
-                    <Link to="/employee/mark-attendance" className="dashboard-link">
-                        <button className="dashboard-button">Mark Attendance</button>
+                    <Link to="/employee/attendance-records">
+                        <button className='button'>View Attendance</button>
                     </Link>
-                </div>
-                <div className="action-item">
-                    <h2>Apply for Leave</h2>
-                    <Link to="/employee/applyLeave" className="dashboard-link">
-                        <button className="dashboard-button">Apply</button>
+                    <Link to="/employee/mark-attendance">
+                        <button className='button'>Mark Attendance</button>
                     </Link>
                 </div>
             </div>
+            <AttendanceDetails />
         </div>
     );
 };
