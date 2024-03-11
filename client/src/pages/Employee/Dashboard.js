@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
-import './dashboard.css'; // Import CSS file
+import { Link } from 'react-router-dom';
 import { UserContext } from '../../components/User_Context';
-import Swal from 'sweetalert2';
-import { Link } from 'react-router-dom'; // Import Link component for navigation
+import './dashboard.css'; // Import CSS file
 
 const EmployeeDashboard = () => {
     const { user } = useContext(UserContext);
@@ -16,48 +15,17 @@ const EmployeeDashboard = () => {
         const fetchAttendanceData = async () => {
             try {
                 const response = await axios.get(`http://localhost:3001/attendance/attendance-info/${user.username}`);
-                const currentDate = new Date();
-                const monthNames = ["January", "February", "March", "April", "May", "June",
-                                    "July", "August", "September", "October", "November", "December"];
-                setCurrentMonth(monthNames[currentDate.getMonth()]);
+                setCurrentMonth(new Date().toLocaleString('default', { month: 'long' }));
                 setAttendanceData(response.data);
                 setLoading(false);
             } catch (error) {
-                setError(error.message);
+                setError('Failed to fetch attendance data.');
                 setLoading(false);
             }
         };
-
         fetchAttendanceData();
-    }, [user.username]); // Add user.username to dependency array
+    }, [user.username]);
 
-    const showAlert = (title, text, icon) => {
-        Swal.fire({
-            title: title,
-            text: text,
-            icon: icon,
-            showConfirmButton: false,
-            timer: 2000
-        });
-    };
-
-    const attendanceHandler = (e) => {
-        e.preventDefault();
-        const today = new Date();
-        // Check if today is Saturday (6) or Sunday (0)
-        if (today.getDay() === 6 || today.getDay() === 0) {
-            showAlert("Error!", "Attendance cannot be marked on Saturdays and Sundays!", "error");
-            return;
-        }
-        axios
-            .post('http://localhost:3001/log/log-attendance', { username: user.username })
-            .then((response) => {
-                showAlert("Successful!", "Attendance Marked", "success");
-            })
-            .catch((error) => {
-                showAlert("Error!", "Attendance already marked for the day!!", "error");
-            });
-    };
 
     if (loading) {
         return <div className="loading">Loading...</div>;
@@ -68,10 +36,10 @@ const EmployeeDashboard = () => {
     }
 
     if (!attendanceData) {
-        return <div className="error">No data available</div>;
+        return <div className="error">No attendance data available</div>;
     }
 
-    const { totalDaysThisMonth, numAttendancesThisMonth, numAbsencesThisMonth, numLeavesRemaining, attendanceRecordsThisMonth } = attendanceData;
+    const { totalDaysThisMonth, numAttendancesThisMonth, numAbsencesThisMonth, numLeavesRemaining } = attendanceData;
 
     return (
         <div className="container2">
@@ -84,30 +52,28 @@ const EmployeeDashboard = () => {
                 <p>Number of Leaves Allowed: 3</p>
                 <p>Number of Leaves Remaining: {numLeavesRemaining}</p>
             </div>
-            <div className="records">
-                <h2>Attendance Records for {currentMonth}</h2>
-                <ul>
-                    {attendanceRecordsThisMonth.map((record, index) => (
-                        <li key={index}>
-                            <p>Date: {record.logDate}</p>
-                            <p>Time: {record.logTime}</p>
-                        </li>
-                    ))}
-                </ul>
-            </div>
-            <div className="mark-attendance">
-                <h2>Mark Attendance</h2>
-                <button onClick={attendanceHandler}>Mark</button>
-            </div>
-            <div className="apply-leave">
-                <h2>Apply for Leave</h2>
-                <Link to="/employee/applyLeave">
-                    <button>Apply</button>
-                </Link>
+            <div className="action-section">
+                <div className="action-item">
+                    <h2>View Attendance</h2>
+                    <Link to="/employee/attendance-records">
+                        <button>View Attendance</button>
+                    </Link>
+                </div>
+                <div className="action-item">
+                    <h2>Mark Attendance</h2>
+                    <Link to="/employee/mark-attendance">
+                        <button>Mark Attendance</button>
+                    </Link>
+                </div>
+                <div className="action-item">
+                    <h2>Apply for Leave</h2>
+                    <Link to="/employee/applyLeave">
+                        <button>Apply</button>
+                    </Link>
+                </div>
             </div>
         </div>
     );
 };
 
 export default EmployeeDashboard;
-

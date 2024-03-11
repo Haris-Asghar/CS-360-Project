@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
-import './leaveRequest.css'; // Import CSS file
+import './dashboard.css'; // Import CSS file
 import { UserContext } from '../../components/User_Context';
 import Swal from 'sweetalert2';
 import DatePicker from 'react-datepicker'; // Import Datepicker library
