@@ -93,6 +93,7 @@ select {
 :root {
   --primary-color: #007bff;
   --secondary-color: #6c757d;
+  --tertiary-color: green;
   --text-color: white;
 }
 
@@ -126,6 +127,11 @@ select {
   cursor: pointer;
   border-radius: 0.5em;
   background-color: var(--primary-color);
+}
+
+.button:hover, .button:focus{
+  background-color: var(--tertiary-color);
+  transition: 0.5s;
 }
 
 /* Navbar */
@@ -227,4 +233,24 @@ select {
 
 .dashboard_links > *{
   margin: 0 0.25em;
+}
+
+.card{
+  border: 2px solid white;
+  margin: 1em 0;
+  padding: 1em;
+  border-radius: 0.5em;
+  background-color: hsl(0, 100%, 30%)
+}
+
+.card:hover, .card:focus{
+  border: 2px solid var(--primary-color);
+  transition: 0.5s;
+}
+
+.progress__bar
+{
+  width: 50px;
+  text-align: center;
+  color: white;
 }

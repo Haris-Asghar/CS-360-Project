@@ -1,9 +1,9 @@
 import React, { useState, useContext, useEffect } from 'react';
-import axios from 'axios';
 import { UserContext } from '../../components/User_Context';
 import Swal from 'sweetalert2';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { submitLeaveRequest, fetchEmployeeLeaveHistory } from './Utilities/api';
 
 const LeaveRequest = () => {
     const { user } = useContext(UserContext);
@@ -16,22 +16,21 @@ const LeaveRequest = () => {
     const [employeeLeaveHistory, setEmployeeLeaveHistory] = useState([]);
 
     useEffect(() => {
-        const fetchEmployeeLeaveHistory = async () => {
+        const fetchData = async () => {
             try {
-                const response = await axios.get(`http://localhost:3001/leave/leave-request/${user.username}`);
-                setEmployeeLeaveHistory(response.data);
+                const data = await fetchEmployeeLeaveHistory(user.username);
+                setEmployeeLeaveHistory(data);
             } catch (error) {
                 console.error('Error fetching employee leave history:', error);
             }
         };
 
-        fetchEmployeeLeaveHistory();
+        fetchData();
     }, [user.username]);
 
-    const handleLeaveSubmit = (e) => {
+    const handleLeaveSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
-        // Your leave request submission logic here
         const leaveData = {
             username: user.username,
             startDate: startDate,
@@ -39,23 +38,20 @@ const LeaveRequest = () => {
             leaveReason: leaveReason,
             otherReason: otherReason
         };
-
-        axios
-            .post('http://localhost:3001/leave/submit-leave', leaveData)
-            .then((response) => {
-                setLoading(false);
-                Swal.fire({
-                    title: 'Leave Request Successful!',
-                    text: 'Your leave request has been submitted successfully.',
-                    icon: 'success',
-                    showConfirmButton: false,
-                    timer: 2000
-                });
-            })
-            .catch((error) => {
-                setLoading(false);
-                setError(error.message);
+        try {
+            await submitLeaveRequest(leaveData);
+            setLoading(false);
+            Swal.fire({
+                title: 'Leave Request Successful!',
+                text: 'Your leave request has been submitted successfully.',
+                icon: 'success',
+                showConfirmButton: false,
+                timer: 2000
             });
+        } catch (error) {
+            setLoading(false);
+            setError(error.message);
+        }
     };
 
     if (loading) {

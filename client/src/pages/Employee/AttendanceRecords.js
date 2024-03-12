@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
-import axios from 'axios';
 import { UserContext } from '../../components/User_Context';
+import { fetchAttendanceInfo } from './Utilities/api';
 
 const AttendanceRecords = () => {
     const { user } = useContext(UserContext);
@@ -10,22 +10,22 @@ const AttendanceRecords = () => {
     const [currentMonth, setCurrentMonth] = useState('');
 
     useEffect(() => {
-        const fetchAttendanceData = async () => {
+        const fetchData = async () => {
             try {
-                const response = await axios.get(`http://localhost:3001/attendance/attendance-info/${user.username}`);
+                const data = await fetchAttendanceInfo(user.username);
                 const currentDate = new Date();
                 const monthNames = ["January", "February", "March", "April", "May", "June",
                                     "July", "August", "September", "October", "November", "December"];
                 setCurrentMonth(monthNames[currentDate.getMonth()]);
-                setAttendanceData(response.data);
+                setAttendanceData(data);
                 setLoading(false);
             } catch (error) {
-                setError('Failed to fetch attendance data.');
+                setError(error.message);
                 setLoading(false);
             }
         };
 
-        fetchAttendanceData();
+        fetchData();
     }, [user.username]);
 
     if (loading) {

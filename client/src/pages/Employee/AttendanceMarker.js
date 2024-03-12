@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
-import axios from 'axios';
 import { UserContext } from '../../components/User_Context';
 import Swal from 'sweetalert2';
+import { markAttendance } from './Utilities/api';
 
 const AttendanceMarker = () => {
     const { user } = useContext(UserContext);
@@ -24,10 +24,10 @@ const AttendanceMarker = () => {
             return;
         }
         try {
-            await axios.post('http://localhost:3001/log/log-attendance', { username: user.username });
+            await markAttendance(user.username);
             showAlert("Successful!", "Attendance Marked", "success");
         } catch (error) {
-            showAlert("Error!", "Attendance already marked for the day!!", "error");
+            showAlert("Error!", error.message, "error");
         }
     };
 
