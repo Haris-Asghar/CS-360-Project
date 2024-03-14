@@ -223,16 +223,14 @@ select {
 }
 
 /* Employee Dashboard */
-.dashboard_nav{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 100%;
-  padding-bottom: 1em;
+.dashboard__details{
+  width: 80%;  
 }
 
-.dashboard_links > *{
-  margin: 0 0.25em;
+.dashboard__clock__and__progress{
+  display: flex;
+  gap: 1em;
+  justify-content: space-between;
 }
 
 .card{
@@ -240,7 +238,9 @@ select {
   margin: 1em 0;
   padding: 1em;
   border-radius: 0.5em;
-  background-color: hsl(0, 100%, 30%)
+  /* background-color: hsl(0, 100%, 30%); */
+  background-color: rgb(172, 172, 172);
+  color: black;
 }
 
 .card:hover, .card:focus{
@@ -248,9 +248,30 @@ select {
   transition: 0.5s;
 }
 
+.dashboard__clock{
+  width: 40%;
+}
+
+.dashboard__progress{
+  width: 40%;
+}
+
 .progress__bar
 {
   width: 50px;
   text-align: center;
   color: white;
+}
+
+.dashboard_links{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 15%;
+}
+
+.dashboard_links button{
+  font-weight: bolder;
+  width: 100%;
+  padding: 1em 0;
 }

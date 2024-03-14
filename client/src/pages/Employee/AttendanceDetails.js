@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { UserContext } from '../../components/User_Context';
 import { formatCurrentDateTime } from './Utilities/dateUtils';
 import { fetchAttendanceData } from './Utilities/api';
@@ -48,7 +49,7 @@ const AttendanceDetails = () => {
     }, [attendanceData, leavesAllowed]);
 
     return (
-        <div>
+        <div className='dashboard__details'>
             <div className='dashboard__clock__and__progress'>
                 <div className='card dashboard__clock'>
                     <p>{currentTime}</p>
@@ -72,6 +73,17 @@ const AttendanceDetails = () => {
                             </div>
                         ) : <div className="loading">Loading...</div>}
                     </div>
+                </div>
+                <div className='dashboard_links'>
+                    <Link to="/employee/applyLeave">
+                        <button className='button'>Request for Leave</button>
+                    </Link>
+                    <Link to="/employee/attendance-records">
+                        <button className='button'>View Attendance</button>
+                    </Link>
+                    <Link to="/employee/mark-attendance">
+                        <button className='button'>Mark Attendance</button>
+                    </Link>
                 </div>
             </div>
             <h2>Attendance Summary for {currentMonth}</h2>
