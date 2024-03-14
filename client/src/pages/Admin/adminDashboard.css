@@ -1,45 +1,75 @@
 .container1 {
-    max-width: 800px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #000; /* Black background */
+    color: #fff; /* White text */
 }
 
-.container1 .dashboard-title {
+.dashboard-title {
+    color: #fff;
     text-align: center;
+    margin-bottom: 30px;
+    font-size: large;
+    font-weight: bold;
+    border : 2px solid gray;
+}
+
+.leave-history h2 {
+    color: #ddd; /* Lighter grey for subheadings */
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: bold;
+    border: 2px solid gray;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
     margin-bottom: 20px;
 }
 
-.container1 .leave-history {
-    margin-top: 20px;
-}
-
-.container1 .leave-history table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.container1 .leave-history th, td {
-    padding: 8px;
+th, td {
     text-align: left;
+    padding: 8px;
+    border-bottom: 1px solid #333; /* Darker line for contrast */
 }
 
-.container1 .leave-history th {
-    font-weight: bold;
+th {
+    background-color: #222; /* Dark grey background for headers */
+    color: #fff;
 }
 
-.container1 .pending {
-    background-color: #a48c00; /* yellow */
+tr.approved {
+    background-color: #145214; /* Dark green for approved rows */
 }
 
-.container1 .approved {
-    background-color: #009100; /* light green */
+tr.rejected {
+    background-color: #541414; /* Dark red for rejected rows */
 }
 
-.container1 .rejected {
-    background-color: #7e0301; /* light pink */
+tr.pending {
+    background-color: #555200; /* Dark yellow for pending rows */
 }
 
-.loading, .error {
-    text-align: center;
-    margin-top: 20px;
+button {
+    padding: 5px 10px;
+    margin-right: 5px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #fff; /* White text on buttons */
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+.approve-button {
+    background-color: #24a424; /* Brighter green for approve button */
+}
+
+.reject-button {
+    background-color: #a42424; /* Brighter red for reject button */
 }
