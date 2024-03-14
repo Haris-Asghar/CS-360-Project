@@ -74,6 +74,7 @@ const AdminDashboard = () => {
                             <th>Start Date</th>
                             <th>End Date</th>
                             <th>Leave Reason</th>
+                            <th>Explaination</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -85,6 +86,7 @@ const AdminDashboard = () => {
                                 <td>{new Date(leave.startDate).toLocaleDateString()}</td>
                                 <td>{new Date(leave.endDate).toLocaleDateString()}</td>
                                 <td>{leave.leaveReason}</td>
+                                <td>{leave.otherReason}</td>
                                 <td>{leave.status}</td>
                                 <td>
                                     {leave.status === 'Pending' && (
@@ -104,4 +106,3 @@ const AdminDashboard = () => {
 };
 
 export default AdminDashboard;
-

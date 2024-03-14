@@ -48,11 +48,14 @@ const LeaveRequest = () => {
                 showConfirmButton: false,
                 timer: 2000
             });
+            // Reload the page after submission
+            window.location.reload();
         } catch (error) {
             setLoading(false);
             setError(error.message);
         }
     };
+    
 
     if (loading) {
         return <div className="loading">Loading...</div>;
@@ -101,19 +104,17 @@ const LeaveRequest = () => {
                         <option value="other">Other</option>
                     </select>
                 </div>
-                {leaveReason === 'other' && (
-                    <div className="form-group">
-                        <label htmlFor="otherReason">Other Reason:</label>
-                        <input
-                            type="text"
-                            value={otherReason}
-                            onChange={(e) => setOtherReason(e.target.value)}
-                            className="form-control"
-                            id="otherReason"
-                            placeholder="Enter Other Reason"
-                        />
-                    </div>
-                )}
+                <div className="form-group">
+                    <label htmlFor="otherReason">Explaination:</label>
+                    <input
+                        type="text"
+                        value={otherReason}
+                        onChange={(e) => setOtherReason(e.target.value)}
+                        className="form-control"
+                        id="otherReason"
+                        placeholder="Enter Explaination"
+                    />
+                </div>
                 <button type="submit" className="btn btn-primary">
                     Submit
                 </button>
@@ -126,6 +127,7 @@ const LeaveRequest = () => {
                             <th>Start Date</th>
                             <th>End Date</th>
                             <th>Leave Reason</th>
+                            <th>Explaination</th>
                             <th>Status</th>
                         </tr>
                     </thead>
@@ -135,9 +137,9 @@ const LeaveRequest = () => {
                                 <td>{new Date(leave.startDate).toLocaleDateString()}</td>
                                 <td>{new Date(leave.endDate).toLocaleDateString()}</td>
                                 <td>{leave.leaveReason}</td>
+                                <td>{leave.otherReason}</td>
                                 <td>{leave.status}</td>
                             </tr>
-
                         ))}
                     </tbody>
                 </table>
