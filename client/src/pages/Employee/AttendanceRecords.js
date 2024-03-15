@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from 'react';
 import { UserContext } from '../../components/User_Context';
 import { fetchAttendanceInfo } from './Utilities/api';
 import { formatDate, getDayOfWeek, formatTime } from './Utilities/dateUtils';
-import "./Data.css"
 
 const AttendanceRecords = () => {
     const { user } = useContext(UserContext);
@@ -45,7 +44,7 @@ const AttendanceRecords = () => {
     const { attendanceRecordsThisMonth } = attendanceData;
 
     return (
-        <div className="records">
+        <div className="employee__records">
             <h2>Attendance Records for {currentMonth}</h2>
             <table>
                 <thead>

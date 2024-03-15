@@ -1,0 +1,133 @@
+/* Employee Dashboard */
+.dashboard__details{
+  width: 80%;  
+}
+
+.dashboard__clock__and__progress{
+  display: flex;
+  gap: 1em;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.dashboard__clock{
+  width: 40%;
+}
+
+.dashboard__progress{
+  width: 40%;
+}
+
+.progress__bar
+{
+  width: 50px;
+  text-align: center;
+  color: white;
+}
+
+.dashboard_links{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 15%;
+}
+
+.dashboard_links button{
+  font-weight: bolder;
+  width: 100%;
+  padding: 1em 0;
+  margin: 1em 0;
+  min-width: 150px;
+}
+
+.dashboard__calendar__and__graph{
+  display: flex;
+  gap: 1em;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.dashboard__calendar{
+  min-width: 300px;
+  width: 50%;
+}
+
+.dashboard__graph{
+  width: 40%;
+}
+
+.react-calendar {
+  background: #000000 !important;
+  border-radius: 1em !important;
+  width: 100% !important;
+}
+
+:is(.react-calendar__navigation__label, .react-calendar__navigation__arrow):is(:hover, :focus) {
+  background-color: var(--primary-color) !important;
+}
+
+.react-calendar__tile{
+  border-radius: 100vb;
+}
+
+.react-calendar__tile:hover, .react-calendar__tile:focus{
+  background-color: var(--primary-color) !important;
+  color: white;
+}
+
+.presentDate {
+  background-color: green !important;
+  border: 2px solid rgb(255, 255, 255) !important;
+}
+
+.presentDate:hover, .presentDate:focus{
+  background-color: green !important;
+  border: 2px solid rgb(255, 255, 255) !important;
+}
+
+.absentDate {
+  background-color: red !important;
+  border: 2px solid rgb(255, 255, 255) !important;
+}
+
+.absentDate:hover, .absentDate:focus{
+  background-color: red !important;
+  border: 2px solid rgb(255, 255, 255) !important;
+}
+
+/* Records */
+.employee__records {
+  margin-top: 20px;
+  text-align: center; /* Center align all text content */
+}
+
+.employee__records h2 {
+  margin-bottom: 20px; /* Add space below the heading */
+  font-size: 25px;
+}
+
+.employee__records table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.employee__records th,
+.employee__records td {
+  padding: 8px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.employee__records th {
+  background-color: darkgray; /* Light gray */
+}
+
+.employee__records tbody tr {
+  background-color: #000; /* White */
+}
+
+.employee__records tbody tr:hover {
+  background-color: #000000; /* Black on hover */
+  color: #ffffff; /* White text on hover */
+}
