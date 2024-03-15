@@ -299,6 +299,7 @@ select {
 
 .react-calendar {
   background: #000000 !important;
+  border-radius: 1em !important;
   width: 100% !important;
 }
 
