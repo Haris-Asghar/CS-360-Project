@@ -20,12 +20,18 @@ export const datesFromTodayToStartOfMonth = () => {
     // Loop from today to the start of the month
     for (let date = new Date(today); date >= startOfMonth; date.setDate(date.getDate() - 1)) {
         if (date.getDay() !== 0 && date.getDay() !== 6) {
-            const formattedDate = date.toISOString().split('T')[0];
+            // Get the time zone offset in minutes and convert it to milliseconds
+            const timezoneOffset = date.getTimezoneOffset() * 60000;
+            // Create a new Date object adjusted for the time zone offset
+            const localDate = new Date(date.getTime() - timezoneOffset);
+            // Convert the adjusted date to the ISO string format (YYYY-MM-DD)
+            const formattedDate = localDate.toISOString().split('T')[0];
             datesArray.push(formattedDate);
         }
     }
     return datesArray;
 };
+
 
 export const datesMatcher = (datesArray, attendanceData) => {
     const markedDates = [];
