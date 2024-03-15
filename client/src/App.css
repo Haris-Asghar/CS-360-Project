@@ -231,6 +231,7 @@ select {
   display: flex;
   gap: 1em;
   justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .card{
@@ -241,6 +242,7 @@ select {
   /* background-color: hsl(0, 100%, 30%); */
   background-color: rgb(172, 172, 172);
   color: black;
+  min-width: 100px;
 }
 
 .card:hover, .card:focus{
@@ -274,4 +276,61 @@ select {
   font-weight: bolder;
   width: 100%;
   padding: 1em 0;
+  margin: 1em 0;
+  min-width: 150px;
+}
+
+.dashboard__calendar__and__graph{
+  display: flex;
+  gap: 1em;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.dashboard__calendar{
+  min-width: 300px;
+  width: 50%;
+}
+
+.dashboard__graph{
+  width: 40%;
+}
+
+.react-calendar {
+  background: #000000 !important;
+  width: 100% !important;
+}
+
+.react-calendar__navigation button:enabled:hover{
+  background-color: var(--primary-color);
+}
+
+.react-calendar__tile{
+  border-radius: 100vb;
+}
+
+.react-calendar__tile:hover, .react-calendar__tile:focus{
+  background-color: var(--primary-color) !important;
+  color: white;
+}
+
+.presentDate {
+  background-color: green !important;
+  border: 2px solid rgb(255, 255, 255) !important;
+}
+
+.presentDate:hover, .presentDate:focus{
+  background-color: green !important;
+  border: 2px solid rgb(255, 255, 255) !important;
+}
+
+.absentDate {
+  background-color: red !important;
+  border: 2px solid rgb(255, 255, 255) !important;
+}
+
+.absentDate:hover, .absentDate:focus{
+  background-color: red !important;
+  border: 2px solid rgb(255, 255, 255) !important;
 }

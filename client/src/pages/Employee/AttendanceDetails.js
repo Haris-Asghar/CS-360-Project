@@ -1,9 +1,10 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { UserContext } from '../../components/User_Context';
-import { formatCurrentDateTime } from './Utilities/dateUtils';
+import { formatCurrentDateTime, datesFromTodayToStartOfMonth, datesMatcher } from './Utilities/dateUtils';
 import { fetchAttendanceData } from './Utilities/api';
-import { CircularProgressbar } from 'react-circular-progressbar';
+import MyCalendar from "../../components/Calendar";
+import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 
 const AttendanceDetails = () => {
@@ -17,6 +18,7 @@ const AttendanceDetails = () => {
     const leavesAllowed = 3;
     const [leavePercentage, setLeavePercentage] = useState(0);
     const [attendancePercentage, setAttendancePercentage] = useState(0);
+    const [markedDates, setMarkedDates] = useState([]);
 
     useEffect(() => {
         const intervalId = setInterval(() => {
@@ -32,7 +34,8 @@ const AttendanceDetails = () => {
                 const data = await fetchAttendanceData(user.username);
                 setCurrentMonth(new Date().toLocaleString('default', { month: 'long' }));
                 setAttendanceData(data);
-                setLoading(false);
+                setMarkedDates(datesMatcher(datesFromTodayToStartOfMonth(), data.attendanceRecordsThisMonth));
+                setLoading(false); 
             } catch (error) {
                 setError(error.message);
                 setLoading(false);
@@ -61,7 +64,18 @@ const AttendanceDetails = () => {
                         Leaves
                         {attendanceData ? (
                             <div className='progress__bar'>
-                                <CircularProgressbar value={leavePercentage} text={`${attendanceData.numAbsencesThisMonth}/${leavesAllowed}`} />
+                                <CircularProgressbar
+                                    value={leavePercentage}
+                                    text={`${attendanceData.numAbsencesThisMonth}/${leavesAllowed}`}
+                                    background
+                                    backgroundPadding={6}
+                                    styles={buildStyles({
+                                        backgroundColor: "#3e98c7",
+                                        textColor: "#fff",
+                                        pathColor: "#fff",
+                                        trailColor: "transparent"
+                                    })}
+                                />
                             </div>
                         ) : <div className="loading">Loading...</div>}
                     </div>
@@ -69,7 +83,18 @@ const AttendanceDetails = () => {
                         Attendance
                         {attendanceData ? (
                             <div className='progress__bar'>
-                                <CircularProgressbar value={attendancePercentage} text={`${attendanceData.numAttendancesThisMonth}/${attendanceData.totalDaysThisMonth}`} />
+                                <CircularProgressbar
+                                    value={attendancePercentage}
+                                    text={`${attendanceData.numAttendancesThisMonth}/${attendanceData.totalDaysThisMonth}`}
+                                    background
+                                    backgroundPadding={6}
+                                    styles={buildStyles({
+                                        backgroundColor: "#3e98c7",
+                                        textColor: "#fff",
+                                        pathColor: "#fff",
+                                        trailColor: "transparent"
+                                    })}
+                                />
                             </div>
                         ) : <div className="loading">Loading...</div>}
                     </div>
@@ -86,15 +111,21 @@ const AttendanceDetails = () => {
                     </Link>
                 </div>
             </div>
-            <h2>Attendance Summary for {currentMonth}</h2>
             {!loading && !error && attendanceData && (
-                <>
-                    <p>Total Days of Job: {attendanceData.totalDaysThisMonth}</p>
-                    <p>Number of Attendances: {attendanceData.numAttendancesThisMonth}</p>
-                    <p>Number of Absences: {attendanceData.numAbsencesThisMonth}</p>
-                    <p>Number of Leaves Allowed: 3</p>
-                    <p>Number of Leaves Remaining: {attendanceData.numLeavesRemaining}</p>
-                </>
+                <div className='dashboard__calendar__and__graph'>
+                    <div className='dashboard__calendar'>
+                        <MyCalendar markedDates={markedDates} />
+                    </div>
+                    <div className='dashboard__graph'>
+                        <h2>Attendance Details</h2>
+                        <p>Month: {currentMonth}</p>
+                        <p>Total Days of Job: {attendanceData.totalDaysThisMonth}</p>
+                        <p>Number of Attendances: {attendanceData.numAttendancesThisMonth}</p>
+                        <p>Number of Absences: {attendanceData.numAbsencesThisMonth}</p>
+                        <p>Number of Leaves Allowed: 3</p>
+                        <p>Number of Leaves Remaining: {attendanceData.numLeavesRemaining}</p>
+                    </div>
+                </div>
             )}
             {loading && <div className="loading">Loading...</div>}
             {error && <div className="error">Error: {error}</div>}

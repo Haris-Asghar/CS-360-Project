@@ -11,3 +11,60 @@ export const formatCurrentDateTime = (showTime) => {
         return formattedDate.replace(',', suffix + ',');
     }
 };
+
+export const datesFromTodayToStartOfMonth = () => {
+    const today = new Date();
+    const startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+    const datesArray = [];
+
+    // Loop from today to the start of the month
+    for (let date = new Date(today); date >= startOfMonth; date.setDate(date.getDate() - 1)) {
+        if (date.getDay() !== 0 && date.getDay() !== 6) {
+            const formattedDate = date.toISOString().split('T')[0];
+            datesArray.push(formattedDate);
+        }
+    }
+    return datesArray;
+};
+
+export const datesMatcher = (datesArray, attendanceData) => {
+    const markedDates = [];
+
+    const attendanceArray = []
+    attendanceData.forEach(record => {
+        attendanceArray.push(record.logDate);
+    });
+    const isDatePresent = (date, array) => array.includes(date);
+    datesArray.forEach(date => {
+        const presentInArray = isDatePresent(date, attendanceArray);
+        if (presentInArray){
+            markedDates.push({"date":date, type:"presentDate"})
+        } else {
+            markedDates.push({"date":date, type:"absentDate"})
+        }
+    });
+    return markedDates;
+};
+
+
+
+
+// Function to format date
+export const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const options = { day: 'numeric', month: 'long', year: 'numeric' };
+    return date.toLocaleDateString('en-US', options);
+};
+
+// Function to get day of the week
+export const getDayOfWeek = (dateString) => {
+    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const date = new Date(dateString);
+    return days[date.getDay()];
+};
+
+// Function to format time to AM/PM
+export const formatTime = (timeString) => {
+    const time = new Date(`2000-01-01T${timeString}`);
+    return time.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true });
+};
