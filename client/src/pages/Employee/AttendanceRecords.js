@@ -44,7 +44,8 @@ const AttendanceRecords = () => {
     const { attendanceRecordsThisMonth } = attendanceData;
 
     return (
-        <div className="employee__records container">
+        <div className='container'>
+            <div className="employee__records">
             <h2>Attendance Records for {currentMonth}</h2>
             <table>
                 <thead>
@@ -64,6 +65,7 @@ const AttendanceRecords = () => {
                     ))}
                 </tbody>
             </table>
+        </div>
         </div>
     );
 };

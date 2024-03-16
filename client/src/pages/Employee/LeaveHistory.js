@@ -4,6 +4,8 @@ import { fetchEmployeeLeaveHistory } from './Utilities/api';
 
 const LeaveHistory = () => {
     const { user } = useContext(UserContext);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
     const [employeeLeaveHistory, setEmployeeLeaveHistory] = useState([]);
 
     useEffect(() => {
@@ -11,17 +13,31 @@ const LeaveHistory = () => {
             try {
                 const data = await fetchEmployeeLeaveHistory(user.username);
                 setEmployeeLeaveHistory(data);
+                setLoading(false);
             } catch (error) {
-                console.error('Error fetching employee leave history:', error);
+                setError(error.message);
+                setLoading(false);
             }
         };
 
         fetchData();
     }, [user.username]);
 
+    if (loading) {
+        return <div className="loader-container"><div className="loader"></div></div>;
+    }
+
+    if (error) {
+        return <div className="error">Error: {error}</div>;
+    }
+
+    if (!employeeLeaveHistory) {
+        return <div className="error">No attendance data available</div>;
+    }
+
     return (
         <div className="container">
-            <div className="user-leave-history">
+            <div className="employee__records">
                 <h2>Your Leave History</h2>
                 <table>
                     <thead>
