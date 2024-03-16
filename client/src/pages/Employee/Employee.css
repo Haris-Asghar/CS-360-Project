@@ -146,15 +146,17 @@
   border-collapse: collapse;
 }
 
-.employee__records th,
-.employee__records td {
+.employee__records th{
+  background-color: var(--primary-color);
+  border: 2px solid var(--secondary-color);
   padding: 8px;
-  border: 1px solid #ddd;
-  text-align: left;
+  text-align: lef
 }
 
-.employee__records th {
-  background-color: darkgray; /* Light gray */
+.employee__records td {
+  padding: 8px;
+  border: 1px solid var(--primary-color);
+  text-align: left;
 }
 
 .employee__records tbody tr {
