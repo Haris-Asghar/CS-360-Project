@@ -32,7 +32,7 @@ const AttendanceMarker = () => {
     };
 
     return (
-        <div className="action-item">
+        <div className="action-item container">
             <h2>Mark Attendance</h2>
             <button onClick={attendanceHandler}>Mark</button>
         </div>

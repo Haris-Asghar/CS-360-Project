@@ -32,6 +32,12 @@ export const datesFromTodayToStartOfMonth = () => {
     return datesArray;
 };
 
+// export const getTotalDaysInMonth = (year, month) => {
+//     // JavaScript months are zero-based, so January is 0 and December is 11
+//     // To get the last day of the month, we set the date to 0 of the next month
+//     const lastDayOfMonth = new Date(year, month + 1, 0);
+//     return lastDayOfMonth.getDate();
+// };
 
 export const datesMatcher = (datesArray, attendanceData) => {
     const markedDates = [];

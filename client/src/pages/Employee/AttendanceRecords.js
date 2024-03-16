@@ -30,7 +30,7 @@ const AttendanceRecords = () => {
     }, [user.username]);
 
     if (loading) {
-        return <div className="loading">Loading...</div>;
+        return <div className="loader-container"><div className="loader"></div></div>;
     }
 
     if (error) {
@@ -44,7 +44,7 @@ const AttendanceRecords = () => {
     const { attendanceRecordsThisMonth } = attendanceData;
 
     return (
-        <div className="employee__records">
+        <div className="employee__records container">
             <h2>Attendance Records for {currentMonth}</h2>
             <table>
                 <thead>

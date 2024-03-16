@@ -11,6 +11,7 @@ import LeaveRequest from './pages/Employee/LeaveRequest';
 import LeaveofAllEmployees from './pages/Admin/LeaveOfAll';
 import AttendanceRecords from './pages/Employee/AttendanceRecords';
 import AttendanceMarker from './pages/Employee/AttendanceMarker';
+import LeaveHistory from './pages/Employee/LeaveHistory';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route path="/employee/applyLeave" element={<ProtectedRoute role="Employee"><LeaveRequest /></ProtectedRoute>} />
           <Route path="/employee/attendance-records" element={<ProtectedRoute role="Employee"><AttendanceRecords /></ProtectedRoute>} />
           <Route path="/employee/mark-attendance" element={<ProtectedRoute role="Employee"><AttendanceMarker /></ProtectedRoute>} />
+          <Route path="/employee/leaveHistory" element={<ProtectedRoute role="Employee"><LeaveHistory /></ProtectedRoute>} />
           
           {/* Page Not Found */}
           <Route path="*" element={<h1>Page Not Found</h1>} />

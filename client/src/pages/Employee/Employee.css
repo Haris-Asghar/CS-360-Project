@@ -7,29 +7,64 @@
   display: flex;
   gap: 1em;
   justify-content: space-between;
-  flex-wrap: wrap;
 }
 
 .dashboard__clock{
-  width: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 45%;
+}
+
+.dashboard__clock__info{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-weight: bolder;
+  gap: 1em;
+}
+
+.react-clock{
+  margin-bottom: 1em;
 }
 
 .dashboard__progress{
-  width: 40%;
+  width: 45%;
+}
+
+.progress{
+  display: flex;
+  gap: 1.5em;
 }
 
 .progress__bar
 {
-  width: 50px;
+  width: 80px;
   text-align: center;
   color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.progress__text{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.progress_heading{
+  font-size: large;
+  font-weight: bolder;
+  text-align: center;  
 }
 
 .dashboard_links{
   display: flex;
-  flex-direction: column;
   justify-content: space-around;
-  width: 15%;
 }
 
 .dashboard_links button{
@@ -45,7 +80,6 @@
   gap: 1em;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;
 }
 
 .dashboard__calendar{
@@ -69,6 +103,7 @@
 
 .react-calendar__tile{
   border-radius: 100vb;
+  margin: 0.5em 0 !important;
 }
 
 .react-calendar__tile:hover, .react-calendar__tile:focus{

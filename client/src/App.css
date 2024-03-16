@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,100..900;1,100..900&family=Roboto&display=swap');
+
 /* Box sizing rules */
 *,
 *::before,
@@ -30,7 +32,7 @@ ol[role="list"] {
 /* dark mode user-agent-styles */
 html {
   color-scheme: dark light;
-  font-family: "Roboto", sans-serif;
+  font-family: "Libre Franklin", "Roboto", sans-serif;
 }
 
 /* Set core root defaults */
@@ -148,6 +150,31 @@ select {
 .card:hover, .card:focus{
   border: 2px solid var(--primary-color);
   transition: 0.5s;
+}
+
+/* Loading animation */
+@keyframes loading {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Style for the loader container */
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+/* Style for the loader */
+.loader {
+  border: 6px solid #f3f3f3; /* Light grey */
+  border-top: 6px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  animation: loading 2s linear infinite; /* Apply the animation */
 }
 
 /* Navbar */

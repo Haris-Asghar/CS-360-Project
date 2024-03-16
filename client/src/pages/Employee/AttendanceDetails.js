@@ -4,13 +4,16 @@ import { UserContext } from '../../components/User_Context';
 import { formatCurrentDateTime, datesFromTodayToStartOfMonth, datesMatcher } from './Utilities/dateUtils';
 import { fetchAttendanceData } from './Utilities/api';
 import MyCalendar from "../../components/Calendar";
+import Clock from 'react-clock';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
+import 'react-clock/dist/Clock.css';
 
 const AttendanceDetails = () => {
     const { user } = useContext(UserContext);
     const [currentTime, setCurrentTime] = useState(formatCurrentDateTime(true));
     const [currentDate, setCurrentDate] = useState(formatCurrentDateTime(false));
+    const [currentDay, setCurrentDay] = useState('');
     const [attendanceData, setAttendanceData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -19,11 +22,17 @@ const AttendanceDetails = () => {
     const [leavePercentage, setLeavePercentage] = useState(0);
     const [attendancePercentage, setAttendancePercentage] = useState(0);
     const [markedDates, setMarkedDates] = useState([]);
+    const [value, setValue] = useState(new Date());
+
+    useEffect(() => {
+    }, []);
 
     useEffect(() => {
         const intervalId = setInterval(() => {
             setCurrentTime(formatCurrentDateTime(true));
             setCurrentDate(formatCurrentDateTime(false));
+            setCurrentDay(new Date().toLocaleString('default', { weekday: 'long' }));
+            setValue(new Date());
         }, 1000);
         return () => clearInterval(intervalId);
     }, []);
@@ -32,10 +41,11 @@ const AttendanceDetails = () => {
         const fetchData = async () => {
             try {
                 const data = await fetchAttendanceData(user.username);
+                console.log(data);
                 setCurrentMonth(new Date().toLocaleString('default', { month: 'long' }));
                 setAttendanceData(data);
                 setMarkedDates(datesMatcher(datesFromTodayToStartOfMonth(), data.attendanceRecordsThisMonth));
-                setLoading(false); 
+                setLoading(false);
             } catch (error) {
                 setError(error.message);
                 setLoading(false);
@@ -55,13 +65,23 @@ const AttendanceDetails = () => {
         <div className='dashboard__details'>
             <div className='dashboard__clock__and__progress'>
                 <div className='card dashboard__clock'>
-                    <p>{currentTime}</p>
-                    <h2>Today</h2>
-                    <p>{currentDate}</p>
+                    <div className='dashboard__clock__info'>
+                        <Clock value={value} />
+                        <time>{currentTime}</time>
+                        <time>{currentDate}</time>
+                        <p>{currentDay}</p>
+                    </div>
+                    <div className='dashboard_links'>
+                        <Link to="/employee/applyLeave">
+                            <button className='button'>Request for Leave</button>
+                        </Link>
+                        <Link to="/employee/mark-attendance">
+                            <button className='button'>Mark Attendance</button>
+                        </Link>
+                    </div>
                 </div>
                 <div className='dashboard__progress'>
-                    <div className='card'>
-                        Leaves
+                    <div className='card progress'>
                         {attendanceData ? (
                             <div className='progress__bar'>
                                 <CircularProgressbar
@@ -77,10 +97,27 @@ const AttendanceDetails = () => {
                                     })}
                                 />
                             </div>
-                        ) : <div className="loading">Loading...</div>}
+                        ) : <div className="loader-container"><div className="loader"></div></div>}
+                        <div className='progress__text'>
+                            <p className='progress_heading'>Leaves</p>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td>Remaining (Allowed):</td>
+                                        <td>{attendanceData ? attendanceData.numLeavesRemaining : 0}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Leaves Taken:</td>
+                                        <td>{attendanceData ? attendanceData.numAbsencesThisMonth : 0}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <Link to="/employee/leaveHistory">
+                                <button className='button'>View Leaves</button>
+                            </Link>
+                        </div>
                     </div>
-                    <div className='card'>
-                        Attendance
+                    <div className='card progress'>
                         {attendanceData ? (
                             <div className='progress__bar'>
                                 <CircularProgressbar
@@ -96,19 +133,26 @@ const AttendanceDetails = () => {
                                     })}
                                 />
                             </div>
-                        ) : <div className="loading">Loading...</div>}
+                        ) : <div className="loader-container"><div className="loader"></div></div>}
+                        <div className='progress__text'>
+                            <p className='progress_heading'>Attendance</p>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td>Days of Job:</td>
+                                        <td>{attendanceData ? attendanceData.totalDaysThisMonth : 0}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Present:</td>
+                                        <td>{attendanceData ? attendanceData.numAttendancesThisMonth : 0}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <Link to="/employee/attendance-records">
+                                <button className='button'>View Attendance</button>
+                            </Link>
+                        </div>
                     </div>
-                </div>
-                <div className='dashboard_links'>
-                    <Link to="/employee/applyLeave">
-                        <button className='button'>Request for Leave</button>
-                    </Link>
-                    <Link to="/employee/attendance-records">
-                        <button className='button'>View Attendance</button>
-                    </Link>
-                    <Link to="/employee/mark-attendance">
-                        <button className='button'>Mark Attendance</button>
-                    </Link>
                 </div>
             </div>
             {!loading && !error && attendanceData && (
@@ -127,7 +171,7 @@ const AttendanceDetails = () => {
                     </div>
                 </div>
             )}
-            {loading && <div className="loading">Loading...</div>}
+            {loading && <div className="loader-container"><div className="loader"></div></div>}
             {error && <div className="error">Error: {error}</div>}
             {!loading && !attendanceData && <div className="error">No attendance data available</div>}
         </div>

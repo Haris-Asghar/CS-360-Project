@@ -1,9 +1,9 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { UserContext } from '../../components/User_Context';
 import Swal from 'sweetalert2';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { submitLeaveRequest, fetchEmployeeLeaveHistory } from './Utilities/api';
+import { submitLeaveRequest } from './Utilities/api';
 
 const LeaveRequest = () => {
     const { user } = useContext(UserContext);
@@ -13,20 +13,6 @@ const LeaveRequest = () => {
     const [otherReason, setOtherReason] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-    const [employeeLeaveHistory, setEmployeeLeaveHistory] = useState([]);
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const data = await fetchEmployeeLeaveHistory(user.username);
-                setEmployeeLeaveHistory(data);
-            } catch (error) {
-                console.error('Error fetching employee leave history:', error);
-            }
-        };
-
-        fetchData();
-    }, [user.username]);
 
     const handleLeaveSubmit = async (e) => {
         e.preventDefault();
@@ -58,7 +44,7 @@ const LeaveRequest = () => {
     
 
     if (loading) {
-        return <div className="loading">Loading...</div>;
+        return <div className="loader-container"><div className="loader"></div></div>;
     }
 
     if (error) {
@@ -119,31 +105,6 @@ const LeaveRequest = () => {
                     Submit
                 </button>
             </form>
-            <div className="user-leave-history">
-                <h2>Your Leave History</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Start Date</th>
-                            <th>End Date</th>
-                            <th>Leave Reason</th>
-                            <th>Explaination</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {employeeLeaveHistory.map((leave, index) => (
-                            <tr key={index}>
-                                <td>{new Date(leave.startDate).toLocaleDateString()}</td>
-                                <td>{new Date(leave.endDate).toLocaleDateString()}</td>
-                                <td>{leave.leaveReason}</td>
-                                <td>{leave.otherReason}</td>
-                                <td>{leave.status}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
         </div>
     );
 };
