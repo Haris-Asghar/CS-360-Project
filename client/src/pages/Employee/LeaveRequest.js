@@ -35,7 +35,10 @@ const LeaveRequest = () => {
                 timer: 2000
             });
             // Reload the page after submission
-            window.location.reload();
+            const timer = setTimeout(() => {
+                window.location.reload();
+                clearTimeout(timer);
+            } , 2000);
         } catch (error) {
             setLoading(false);
             setError(error.message);
@@ -52,56 +55,59 @@ const LeaveRequest = () => {
     }
 
     return (
-        <div className="container">
-            <h1 className="leave-request-title">Leave Request</h1>
+        <div className="container leave__container">
+            <h1 className="leave__leave-request-title">Leave Request</h1>
             <form onSubmit={handleLeaveSubmit}>
-                <div className="form-group">
+                <div className="leave__form-group">
                     <label htmlFor="startDate">Start Date:</label>
                     <DatePicker
                         selected={startDate}
                         onChange={(date) => setStartDate(date)}
                         dateFormat="dd/MM/yyyy"
-                        className="form-control"
+                        className="leave__form-control"
                         id="startDate"
+                        required 
                     />
                 </div>
-                <div className="form-group">
+                <div className="leave__form-group">
                     <label htmlFor="endDate">End Date:</label>
                     <DatePicker
                         selected={endDate}
                         onChange={(date) => setEndDate(date)}
                         dateFormat="dd/MM/yyyy"
-                        className="form-control"
+                        className="leave__form-control"
                         id="endDate"
+                        required 
                     />
                 </div>
-                <div className="form-group">
+                <div className="leave__form-group">
                     <label htmlFor="leaveReason">Leave Reason:</label>
                     <select
                         value={leaveReason}
                         onChange={(e) => setLeaveReason(e.target.value)}
-                        className="form-control"
+                        className="leave__form-control"
                         id="leaveReason"
+                        required 
                     >
                         <option value="">Select Reason</option>
-                        <option value="sick">Sick Leave</option>
-                        <option value="vacation">Vacation</option>
-                        <option value="personal">Personal</option>
-                        <option value="other">Other</option>
+                        <option value="Sick">Sick Leave</option>
+                        <option value="Vacation">Vacation</option>
+                        <option value="Personal">Personal</option>
+                        <option value="Other">Other</option>
                     </select>
                 </div>
-                <div className="form-group">
+                <div className="leave__form-group leave__form-reason">
                     <label htmlFor="otherReason">Explaination:</label>
-                    <input
-                        type="text"
+                    <textarea
                         value={otherReason}
                         onChange={(e) => setOtherReason(e.target.value)}
-                        className="form-control"
+                        className="leave__form-control"
                         id="otherReason"
                         placeholder="Enter Explaination"
+                        required 
                     />
                 </div>
-                <button type="submit" className="btn btn-primary">
+                <button type="submit" className="button">
                     Submit
                 </button>
             </form>

@@ -123,17 +123,19 @@ select {
   padding: 1em;
 }
 
-.button{
-  padding:0.5em;
-  font-size: 0.75em;
+.button {
+  background-color: var(--primary-color);  /* Adjust primary color */
+  color: #fff;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 5px;
+  font-size: 1rem;
   cursor: pointer;
-  border-radius: 0.5em;
-  background-color: var(--primary-color);
+  transition: background-color 0.2s ease;  /* Add a subtle hover effect */
 }
 
-.button:hover, .button:focus{
-  background-color: var(--tertiary-color);
-  transition: 0.5s;
+.button:hover {
+  background-color: var(--tertiary-color);  /* Darker shade on hover */
 }
 
 .card{
@@ -147,7 +149,7 @@ select {
   min-width: 100px;
 }
 
-.card:hover, .card:focus{
+.card:is(:focus-within, :hover){
   border: 2px solid var(--primary-color);
   transition: 0.5s;
 }
@@ -244,7 +246,7 @@ select {
   border: 2px solid var(--primary-color);
 }
 
-:is(.auth-form input:focus, .auth-form select:focus, .auth-form input:hover, .auth-form select:hover) {
+:is(.auth-form input:is(:focus-within, :hover), .auth-form select:is(:focus-within, :hover)) {
   background-color: var(--primary-color);
   outline: none;
 }
@@ -261,6 +263,6 @@ select {
   font-weight: bold;
 }
 
-:is(.auth-form button:hover, .auth-form button:focus) {
+:is(.auth-form button:is(:focus-within, :hover)) {
   background-color: var(--primary-color);
 }

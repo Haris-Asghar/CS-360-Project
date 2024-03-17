@@ -22,6 +22,11 @@ const AddUser = () => {
             showConfirmButton: false,
             timer: 2000
         });
+        // Reload the page after submission
+        const timer = setTimeout(() => {
+            window.location.reload();
+            clearTimeout(timer);
+        } , 2000);
     };
 
     const handleSubmit = (e) => {

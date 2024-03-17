@@ -32,9 +32,11 @@ const AttendanceMarker = () => {
     };
 
     return (
-        <div className="action-item container">
-            <h2>Mark Attendance</h2>
-            <button onClick={attendanceHandler}>Mark</button>
+        <div className='container'>
+            <div className="action-item">
+                <h2>Mark Attendance</h2>
+                <button onClick={attendanceHandler}>Mark</button>
+            </div>
         </div>
     );
 };

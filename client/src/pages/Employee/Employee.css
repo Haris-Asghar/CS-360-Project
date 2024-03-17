@@ -108,7 +108,7 @@
   width: 100% !important;
 }
 
-:is(.react-calendar__navigation__label, .react-calendar__navigation__arrow):is(:hover, :focus) {
+:is(.react-calendar__navigation__label, .react-calendar__navigation__arrow):is(:hover, :focus-within) {
   background-color: var(--primary-color) !important;
 }
 
@@ -117,7 +117,7 @@
   margin: 0.5em 0 !important;
 }
 
-.react-calendar__tile:hover, .react-calendar__tile:focus{
+.react-calendar__tile:is(:focus-within, :hover){
   background-color: var(--primary-color) !important;
   color: white;
 }
@@ -127,7 +127,7 @@
   border: 2px solid rgb(255, 255, 255) !important;
 }
 
-.presentDate:hover, .presentDate:focus{
+.presentDate:is(:focus-within, :hover){
   background-color: green !important;
   border: 2px solid rgb(255, 255, 255) !important;
 }
@@ -137,7 +137,7 @@
   border: 2px solid rgb(255, 255, 255) !important;
 }
 
-.absentDate:hover, .absentDate:focus{
+.absentDate:is(:focus-within, :hover){
   background-color: red !important;
   border: 2px solid rgb(255, 255, 255) !important;
 }
@@ -179,4 +179,57 @@
 .employee__records tbody tr:hover {
   background-color: #000000; /* Black on hover */
   color: #ffffff; /* White text on hover */
+}
+
+
+/* Leave */
+.leave__container > *{
+  width: 80%;
+}
+
+.leave__container form{
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
+}
+
+.leave__leave-request-title {
+  font-size: 2.5rem;
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.leave__form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.leave__form-control {
+  display: block;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  box-sizing: border-box; 
+}
+
+.leave__form-group > select.leave__form-control {
+  padding: 1rem 1.5rem;
+}
+
+.leave__form-control:is(:focus-within, :hover) {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+.leave__form-reason textarea{
+  width: 100%;
+  height: 200px;
+}
+
+.leave__container button{
+  width: 30%;
+  margin: 0 auto;
 }
