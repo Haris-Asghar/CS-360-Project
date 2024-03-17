@@ -51,7 +51,7 @@ const LeaveHistory = () => {
                     </thead>
                     <tbody>
                         {employeeLeaveHistory.map((leave, index) => (
-                            <tr key={index}>
+                            <tr className={leave.status} key={index}>
                                 <td>{new Date(leave.startDate).toLocaleDateString()}</td>
                                 <td>{new Date(leave.endDate).toLocaleDateString()}</td>
                                 <td>{leave.leaveReason}</td>

@@ -168,7 +168,7 @@
 
 .employee__records td {
   padding: 8px;
-  border: 1px solid var(--primary-color);
+  border: 1px solid var(--secondary-color);
   text-align: left;
 }
 
@@ -181,6 +181,17 @@
   color: #ffffff; /* White text on hover */
 }
 
+.employee__records .Approved{
+  background-color: rgb(0, 77, 0);
+}
+
+.employee__records .Pending{
+  background-color: rgb(162, 162, 3);
+}
+
+.employee__records .Rejected{
+  background-color: rgb(150, 1, 1);
+}
 
 /* Leave */
 .leave__container > *{
