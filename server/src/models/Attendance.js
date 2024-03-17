@@ -8,5 +8,3 @@ const attendanceSchema = new mongoose.Schema({
 
 const AttendanceModel = mongoose.model("Attendance", attendanceSchema);
 export default AttendanceModel;
-
-

@@ -8,6 +8,7 @@ import Clock from 'react-clock';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import 'react-clock/dist/Clock.css';
+import { BarChart } from '@mui/x-charts/BarChart';
 
 const AttendanceDetails = () => {
     const { user } = useContext(UserContext);
@@ -17,7 +18,6 @@ const AttendanceDetails = () => {
     const [attendanceData, setAttendanceData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [currentMonth, setCurrentMonth] = useState('');
     const leavesAllowed = 3;
     const [leavePercentage, setLeavePercentage] = useState(0);
     const [attendancePercentage, setAttendancePercentage] = useState(0);
@@ -41,8 +41,6 @@ const AttendanceDetails = () => {
         const fetchData = async () => {
             try {
                 const data = await fetchAttendanceData(user.username);
-                console.log(data);
-                setCurrentMonth(new Date().toLocaleString('default', { month: 'long' }));
                 setAttendanceData(data);
                 setMarkedDates(datesMatcher(datesFromTodayToStartOfMonth(), data.attendanceRecordsThisMonth));
                 setLoading(false);
@@ -161,14 +159,14 @@ const AttendanceDetails = () => {
                         <MyCalendar markedDates={markedDates} />
                     </div>
                     <div className='dashboard__graph'>
-                        <h2>Attendance Details</h2>
-                        <p>Month: {currentMonth}</p>
-                        <p>Total Days of Job: {attendanceData.totalDaysThisMonth}</p>
-                        <p>Number of Attendances: {attendanceData.numAttendancesThisMonth}</p>
-                        <p>Number of Absences: {attendanceData.numAbsencesThisMonth}</p>
-                        <p>Number of Leaves Allowed: 3</p>
-                        <p>Number of Leaves Remaining: {attendanceData.numLeavesRemaining}</p>
+                        <BarChart
+                            xAxis={[{ scaleType: 'band', data: ['Days of Job', 'Present', 'Allowed Leaves', "Leaves Taken"] }]}
+                            series={[{ data: [attendanceData ? attendanceData.totalDaysThisMonth : 0, attendanceData ? attendanceData.numAttendancesThisMonth : 0, attendanceData ? attendanceData.numLeavesRemaining : 0,attendanceData ? attendanceData.numAbsencesThisMonth : 0] }]}
+                            width={500}
+                            height={300}
+                        />
                     </div>
+
                 </div>
             )}
             {loading && <div className="loader-container"><div className="loader"></div></div>}

@@ -87,7 +87,19 @@
 }
 
 .dashboard__graph{
-  width: 40%;
+  width: 50%;
+}
+
+.css-10vg0a6-MuiResponsiveChart-container{
+  background-color: #000000;
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 1em;
+  border: 1px solid white;
+}
+
+.css-1k2u9zb-MuiChartsAxis-root .MuiChartsAxis-tickLabel{
+  fill: white !important;
 }
 
 .react-calendar {
@@ -129,6 +141,7 @@
   background-color: red !important;
   border: 2px solid rgb(255, 255, 255) !important;
 }
+
 
 /* Records */
 .employee__records {
