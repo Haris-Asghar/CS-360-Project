@@ -57,7 +57,7 @@ const LeaveRequest = () => {
     return (
         <div className="container leave__container">
             <h1 className="leave__leave-request-title">Leave Request</h1>
-            <form onSubmit={handleLeaveSubmit}>
+            <form className='auth-form' onSubmit={handleLeaveSubmit}>
                 <div className="leave__form-group">
                     <label htmlFor="startDate">Start Date:</label>
                     <DatePicker

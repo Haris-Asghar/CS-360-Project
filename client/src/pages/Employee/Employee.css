@@ -1,15 +1,3 @@
-:root {
-  --primary-color: #3498db; /* Main color for buttons, links, and highlights */
-  --secondary-color: #2ecc71; /* Secondary color for accents */
-  --text-color: #333; /* Main text color */
-  --background-color: #f5f5f5; /* Background color for the entire page */
-  --accent-color: #e67e22; /* Accent color for call-to-action buttons or elements */
-  --border-color: #ddd; /* Border color for elements */
-  --error-color: red;
-  --success-color: green;
-  --pending-color: yellow;
-}
-
 /* Employee Dashboard */
 .dashboard__details{
   width: 80%;  
@@ -98,7 +86,7 @@
 }
 
 .css-10vg0a6-MuiResponsiveChart-container{
-  background-color: var(--background-color) !important;
+  background-color: var(--secondary-color) !important;
   width: 100% !important;
   height: 100% !important;
   border-radius: 1em;
@@ -116,28 +104,29 @@
 .dashboard__calendar{
   min-width: 300px;
   width: 50%;
-  border: 2px solid var(--border-color);
+  border: 1px solid var(--border-color);
   border-radius: 1em;
+  transition: 0.5s;
 }
 
 .dashboard__calendar:is(:hover, :focus-within) {
-  border: 2px solid var(--secondary-color);
+  border: 1px solid var(--secondary-color);
 }
 
 .react-calendar {
-  background: var(--background-color) !important;
+  background: var(--secondary-color) !important;
   border-radius: 1em !important;
   width: 100% !important;
   color: var(--text-color) !important;
-  border: 2px solid var(--border-color) !important;
 }
 
 :is(.react-calendar__navigation__label, .react-calendar__navigation__arrow){
   color: var(--text-color) !important;
+  transition: 0.5s;
 }
 
 :is(.react-calendar__navigation__label, .react-calendar__navigation__arrow):is(:hover, :focus-within) {
-  background-color: var(--secondary-color) !important;
+  background-color: var(--primary-color) !important;
 }
 
 .react-calendar__tile{
@@ -151,18 +140,18 @@
 }
 
 .react-calendar__month-view__days__day--neighboringMonth{
-  color: var(--secondary-color) !important;
+  color: var(--text-color) !important;
+  transition: 0.5s;
 }
 
 .react-calendar__tile:is(:focus-within, :hover){
   background-color: var(--accent-color) !important;
-  color: var(--background-color) !important;
 }
 
 .presentDate {
   background-color: var(--success-color) !important;
   border: 2px solid var(--border-color) !important;
-  color: var(--background-color) !important;
+  color: var(--text-color) !important;
 }
 
 .presentDate:is(:focus-within, :hover){
@@ -173,7 +162,7 @@
 .absentDate {
   background-color: var(--error-color) !important;
   border: 2px solid var(--border-color) !important;
-  color: var(--background-color) !important;
+  color: var(--text-color) !important;
 }
 
 .absentDate:is(:focus-within, :hover){
@@ -214,6 +203,7 @@
 
 .employee__records tbody tr {
   background-color: var(--background-color);
+  transition: 0.5s;
 }
 
 .employee__records tbody tr:hover {
@@ -282,6 +272,7 @@
   background-color: var(--background-color);
   color: var(--text-color);
   border: 1px solid var(--border-color);
+  transition: 0.5s;
 }
 
 .leave__form-control:is(:focus-within, :hover) {
