@@ -16,7 +16,7 @@ const AttendanceRecords = () => {
                 const data = await fetchAttendanceInfo(user.username);
                 const currentDate = new Date();
                 const monthNames = ["January", "February", "March", "April", "May", "June",
-                                    "July", "August", "September", "October", "November", "December"];
+                    "July", "August", "September", "October", "November", "December"];
                 setCurrentMonth(monthNames[currentDate.getMonth()]);
                 setAttendanceData(data);
                 setLoading(false);
@@ -46,26 +46,26 @@ const AttendanceRecords = () => {
     return (
         <div className='container'>
             <div className="employee__records">
-            <h2>Attendance Records for {currentMonth}</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Day</th>
-                        <th>Time</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {attendanceRecordsThisMonth.map((record, index) => (
-                        <tr key={index}>
-                            <td>{formatDate(record.logDate)}</td>
-                            <td>{getDayOfWeek(record.logDate)}</td>
-                            <td>{formatTime(record.logTime)}</td>
+                <h2>Attendance Records for {currentMonth}</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Day</th>
+                            <th>Time</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
-        </div>
+                    </thead>
+                    <tbody>
+                        {attendanceRecordsThisMonth.map((record, index) => (
+                            <tr key={index}>
+                                <td>{formatDate(record.logDate)}</td>
+                                <td>{getDayOfWeek(record.logDate)}</td>
+                                <td>{formatTime(record.logTime)}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 };

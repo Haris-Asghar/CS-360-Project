@@ -93,20 +93,30 @@ select {
 
 /* Custom Variables */
 :root {
-  --primary-color: #007bff;
-  --secondary-color: #6c757d;
-  --tertiary-color: green;
-  --text-color: white;
+  --primary-color: #3498db; /* Main color for buttons, links, and highlights */
+  --secondary-color: #2ecc71; /* Secondary color for accents */
+  --text-color: #333; /* Main text color */
+  --background-color: #f5f5f5; /* Background color for the entire page */
+  --accent-color: #e67e22; /* Accent color for call-to-action buttons or elements */
+  --border-color: #ddd; /* Border color for elements */
+  --error-color: red;
+  --success-color: green;
+  --pending-color: yellow;
+}
+
+body{
+  background-color: var(--background-color);
+  color: var(--text-color);
 }
 
 /* General */
 .error-message {
-  color: red;
+  color: var(--error-color);
   margin-bottom: 1em;
 }
 
 .success-message {
-  color: green;
+  color: var(--success-color);
   margin-bottom: 1em;
   display: flex;
   justify-content: center;
@@ -124,33 +134,32 @@ select {
 }
 
 .button {
-  background-color: var(--primary-color);  /* Adjust primary color */
-  color: #fff;
+  background-color: var(--primary-color);
+  color: var(--text-color);
   border: none;
   padding: 1rem 2rem;
   border-radius: 5px;
   font-size: 1rem;
   cursor: pointer;
-  transition: background-color 0.2s ease;  /* Add a subtle hover effect */
+  transition: background-color 0.2s ease;
 }
 
 .button:hover {
-  background-color: var(--tertiary-color);  /* Darker shade on hover */
+  background-color: var(--accent-color);
 }
 
 .card{
-  border: 2px solid white;
+  border: 2px solid var(--border-color);
   margin: 1em 0;
   padding: 1em;
   border-radius: 0.5em;
-  /* background-color: hsl(0, 100%, 30%); */
-  background-color: rgb(172, 172, 172);
-  color: black;
+  background-color: var(--background-color);
+  color: var(--text-color);
   min-width: 100px;
 }
 
 .card:is(:focus-within, :hover){
-  border: 2px solid var(--primary-color);
+  border: 2px solid var(--secondary-color);
   transition: 0.5s;
 }
 
@@ -171,8 +180,8 @@ select {
 
 /* Style for the loader */
 .loader {
-  border: 6px solid #f3f3f3; /* Light grey */
-  border-top: 6px solid #3498db; /* Blue */
+  border: 6px solid var(--border-color); /* Light grey */
+  border-top: 6px solid var(--accent-color);
   border-radius: 50%;
   width: 150px;
   height: 150px;
@@ -182,7 +191,8 @@ select {
 /* Navbar */
 .navbar {
   background-color: var(--secondary-color);
-  color: var(--primary-color);
+  color: var(--text-color);
+  border: 2px solid var(--border-color);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -200,11 +210,11 @@ select {
 .nav-links a{
   padding: 1em 0;
   margin: 0 2em;
-  color: var(--primary-color);
+  color: var(--text-color);
 }
 
 .nav-links a:hover {
-  text-decoration: underline;
+  font-size: large;
 }
 
 
@@ -232,7 +242,7 @@ select {
 
 .auth-form {
   display: inline-block;
-  border: 1px solid var(--secondary-color);
+  border: 1px solid var(--border-color);
   padding: 5em 2em;
   border-radius: 15px;
 }
@@ -243,11 +253,11 @@ select {
   width: 100%;
   margin: 1em 0;
   border-radius: 0.5em;
-  border: 2px solid var(--primary-color);
+  border: 2px solid var(--border-color);
 }
 
 :is(.auth-form input:is(:focus-within, :hover), .auth-form select:is(:focus-within, :hover)) {
-  background-color: var(--primary-color);
+  background-color: var(--background-color);
   outline: none;
 }
 
@@ -255,8 +265,8 @@ select {
   margin: 2em 0;
   padding: 1em 0;
   width: 100%;
-  color: var(--primary-color);
-  border: 2px solid var(--primary-color);
+  color: var(--text-color);
+  border: 2px solid var(--border-color);
   border-radius: 10em;
   cursor: pointer;
   font-size: 1.2em;
@@ -264,5 +274,5 @@ select {
 }
 
 :is(.auth-form button:is(:focus-within, :hover)) {
-  background-color: var(--primary-color);
+  background-color: var(--accent-color);
 }

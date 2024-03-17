@@ -1,3 +1,15 @@
+:root {
+  --primary-color: #3498db; /* Main color for buttons, links, and highlights */
+  --secondary-color: #2ecc71; /* Secondary color for accents */
+  --text-color: #333; /* Main text color */
+  --background-color: #f5f5f5; /* Background color for the entire page */
+  --accent-color: #e67e22; /* Accent color for call-to-action buttons or elements */
+  --border-color: #ddd; /* Border color for elements */
+  --error-color: red;
+  --success-color: green;
+  --pending-color: yellow;
+}
+
 /* Employee Dashboard */
 .dashboard__details{
   width: 80%;  
@@ -81,65 +93,92 @@
   align-items: center;
 }
 
-.dashboard__calendar{
-  min-width: 300px;
-  width: 50%;
-}
-
 .dashboard__graph{
   width: 50%;
 }
 
 .css-10vg0a6-MuiResponsiveChart-container{
-  background-color: #000000;
+  background-color: var(--background-color) !important;
   width: 100% !important;
   height: 100% !important;
   border-radius: 1em;
-  border: 1px solid white;
+  border: 1px solid var(--border-color);
+}
+
+.css-10vg0a6-MuiResponsiveChart-container:is(:hover, :focus-within) {
+  border: 1px solid var(--secondary-color) !important;
 }
 
 .css-1k2u9zb-MuiChartsAxis-root .MuiChartsAxis-tickLabel{
-  fill: white !important;
+  fill: var(--text-color) !important;
+}
+
+.dashboard__calendar{
+  min-width: 300px;
+  width: 50%;
+  border: 2px solid var(--border-color);
+  border-radius: 1em;
+}
+
+.dashboard__calendar:is(:hover, :focus-within) {
+  border: 2px solid var(--secondary-color);
 }
 
 .react-calendar {
-  background: #000000 !important;
+  background: var(--background-color) !important;
   border-radius: 1em !important;
   width: 100% !important;
+  color: var(--text-color) !important;
+  border: 2px solid var(--border-color) !important;
+}
+
+:is(.react-calendar__navigation__label, .react-calendar__navigation__arrow){
+  color: var(--text-color) !important;
 }
 
 :is(.react-calendar__navigation__label, .react-calendar__navigation__arrow):is(:hover, :focus-within) {
-  background-color: var(--primary-color) !important;
+  background-color: var(--secondary-color) !important;
 }
 
 .react-calendar__tile{
   border-radius: 100vb;
   margin: 0.5em 0 !important;
+  color: var(--text-color) !important;
+}
+
+.react-calendar__month-view__days__day--weekend{
+  color: var(--error-color) !important;
+}
+
+.react-calendar__month-view__days__day--neighboringMonth{
+  color: var(--secondary-color) !important;
 }
 
 .react-calendar__tile:is(:focus-within, :hover){
-  background-color: var(--primary-color) !important;
-  color: white;
+  background-color: var(--accent-color) !important;
+  color: var(--background-color) !important;
 }
 
 .presentDate {
-  background-color: green !important;
-  border: 2px solid rgb(255, 255, 255) !important;
+  background-color: var(--success-color) !important;
+  border: 2px solid var(--border-color) !important;
+  color: var(--background-color) !important;
 }
 
 .presentDate:is(:focus-within, :hover){
-  background-color: green !important;
-  border: 2px solid rgb(255, 255, 255) !important;
+  background-color: var(--success-color) !important;
+  border: 2px solid var(--border-color) !important;
 }
 
 .absentDate {
-  background-color: red !important;
-  border: 2px solid rgb(255, 255, 255) !important;
+  background-color: var(--error-color) !important;
+  border: 2px solid var(--border-color) !important;
+  color: var(--background-color) !important;
 }
 
 .absentDate:is(:focus-within, :hover){
-  background-color: red !important;
-  border: 2px solid rgb(255, 255, 255) !important;
+  background-color: var(--error-color) !important;
+  border: 2px solid var(--border-color) !important;
 }
 
 
@@ -160,37 +199,38 @@
 }
 
 .employee__records th{
-  background-color: var(--primary-color);
-  border: 2px solid var(--secondary-color);
+  background-color: var(--background-color);
+  border: 2px solid var(--border-color);
   padding: 8px;
-  text-align: lef
+  text-align: left;
+  color: var(--text-color);
 }
 
 .employee__records td {
   padding: 8px;
-  border: 1px solid var(--secondary-color);
+  border: 1px solid var(--border-color);
   text-align: left;
 }
 
 .employee__records tbody tr {
-  background-color: #000; /* White */
+  background-color: var(--background-color);
 }
 
 .employee__records tbody tr:hover {
-  background-color: #000000; /* Black on hover */
-  color: #ffffff; /* White text on hover */
+  background-color: var(--accent-color); 
+  color: var(--text-color);
 }
 
 .employee__records .Approved{
-  background-color: rgb(0, 77, 0);
+  background-color: var(--success-color);
 }
 
 .employee__records .Pending{
-  background-color: rgb(162, 162, 3);
+  background-color: var(--pending-color);
 }
 
 .employee__records .Rejected{
-  background-color: rgb(150, 1, 1);
+  background-color: var(--error-color);
 }
 
 /* Leave */
@@ -202,6 +242,17 @@
   display: flex;
   flex-direction: column;
   gap: 1.5em;
+  color: var(--text-color);
+}
+
+.leave__container input{
+  background-color: var(--background-color);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+}
+
+.leave__container ::placeholder{
+  color: var(--text-color);
 }
 
 .leave__leave-request-title {
@@ -220,7 +271,7 @@
   display: block;
   width: 100%;
   padding: 0.75rem 1rem;
-  border: 1px solid #ccc;
+  border: 1px solid var(--border-color);
   border-radius: 5px;
   font-size: 1rem;
   box-sizing: border-box; 
@@ -228,16 +279,20 @@
 
 .leave__form-group > select.leave__form-control {
   padding: 1rem 1.5rem;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
 }
 
 .leave__form-control:is(:focus-within, :hover) {
   outline: none;
-  border-color: var(--primary-color);
 }
 
 .leave__form-reason textarea{
   width: 100%;
   height: 200px;
+  background-color: var(--background-color);
+  border: 1px solid var(--border-color);
 }
 
 .leave__container button{
