@@ -29,23 +29,48 @@ const AddUser = () => {
         } , 2000);
     };
 
+    const validatePassword = (value) => {
+        const passwordRegex = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-zA-Z]).{8,}$/;
+        if (!passwordRegex.test(value)) {
+            setErrors({ ...errors, password: 'Password must be at least 8 characters long and contain at least 1 digit and 1 special character' });
+        } else {
+            setErrors({ ...errors, password: '' });
+        }
+    };
+
+    const validateEmail = (value) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(value)) {
+            setErrors({ ...errors, email: 'Invalid email address' });
+        } else {
+            setErrors({ ...errors, email: '' });
+        }
+    };
+
+    const validatePhoneNumber = (value) => {
+        const phoneNumberRegex = /^[0-9]+$/;
+        if (value.length < 11 || !phoneNumberRegex.test(value)) {
+            setErrors({ ...errors, pnumber: 'Phone number must be at least 11 digits long and contain only numbers' });
+        } else {
+            setErrors({ ...errors, pnumber: '' });
+        }
+    };
+
+    const validateSalary = (value) => {
+        const phoneNumberRegex = /^[0-9]+$/;
+        console.log((value < 0 ), isNaN(value));
+        if (value < 0 || !phoneNumberRegex.test(value)) {
+            setErrors({ ...errors, salary: 'Salary must be a positive value' });
+        } else {
+            setErrors({ ...errors, salary: '' });
+        }
+    };
+
     const handleSubmit = (e) => {
         setSuccess(false);
         e.preventDefault();
-        const passwordRegex = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-zA-Z]).{8,}$/;
-        if (!passwordRegex.test(password)) {
-            setErrors({ password: 'Password must be at least 8 characters long and contain at least 1 digit and 1 special character' });
-            return;
-        }
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email)) {
-            setErrors({ email: 'Invalid email address' });
-            return;
-        }
-        const phoneNumberRegex = /^[0-9]+$/;
-        console.log(pnumber.length < 11 || !phoneNumberRegex.test(pnumber));
-        if (pnumber.length < 11 || !phoneNumberRegex.test(pnumber)) {
-            setErrors({ pnumber: 'Phone number must be at least 11 digits long and contain only numbers' });
+        //  check if no errors, otherwise return
+        if (errors.password || errors.email || errors.pnumber || errors.salary) {
             return;
         }
         axios
@@ -61,9 +86,8 @@ const AddUser = () => {
     };
 
     return (
-        <div className="auth-container">
-            <h1>Add New User</h1>
-            <div className="auth-div">
+        <div className="container auth-container">
+            <h1 className='leave__leave-request-title'>Add New User</h1>
                 <form className="auth-form" onSubmit={handleSubmit}>
                     <label htmlFor="role">Role</label>
                     <select
@@ -91,7 +115,10 @@ const AddUser = () => {
                         id="password"
                         required
                         value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        onChange={(e) => {
+                            setPassword(e.target.value);
+                            validatePassword(e.target.value);
+                        }}
                     />
                     {errors.password && <p className="error-message">{errors.password}</p>}
                     <label htmlFor="fname">First Name</label>
@@ -112,19 +139,26 @@ const AddUser = () => {
                     />
                     <label htmlFor="salary">Salary</label>
                     <input
-                        type="number"
+                        type="text"
                         id="salary"
                         required
                         value={salary}
-                        onChange={(e) => setSalary(e.target.value)}
+                        onChange={(e) => {
+                            setSalary(e.target.value);
+                            validateSalary(e.target.value);
+                        }}
                     />
+                    {errors.salary && <p className="error-message">{errors.salary}</p>}
                     <label htmlFor="email">Email</label>
                     <input
                         type="text"
                         id="email"
                         required
                         value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        onChange={(e) => {
+                            setEmail(e.target.value);
+                            validateEmail(e.target.value);
+                        }}
                     />
                     {errors.email && <p className="error-message">{errors.email}</p>}
                     <label htmlFor="pnumber">Phone Number</label>
@@ -133,14 +167,16 @@ const AddUser = () => {
                         id="pnumber"
                         required
                         value={pnumber}
-                        onChange={(e) => setPnumber(e.target.value)}
+                        onChange={(e) => {
+                            setPnumber(e.target.value);
+                            validatePhoneNumber(e.target.value);
+                        }}
                     />
                     {errors.pnumber && <p className="error-message">{errors.pnumber}</p>}
                     {success && <p className="success-message">User Added</p>}
-                    <button type="submit">Add User</button>
+                    <button className="button" type="submit">Add User</button>
                 </form>
             </div>
-        </div>
     );
 };
 

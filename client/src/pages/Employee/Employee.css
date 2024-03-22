@@ -228,33 +228,11 @@
   width: 80%;
 }
 
-.leave__container form{
-  display: flex;
-  flex-direction: column;
-  gap: 1.5em;
-  color: var(--text-color);
-}
-
-.leave__container input{
-  background-color: var(--background-color);
-  color: var(--text-color);
-  border: 1px solid var(--border-color);
-}
-
-.leave__container ::placeholder{
-  color: var(--text-color);
-}
-
 .leave__leave-request-title {
   font-size: 2.5rem;
   font-weight: 500;
   text-align: center;
   margin-bottom: 2rem;
-}
-
-.leave__form-group label {
-  display: block;
-  margin-bottom: 0.5rem;
 }
 
 .leave__form-control {
@@ -279,11 +257,11 @@
   outline: none;
 }
 
-.leave__form-reason textarea{
-  width: 100%;
-  height: 200px;
-  background-color: var(--background-color);
-  border: 1px solid var(--border-color);
+.leave__container form{
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
+  color: var(--text-color);
 }
 
 .leave__container button{

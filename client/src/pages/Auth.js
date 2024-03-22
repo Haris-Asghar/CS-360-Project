@@ -44,9 +44,8 @@ const Auth = () => {
 
     // Sign in form
     return (
-        <div className="auth-container">
-            <h1>Sign In</h1>
-            <div className="auth-div">
+        <div className="container auth-container">
+            <h1 className='leave__leave-request-title'>Sign In</h1>
                 <form className="auth-form" onSubmit={handleSubmit}>
                     <label htmlFor="role">Role</label>
                     <select
@@ -76,10 +75,9 @@ const Auth = () => {
                         onChange={(e) => setPassword(e.target.value)}
                     />
                     {errors.user && <p className="error-message">{errors.user}</p>}
-                    <button type="submit">Sign In</button>
+                    <button className='button' type="submit">Sign In</button>
                 </form>
             </div>
-        </div>
     );
 };
 
