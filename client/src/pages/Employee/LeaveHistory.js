@@ -31,8 +31,8 @@ const LeaveHistory = () => {
         return <div className="error">Error: {error}</div>;
     }
 
-    if (!employeeLeaveHistory) {
-        return <div className="error">No attendance data available</div>;
+    if (!employeeLeaveHistory || employeeLeaveHistory.length === 0) {
+        return <div className="error">No leave history available</div>;
     }
 
     return (
@@ -42,16 +42,20 @@ const LeaveHistory = () => {
                 <table>
                     <thead>
                         <tr>
+                            <th>First Name</th>
+                            <th>Last Name</th>
                             <th>Start Date</th>
                             <th>End Date</th>
                             <th>Leave Reason</th>
-                            <th>Explaination</th>
+                            <th>Explanation</th>
                             <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
                         {employeeLeaveHistory.map((leave, index) => (
                             <tr className={leave.status} key={index}>
+                                <td>{leave.firstName}</td>
+                                <td>{leave.lastName}</td>
                                 <td>{new Date(leave.startDate).toLocaleDateString()}</td>
                                 <td>{new Date(leave.endDate).toLocaleDateString()}</td>
                                 <td>{leave.leaveReason}</td>

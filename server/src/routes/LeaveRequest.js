@@ -1,5 +1,6 @@
 import express from "express";
 import LeaveRequestModel from "../models/leaveRequest.js";
+import EmployeeModel from "../models/Employee.js";
 
 const router = express.Router();
 
@@ -7,9 +8,17 @@ router.post("/submit-leave", async (req, res) => {
     try {
         const { username, startDate, endDate, leaveReason, otherReason } = req.body;
 
+        // Fetch employee details using username
+        const employee = await EmployeeModel.findOne({ username });
+        if (!employee) {
+            return res.status(404).json({ error: "Employee not found with the provided username" });
+        }
+
         // Create a new leave request
         const newLeaveRequest = new LeaveRequestModel({
             username,
+            firstName: employee.fname,
+            lastName: employee.lname,
             startDate,
             endDate,
             leaveReason,

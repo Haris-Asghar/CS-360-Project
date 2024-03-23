@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
 
 const leaveRequestSchema = new mongoose.Schema({
+  firstName: { type: String, required: true },
+  lastName: { type: String, required: true },
   username: { type: String, required: true },
   startDate: { type: Date, required: true },
   endDate: { type: Date, required: true },
