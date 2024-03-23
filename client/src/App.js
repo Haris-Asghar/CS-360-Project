@@ -25,6 +25,7 @@ function App() {
           <Route path="/admin/home" element={<ProtectedRoute role="Admin"><AdminDashboard /></ProtectedRoute>} />
           <Route path="/admin/addUser" element={<ProtectedRoute role="Admin"><AddUser /></ProtectedRoute>} />
           <Route path="/admin/leaveOfAll" element={<ProtectedRoute role="Admin"><LeaveofAllEmployees/></ProtectedRoute>} />
+          <Route path="/admin/attendanceMarker" element={<ProtectedRoute role="Admin"><AttendanceMarker /></ProtectedRoute>}/>
 
           {/* Employee Routes */}
           <Route path="/employee/home" element={<ProtectedRoute role="Employee"><EmployeeDashboard /></ProtectedRoute>} />

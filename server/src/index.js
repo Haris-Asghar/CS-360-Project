@@ -10,9 +10,9 @@ import { leaveRequestRouter } from "./routes/LeaveRequest.js";
 dotenv.config();
 
 const app = express();
-const username = process.env.DB_USER_NAME;
-const password = process.env.DB_PASSWORD;
-const dbName = process.env.DB_CLUSTER_NAME;
+const username = "segroup";
+const password = "segroup9pass";
+const dbName = "cs360";
 
 app.use(express.json());
 app.use(cors());

@@ -1,58 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+// AdminDashboard.js
+
+import React from 'react';
+import useLeaveRequests from '../Admin/utilities/useLeaveRequests';
 import './adminDashboard.css'; // Import CSS file
 
 const AdminDashboard = () => {
-    const [leaveHistory, setLeaveHistory] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-
-    useEffect(() => {
-        const fetchLeaveHistory = async () => {
-            try {
-                const response = await axios.get('http://localhost:3001/leave/leave-requests');
-                setLeaveHistory(response.data);
-                setLoading(false);
-            } catch (error) {
-                setError(error.message);
-                setLoading(false);
-            }
-        };
-
-        fetchLeaveHistory();
-    }, []);
-
-    const handleApproveLeave = async (id) => {
-        try {
-            await axios.put(`http://localhost:3001/leave/approve-leave/${id}`);
-            // Update leave history after approving leave
-            const updatedLeaveHistory = leaveHistory.map(leave => {
-                if (leave._id === id) {
-                    leave.status = 'Approved';
-                }
-                return leave;
-            });
-            setLeaveHistory(updatedLeaveHistory);
-        } catch (error) {
-            console.error('Error approving leave:', error);
-        }
-    };
-
-    const handleRejectLeave = async (id) => {
-        try {
-            await axios.put(`http://localhost:3001/leave/reject-leave/${id}`);
-            // Update leave history after rejecting leave
-            const updatedLeaveHistory = leaveHistory.map(leave => {
-                if (leave._id === id) {
-                    leave.status = 'Rejected';
-                }
-                return leave;
-            });
-            setLeaveHistory(updatedLeaveHistory);
-        } catch (error) {
-            console.error('Error rejecting leave:', error);
-        }
-    };
+    const { leaveHistory, loading, error, handleApproveLeave, handleRejectLeave } = useLeaveRequests();
 
     if (loading) {
         return <div className="loading">Loading...</div>;

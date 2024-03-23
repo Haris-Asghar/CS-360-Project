@@ -1,19 +1,28 @@
-import React, { useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+// AdminDashboard.js
+
+import React from 'react';
+import { useContext } from 'react';
 import { UserContext } from '../../components/User_Context';
+import AdminNavbar from '../../components/Admin_Navbar';
+import PresentEmployeesTable from '../../components/Present_Employees_Table';
 
 const AdminDashboard = () => {
-    const navigate = useNavigate();
     const { user } = useContext(UserContext);
+
+    // Dummy data for demonstration
+    const presentEmployees = [
+        { name: 'Employee 1', attendanceTime: '09:00 AM' },
+        { name: 'Employee 2', attendanceTime: '09:15 AM' },
+        { name: 'Employee 3', attendanceTime: '09:30 AM' },
+    ];
 
     return (
         <div>
             <p>Username: {user.username}</p>
             <p>Role: {user.role}</p>
             <h1>Welcome to Employee Attendance System</h1>
-            <button onClick={() => navigate('/admin/addUser')}>Add New Users</button>
-            <div></div>
-            <button onClick={() => navigate('/admin/leaveOfAll')}>View Leaves of All Employees</button>
+            <AdminNavbar />
+            <PresentEmployeesTable presentEmployees={presentEmployees} />
         </div>
     );
 };
