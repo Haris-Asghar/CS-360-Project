@@ -2,10 +2,10 @@ import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import { employeeRouter } from "./routes/employee.js";
-import { logattendanceRouter } from "./routes/logattendance.js";
-import { attendanceRouter } from "./routes/employeedashboard.js";
-import { leaveRequestRouter } from "./routes/LeaveRequest.js";
+import { employeeRouter } from "./src/routes/employee.js";
+import { logattendanceRouter } from "./src/routes/logattendance.js";
+import { attendanceRouter } from "./src/routes/employeedashboard.js";
+import { leaveRequestRouter } from "./src/routes/LeaveRequest.js";
 
 dotenv.config();
 
@@ -16,8 +16,6 @@ const dbName = "cs360";
 
 app.use(express.json());
 app.use(cors());
-// const newstr = `mongodb+srv://${username}:${password}@${dbName}.c0zyvyg.mongodb.net/${dbName}?retryWrites=true&w=majority&appName=${dbName}`
-// console.log(newstr)
 
 mongoose.connect(`mongodb+srv://${username}:${password}@${dbName}.c0zyvyg.mongodb.net/${dbName}?retryWrites=true&w=majority&appName=${dbName}`)
   .then(() => {
