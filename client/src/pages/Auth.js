@@ -25,7 +25,7 @@ const Auth = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         axios
-            .post('http://localhost:3001/auth/login', { role, username, password })
+            .post('https://cs-360.vercel.app/auth/login', { role, username, password })
             .then((response) => {
                 showAlert(username);
                 setUser({ "username": username, "role": role });

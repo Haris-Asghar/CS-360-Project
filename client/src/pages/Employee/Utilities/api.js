@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export const fetchAttendanceData = async (username) => {
     try {
-        const response = await axios.get(`http://localhost:3001/attendance/attendance-info/${username}`);
+        const response = await axios.get(`https://cs-360.vercel.app/attendance/attendance-info/${username}`);
         return response.data;
     } catch (error) {
         throw new Error('Failed to fetch attendance data.');
@@ -11,7 +11,7 @@ export const fetchAttendanceData = async (username) => {
 
 export const markAttendance = async (username) => {
     try {
-        await axios.post('http://localhost:3001/log/log-attendance', { username });
+        await axios.post('https://cs-360.vercel.app/log/log-attendance', { username });
     } catch (error) {
         throw new Error('Attendance already marked for the day!');
     }
@@ -19,7 +19,7 @@ export const markAttendance = async (username) => {
 
 export const fetchAttendanceInfo = async (username) => {
     try {
-        const response = await axios.get(`http://localhost:3001/attendance/attendance-info/${username}`);
+        const response = await axios.get(`https://cs-360.vercel.app/attendance/attendance-info/${username}`);
         return response.data;
     } catch (error) {
         throw new Error('Failed to fetch attendance data.');
@@ -28,7 +28,7 @@ export const fetchAttendanceInfo = async (username) => {
 
 export const submitLeaveRequest = async (leaveData) => {
     try {
-        const response = await axios.post('http://localhost:3001/leave/submit-leave', leaveData);
+        const response = await axios.post('https://cs-360.vercel.app/leave/submit-leave', leaveData);
         return response.data;
     } catch (error) {
         throw new Error('Failed to submit leave request.');
@@ -37,7 +37,7 @@ export const submitLeaveRequest = async (leaveData) => {
 
 export const fetchEmployeeLeaveHistory = async (username) => {
     try {
-        const response = await axios.get(`http://localhost:3001/leave/leave-request/${username}`);
+        const response = await axios.get(`https://cs-360.vercel.app/leave/leave-request/${username}`);
         return response.data;
     } catch (error) {
         throw new Error('Failed to fetch leave history.');
