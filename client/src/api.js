@@ -58,7 +58,7 @@ export const fetchEmployeeLeaveHistory = async (username) => {
 // Admin Side functions
 export const registerUser = async (userData) => {
     try {
-        const response = await axios.post('https://cs-360-project.vercel.app/auth/register', userData);
+        const response = await axios.post('https://cs-360.vercel.app/auth/register', userData);
         return response.data;
     } catch (error) {
         throw new Error(error.response.data);
@@ -67,24 +67,24 @@ export const registerUser = async (userData) => {
 
 export const fetchLeaveHistory = async () => {
     try {
-        const response = await axios.get('https://cs-360-project.vercel.app/leave/leave-requests');
+        const response = await axios.get('https://cs-360.vercel.app/leave/leave-requests');
         return response.data;
     } catch (error) {
         throw new Error('Failed to fetch leave history.');
     }
 };
 
-export const approveLeave = async (id) => {
+export const handleApproveLeave = async (id) => {
     try {
-        await axios.put(`https://cs-360-project.vercel.app/leave/approve-leave/${id}`);
+        await axios.put(`https://cs-360.vercel.app/leave/approve-leave/${id}`);
     } catch (error) {
         throw new Error('Failed to approve leave.');
     }
 };
 
-export const rejectLeave = async (id) => {
+export const handleRejectLeave = async (id) => {
     try {
-        await axios.put(`https://cs-360-project.vercel.app/leave/reject-leave/${id}`);
+        await axios.put(`https://cs-360.vercel.app/leave/reject-leave/${id}`);
     } catch (error) {
         throw new Error('Failed to reject leave.');
     }

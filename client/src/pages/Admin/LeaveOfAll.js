@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import { fetchLeaveHistory, handleApproveLeave, handleRejectLeave  } from '../../api';
+import "./Utilities/Admin.css"
 
 const AdminDashboard = () => {
     const [leaveHistory, setLeaveHistory] = useState([]);
@@ -7,9 +8,9 @@ const AdminDashboard = () => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        const fetchLeaveHistory = async () => {
+        const fetchData = async () => {
             try {
-                const response = await axios.get('https://cs-360-project.vercel.app/leave/leave-requests');
+                const response = await fetchLeaveHistory();
                 setLeaveHistory(response.data);
                 setLoading(false);
             } catch (error) {
@@ -18,12 +19,12 @@ const AdminDashboard = () => {
             }
         };
 
-        fetchLeaveHistory();
+        fetchData();
     }, []);
 
-    const handleApproveLeave = async (id) => {
+    const handleApprove = async (id) => {
         try {
-            await axios.put(`https://cs-360-project.vercel.app/leave/approve-leave/${id}`);
+            await handleApproveLeave(id);
             // Update leave history after approving leave
             const updatedLeaveHistory = leaveHistory.map(leave => {
                 if (leave._id === id) {
@@ -37,9 +38,9 @@ const AdminDashboard = () => {
         }
     };
 
-    const handleRejectLeave = async (id) => {
+    const handleReject = async (id) => {
         try {
-            await axios.put(`https://cs-360-project.vercel.app/leave/reject-leave/${id}`);
+            await handleRejectLeave(id);
             // Update leave history after rejecting leave
             const updatedLeaveHistory = leaveHistory.map(leave => {
                 if (leave._id === id) {
@@ -89,8 +90,8 @@ const AdminDashboard = () => {
                                 <td>
                                     {leave.status === 'Pending' && (
                                         <>
-                                            <button onClick={() => handleApproveLeave(leave._id)}>Approve</button>
-                                            <button onClick={() => handleRejectLeave(leave._id)}>Reject</button>
+                                            <button onClick={() => handleApprove(leave._id)}>Approve</button>
+                                            <button onClick={() => handleReject(leave._id)}>Reject</button>
                                         </>
                                     )}
                                 </td>

@@ -74,7 +74,7 @@ const AddUser = () => {
             return;
         }
         axios
-            .post('https://cs-360-project.vercel.app/auth/register', {role, username, fname, lname, salary, email, pnumber, password})
+            .post('https://cs-360.vercel.app/auth/register', {role, username, fname, lname, salary, email, pnumber, password})
             .then((response) => {
                 showAlert(username);
                 setSuccess(true);

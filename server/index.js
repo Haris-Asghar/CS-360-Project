@@ -10,7 +10,7 @@ import { leaveRequestRouter } from "./src/routes/LeaveRequest.js";
 dotenv.config();
 
 const app = express();
-const username = "segroup";
+const username = "segroup9";
 const password = "segroup9pass";
 const dbName = "cs360";
 
