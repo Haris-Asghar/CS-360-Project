@@ -20,6 +20,7 @@ const Navbar = () => {
                     <>
                         <Link to="/admin/home">Home</Link>
                         <Link to="/admin/addUser">Add User</Link>
+                        <Link to='/admin/leaveOfAll'>View Leave History All Employees</Link>
                     </>
                 ) : (
                     <>

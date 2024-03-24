@@ -1,8 +1,54 @@
-import React from 'react';
-import useLeaveRequests from './Utilities/useLeaveRequests';
+import React, { useState, useEffect } from 'react';
+import './Utilities/Admin.css'
+import { fetchLeaveHistory, approveLeave, rejectLeave } from '../../api';
 
 const AdminDashboard = () => {
-    const { leaveHistory, loading, error, handleApproveLeave, handleRejectLeave } = useLeaveRequests();
+    const [leaveHistory, setLeaveHistory] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const data = await fetchLeaveHistory();
+                setLeaveHistory(data);
+                setLoading(false);
+            } catch (error) {
+                setError(error.message);
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    const handleApproveLeave = async (id) => {
+        try {
+            await approveLeave(id);
+            updateLeaveStatus(id, 'Approved');
+        } catch (error) {
+            console.error('Error approving leave:', error);
+        }
+    };
+
+    const handleRejectLeave = async (id) => {
+        try {
+            await rejectLeave(id);
+            updateLeaveStatus(id, 'Rejected');
+        } catch (error) {
+            console.error('Error rejecting leave:', error);
+        }
+    };
+
+    const updateLeaveStatus = (id, status) => {
+        const updatedLeaveHistory = leaveHistory.map(leave => {
+            if (leave._id === id) {
+                leave.status = status;
+            }
+            return leave;
+        });
+        setLeaveHistory(updatedLeaveHistory);
+    };
 
     if (loading) {
         return <div className="loading">Loading...</div>;
@@ -14,19 +60,16 @@ const AdminDashboard = () => {
 
     return (
         <div className="container1">
-            <h1 className="dashboard-title">Admin Dashboard</h1>
+            <h1 className="dashboard-title">Leave History</h1>
             <div className="leave-history">
-                <h2>Leave History</h2>
                 <table>
                     <thead>
                         <tr>
-                            <th>First Name</th>
-                            <th>Last Name</th>
                             <th>Username</th>
                             <th>Start Date</th>
                             <th>End Date</th>
                             <th>Leave Reason</th>
-                            <th>Explanation</th>
+                            <th>Explaination</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -34,8 +77,6 @@ const AdminDashboard = () => {
                     <tbody>
                         {leaveHistory.map((leave, index) => (
                             <tr key={index} className={leave.status.toLowerCase()}>
-                                <td>{leave.firstName}</td>
-                                <td>{leave.lastName}</td>
                                 <td>{leave.username}</td>
                                 <td>{new Date(leave.startDate).toLocaleDateString()}</td>
                                 <td>{new Date(leave.endDate).toLocaleDateString()}</td>

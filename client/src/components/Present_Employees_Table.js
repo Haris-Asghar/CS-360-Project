@@ -1,5 +1,3 @@
-// PresentEmployeesTable.js
-
 import React from 'react';
 
 const PresentEmployeesTable = ({ presentEmployees }) => {

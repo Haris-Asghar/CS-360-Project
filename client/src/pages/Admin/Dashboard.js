@@ -1,7 +1,6 @@
 import React from 'react';
 import { useContext } from 'react';
 import { UserContext } from '../../components/User_Context';
-import AdminNavbar from '../../components/Admin_Navbar';
 import PresentEmployeesTable from '../../components/Present_Employees_Table';
 
 const AdminDashboard = () => {
@@ -19,7 +18,6 @@ const AdminDashboard = () => {
             <p>Username: {user.username}</p>
             <p>Role: {user.role}</p>
             <h1>Welcome to Employee Attendance System</h1>
-            <AdminNavbar />
             <PresentEmployeesTable presentEmployees={presentEmployees} />
         </div>
     );

@@ -1,0 +1,47 @@
+.container1 {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.container1 .dashboard-title {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.container1 .leave-history {
+  margin-top: 20px;
+}
+
+.container1 .leave-history table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.container1 .leave-history th,
+td {
+  padding: 8px;
+  text-align: left;
+}
+
+.container1 .leave-history th {
+  font-weight: bold;
+}
+
+.container1 .pending {
+  background-color: #a48c00; /* yellow */
+}
+
+.container1 .approved {
+  background-color: #009100; /* light green */
+}
+
+.container1 .rejected {
+  background-color: #7e0301; /* light pink */
+}
+
+.loading,
+.error {
+  text-align: center;
+  margin-top: 20px;
+}
