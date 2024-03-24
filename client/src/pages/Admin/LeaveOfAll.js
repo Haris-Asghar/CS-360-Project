@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Utilities/Admin.css'
-import { fetchLeaveHistory, approveLeave, rejectLeave } from '../../api';
+import axios from 'axios';
 
 const AdminDashboard = () => {
     const [leaveHistory, setLeaveHistory] = useState([]);
@@ -8,10 +8,10 @@ const AdminDashboard = () => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchLeaveHistory = async () => {
             try {
-                const data = await fetchLeaveHistory();
-                setLeaveHistory(data);
+                const response = await axios.get('https://cs-360-project.vercel.app/leave/leave-requests');
+                setLeaveHistory(response.data);
                 setLoading(false);
             } catch (error) {
                 setError(error.message);
@@ -19,13 +19,20 @@ const AdminDashboard = () => {
             }
         };
 
-        fetchData();
+        fetchLeaveHistory();
     }, []);
 
     const handleApproveLeave = async (id) => {
         try {
-            await approveLeave(id);
-            updateLeaveStatus(id, 'Approved');
+            await axios.put(`https://cs-360-project.vercel.app/leave/approve-leave/${id}`);
+            // Update leave history after approving leave
+            const updatedLeaveHistory = leaveHistory.map(leave => {
+                if (leave._id === id) {
+                    leave.status = 'Approved';
+                }
+                return leave;
+            });
+            setLeaveHistory(updatedLeaveHistory);
         } catch (error) {
             console.error('Error approving leave:', error);
         }
@@ -33,21 +40,18 @@ const AdminDashboard = () => {
 
     const handleRejectLeave = async (id) => {
         try {
-            await rejectLeave(id);
-            updateLeaveStatus(id, 'Rejected');
+            await axios.put(`https://cs-360-project.vercel.app/leave/reject-leave/${id}`);
+            // Update leave history after rejecting leave
+            const updatedLeaveHistory = leaveHistory.map(leave => {
+                if (leave._id === id) {
+                    leave.status = 'Rejected';
+                }
+                return leave;
+            });
+            setLeaveHistory(updatedLeaveHistory);
         } catch (error) {
             console.error('Error rejecting leave:', error);
         }
-    };
-
-    const updateLeaveStatus = (id, status) => {
-        const updatedLeaveHistory = leaveHistory.map(leave => {
-            if (leave._id === id) {
-                leave.status = status;
-            }
-            return leave;
-        });
-        setLeaveHistory(updatedLeaveHistory);
     };
 
     if (loading) {

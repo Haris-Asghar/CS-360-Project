@@ -96,7 +96,7 @@ select {
   --primary-color: rgb(81, 113, 165); /* Main color for buttons, links, and highlights */
   --secondary-color: rgb(81, 113, 165); /* Secondary color for accents */
   --text-color: white; /* Main text color */
-  --background-color: rgb(63, 48, 71); /* Background color for the entire page */
+  --background-color: rgb(224, 168, 255); /* Background color for the entire page */
   --accent-color: rgb(152, 185, 171); /* Accent color for call-to-action buttons or elements */
   --border-color: #ddd; /* Border color for elements */
   --error-color: rgb(131, 33, 97);
