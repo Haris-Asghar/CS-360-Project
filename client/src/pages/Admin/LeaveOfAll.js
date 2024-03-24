@@ -68,10 +68,12 @@ const AdminDashboard = () => {
                     <thead>
                         <tr>
                             <th>Username</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
                             <th>Start Date</th>
                             <th>End Date</th>
                             <th>Leave Reason</th>
-                            <th>Explaination</th>
+                            <th>Explanation</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -80,6 +82,8 @@ const AdminDashboard = () => {
                         {!loading && leaveHistory && leaveHistory.map((leave, index) => (
                             <tr key={index} className={leave.status.toLowerCase()}>
                                 <td>{leave.username}</td>
+                                <td>{leave.firstName}</td>
+                                <td>{leave.lastName}</td>
                                 <td>{new Date(leave.startDate).toLocaleDateString()}</td>
                                 <td>{new Date(leave.endDate).toLocaleDateString()}</td>
                                 <td>{leave.leaveReason}</td>
@@ -100,6 +104,6 @@ const AdminDashboard = () => {
             </div>
         </div>
     );
-};
+}    
 
 export default AdminDashboard;
