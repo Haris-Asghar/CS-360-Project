@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { registerUser } from '../../api';
+import { registerUser, registerUser2 } from '../../api';
 import Swal from 'sweetalert2';
 
 const AddUser = () => {
@@ -89,11 +89,15 @@ const AddUser = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setSuccess(false);
-        if (errors.password || errors.email || errors.pnumber || errors.salary) {
+        if (errors.password || errors.email || errors.pnumber || errors.salary || errors.biometricData) {
             return;
         }
         try {
-            await registerUser({role, username, fname, lname, salary, email, pnumber, password, biometricData});
+            if (biometricData){
+                await registerUser2({role, username, fname, lname, salary, email, pnumber, password, biometricData});
+            }else{
+                 await registerUser({role, username, fname, lname, salary, email, pnumber, password});
+            }
             showAlert(username);
             setSuccess(true);
         } catch (error) {

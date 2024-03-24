@@ -17,6 +17,18 @@ router.post("/register", async (req, res) => {
     res.status(200).send("User registered");
 });
 
+router.post("/register2", async (req, res) => {
+    const {role, username, fname, lname, salary, email, pnumber, password, biometricdata} = req.body;
+    const employee = await EmployeeModel.findOne({username});
+
+    if(employee) return res.status(400).send("User already exists");
+
+    const hash = await bcrypt.hash(password, 10);
+    const newEmployee = new EmployeeModel({role, username, fname, lname, salary, email, pnumber, password: hash, biometricdata});
+    await newEmployee.save();
+    res.status(200).send("User registered with biometric");
+});
+
 router.post("/login", async (req, res) => {
     const {role, username, password} = req.body;
     const employee = await EmployeeModel.findOne({username});

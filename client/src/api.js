@@ -69,6 +69,15 @@ export const registerUser = async (userData) => {
     }
 };
 
+export const registerUser2 = async (userData) => {
+  try {
+    const response = await axios.post(url + "auth/register2", userData);
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response.data);
+  }
+};
+
 export const fetchLeaveHistory = async () => {
     try {
         const response = await axios.get(url + 'leave/leave-requests');
