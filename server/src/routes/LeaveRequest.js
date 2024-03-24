@@ -14,6 +14,43 @@ router.post("/submit-leave", async (req, res) => {
             return res.status(404).json({ error: "Employee not found with the provided username" });
         }
 
+        // Check if there is already a leave request for the same username and overlapping duration
+        const existingLeaveRequest = await LeaveRequestModel.findOne({
+            username,
+            $or: [
+                { startDate: { $lte: endDate }, endDate: { $gte: startDate } },
+                { startDate: startDate, endDate: endDate }, // Check for exact same dates
+            ]
+        });
+
+if (startDate === endDate) {
+// Fetch all leave requests for the same username
+const allLeaveRequests = await LeaveRequestModel.find({ username });
+
+// Check if the start date is the same as the end date for any existing leave request
+for (const leaveRequest of allLeaveRequests) {
+    // Extract date part (year-month-day) from leave request's start and end dates
+    const leaveRequestStartDate = leaveRequest.startDate.toISOString().slice(0, 10);
+    const leaveRequestEndDate = leaveRequest.endDate.toISOString().slice(0, 10);
+
+    // Extract date part (year-month-day) from the new leave request's start and end dates
+    const newLeaveRequestStartDate = new Date(startDate).toISOString().slice(0, 10);
+    const newLeaveRequestEndDate = new Date(endDate).toISOString().slice(0, 10);
+
+    // Check if the date parts match
+    if (leaveRequestStartDate === newLeaveRequestStartDate && leaveRequestEndDate === newLeaveRequestEndDate) {
+        // If a leave request with the same start and end date is found, return error
+        return res.status(400).json({ error: "Leave request for the given duration already exists" });
+    }
+}
+
+}
+
+
+        if (existingLeaveRequest) {
+            return res.status(400).json({ error: "Leave request for the given duration already exists" });
+        }
+
         // Create a new leave request
         const newLeaveRequest = new LeaveRequestModel({
             username,
@@ -34,6 +71,7 @@ router.post("/submit-leave", async (req, res) => {
         res.status(500).json({ error: "Internal Server Error" });
     }
 });
+
 
 router.get("/leave-requests", async (req, res) => {
     try {

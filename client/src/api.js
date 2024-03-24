@@ -43,9 +43,10 @@ export const fetchAttendanceInfo = async (username) => {
 export const submitLeaveRequest = async (leaveData) => {
     try {
         const response = await axios.post(url + 'leave/submit-leave', leaveData);
+        console.log(response.data)
         return response.data;
     } catch (error) {
-        throw new Error('Failed to submit leave request.');
+        throw new Error(error.response.data.error);
     }
 };
 

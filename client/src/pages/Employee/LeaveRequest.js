@@ -41,9 +41,15 @@ const LeaveRequest = () => {
             } , 2000);
         } catch (error) {
             setLoading(false);
-            setError(error.message);
+            Swal.fire({
+                title: 'Leave Request Failed!',
+                text: error.message,
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
         }
     };
+    
     
 
     if (loading) {
@@ -96,7 +102,7 @@ const LeaveRequest = () => {
                         <option value="Other">Other</option>
                     </select>
                 </div>
-                <div className="leave__form-group leave__form-reason">
+                <div className="leave_form-group leave_form-reason">
                     <label htmlFor="otherReason">Explaination:</label>
                     <textarea
                         value={otherReason}
