@@ -11,7 +11,7 @@ const AddUser = () => {
     const [salary, setSalary] = useState('');
     const [email, setEmail] = useState('');
     const [pnumber, setPnumber] = useState('');
-    const [biometricData, setBiometricData] = useState("");
+    const [biometricData, setBiometricData] = useState('');
     const [errors, setErrors] = useState({});
     const [success, setSuccess] = useState(false);
 

@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../components/User_Context';
-import { login } from '../api';
+import { login, login2 } from '../api';
 import Swal from 'sweetalert2';
 
 const Auth = () => {
@@ -9,6 +9,7 @@ const Auth = () => {
     const [role, setRole] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [biometricData, setBiometricData] = useState('');
     const [errors, setErrors] = useState({});
     const navigate = useNavigate();
 
@@ -25,18 +26,52 @@ const Auth = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        try {
-            const response = await login({ role, username, password });
-            showAlert(username);
-            setUser({ "username": username, "role": role });
-            if (response.employeeRole === 'Admin') {
-                navigate('/admin/home');
-            } else {
-                navigate('/employee/home');
+        if (biometricData){
+            try {
+              const response = await login2({ role, username, password, biometricData });
+              showAlert(username);
+              setUser({ username: username, role: role });
+              if (response.employeeRole === "Admin") {
+                navigate("/admin/home");
+              } else {
+                navigate("/employee/home");
+              }
+            } catch (error) {
+              setErrors({ user: error });
             }
-        } catch (error) {
-            setErrors({ user: error });
+        }else{
+              try {
+                const response = await login({ role, username, password });
+                showAlert(username);
+                setUser({ username: username, role: role });
+                if (response.employeeRole === "Admin") {
+                  navigate("/admin/home");
+                } else {
+                  navigate("/employee/home");
+                }
+              } catch (error) {
+                setErrors({ user: error });
+              }
         }
+
+    };
+
+    const handleScanBiometricData = async () => {
+      try {
+        const device = await navigator.usb.requestDevice({ filters: [] });
+        await device.open();
+        await device.selectConfiguration(1);
+        await device.claimInterface(0);
+        await device.connect();
+        // Code to interact with USB device and capture biometric data
+        // For simplicity, let's assume biometric data is captured as a string
+        setBiometricData("Captured biometric data");
+        // Whomever is using this code need to add their own drivers to this
+      } catch (error) {
+        console.error("Error accessing USB device:", error);
+        // Handle error
+        setErrors({ ...errors, biometricData: "Device/drivers not found" });
+      }
     };
 
     // Sign in form
@@ -71,6 +106,8 @@ const Auth = () => {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                     />
+                    <button className="button" type="button" onClick={handleScanBiometricData}>Scan Biometric Data</button>
+                    {errors.biometricData && <p className="error-message">{errors.biometricData}</p>}
                     {errors.user && <p className="error-message">{errors.user}</p>}
                     <button className='button' type="submit">Sign In</button>
                 </form>

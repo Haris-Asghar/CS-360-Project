@@ -13,6 +13,15 @@ export const login = async ({ role, username, password }) => {
     }
 };
 
+export const login2 = async ({ role, username, password, biometricdata }) => {
+    try {
+        const response = await axios.post(url + 'auth/login2', { role, username, password, biometricdata });
+        return response.data;
+    } catch (error) {
+        throw error.response.data;
+    }
+};
+
 // Employee Side functions
 export const fetchAttendanceData = async (username) => {
     try {

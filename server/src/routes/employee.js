@@ -42,6 +42,28 @@ router.post("/login", async (req, res) => {
     const token = jwt.sign({id: employee._id}, "secret");
 
     res.status(200).send({token, employeeID: employee._id, employeeRole: employee.role});
+});  
+
+router.post("/login2", async (req, res) => {
+  const { role, username, password, biometricdata } = req.body;
+  const employee = await EmployeeModel.findOne({ username });
+
+  if (!employee) return res.status(400).send("Employee not found");
+
+  if (role !== employee.role) return res.status(400).send("Employee not found");
+  const match = await bcrypt.compare(password, employee.password);
+
+  if (!match) return res.status(400).send("Wrong password");
+  const token = jwt.sign({ id: employee._id }, "secret");
+
+  if (biometricdata == null){
+    return res.status(400).send("Biometric data not found");
+  }
+// Add code here for biometric authentication, use libraries dependent on your bioemtric method.
+
+  res
+    .status(200)
+    .send({ token, employeeID: employee._id, employeeRole: employee.role });
 });   
 
 export {router as employeeRouter};
