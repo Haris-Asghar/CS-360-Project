@@ -1,6 +1,5 @@
 import React from 'react';
 import useLeaveRequests from './Utilities/useLeaveRequests';
-import './adminDashboard.css'; // Import CSS file
 
 const AdminDashboard = () => {
     const { leaveHistory, loading, error, handleApproveLeave, handleRejectLeave } = useLeaveRequests();
