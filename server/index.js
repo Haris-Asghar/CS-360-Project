@@ -15,7 +15,13 @@ const password = "segroup9pass";
 const dbName = "cs360";
 
 app.use(express.json());
-app.use(cors());
+app.use(cors(
+  {
+    origin: "https://cs-360-project.vercel.app/",
+    methods: ["GET", "POST"],
+    credentials: true
+  }
+));
 
 mongoose.connect(`mongodb+srv://${username}:${password}@${dbName}.c0zyvyg.mongodb.net/${dbName}?retryWrites=true&w=majority&appName=${dbName}`)
   .then(() => {
