@@ -16,13 +16,7 @@ const password = process.env.DB_PASSWORD;
 const dbName = process.env.DB_CLUSTER_NAME;
 
 app.use(express.json());
-app.use(cors(
-  {
-    origin: "https://cs-360-project.vercel.app/",
-    methods: ["GET", "POST"],
-    credentials: true
-  }
-));
+app.use(cors());
 
 mongoose.connect(`mongodb+srv://${username}:${password}@${dbName}.c0zyvyg.mongodb.net/${dbName}?retryWrites=true&w=majority&appName=${dbName}`)
   .then(() => {
