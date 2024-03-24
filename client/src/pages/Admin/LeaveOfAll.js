@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { fetchLeaveHistory, handleApproveLeave, handleRejectLeave  } from '../../api';
+import { fetchLeaveHistory, handleApproveLeave, handleRejectLeave } from '../../api';
 
 const AdminDashboard = () => {
     const [leaveHistory, setLeaveHistory] = useState([]);
@@ -10,14 +10,13 @@ const AdminDashboard = () => {
         const fetchData = async () => {
             try {
                 const response = await fetchLeaveHistory();
-                setLeaveHistory(response.data);
+                setLeaveHistory(response);
                 setLoading(false);
             } catch (error) {
                 setError(error.message);
                 setLoading(false);
             }
         };
-
         fetchData();
     }, []);
 
@@ -78,7 +77,7 @@ const AdminDashboard = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {leaveHistory.map((leave, index) => (
+                        {!loading && leaveHistory && leaveHistory.map((leave, index) => (
                             <tr key={index} className={leave.status.toLowerCase()}>
                                 <td>{leave.username}</td>
                                 <td>{new Date(leave.startDate).toLocaleDateString()}</td>
