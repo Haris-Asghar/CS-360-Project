@@ -1,9 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { fetchLeaveHistory, handleApproveLeave, handleRejectLeave  } from '../../api';
-<<<<<<< HEAD
-=======
-import "../Admin/utilities/Admin.css"
->>>>>>> 0e07ec925d053f9f108f31d0557686f27c3961b5
 
 const AdminDashboard = () => {
     const [leaveHistory, setLeaveHistory] = useState([]);

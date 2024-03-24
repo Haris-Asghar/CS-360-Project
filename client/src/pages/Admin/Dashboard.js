@@ -1,10 +1,7 @@
-// AdminDashboard.js
-
 import React, { useEffect, useState, useContext } from 'react';
 import { UserContext } from '../../components/User_Context';
-import { datesFromTodayToStartOfMonth, datesMatcher } from '../Admin/utilities/dateUtils';
-import { fetchAttendanceData } from '../Admin/utilities/api';
-// import AdminNavbar from '../../components/Admin_Navbar';
+import { datesFromTodayToStartOfMonth, datesMatcher } from './Utilities/dateUtils';
+import { fetchAttendanceData } from './Utilities/api';
 import PresentEmployeesTable from '../../components/Present_Employees_Table';
 import MyCalendar from '../../components/Calendar';
 import MyClock from '../../components/Clock';

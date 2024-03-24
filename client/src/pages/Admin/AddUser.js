@@ -73,7 +73,7 @@ const AddUser = () => {
             return;
         }
         try {
-            const response = await registerUser({role, username, fname, lname, salary, email, pnumber, password});
+            await registerUser({role, username, fname, lname, salary, email, pnumber, password});
             showAlert(username); // Assuming showAlert is defined elsewhere
             setSuccess(true);
         } catch (error) {
