@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { fetchLeaveHistory, approveLeave, rejectLeave } from './api';
+import { fetchLeaveHistory, approveLeave, rejectLeave } from '../../../api';
 
 const useLeaveRequests = () => {
     const [leaveHistory, setLeaveHistory] = useState([]);

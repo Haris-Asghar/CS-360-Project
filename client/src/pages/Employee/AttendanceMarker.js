@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { UserContext } from '../../components/User_Context';
 import Swal from 'sweetalert2';
-import { markAttendance } from './Utilities/api';
+import { markAttendance } from '../../api';
 
 const AttendanceMarker = () => {
     const { user } = useContext(UserContext);

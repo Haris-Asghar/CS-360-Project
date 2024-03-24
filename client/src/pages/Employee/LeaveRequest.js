@@ -3,7 +3,7 @@ import { UserContext } from '../../components/User_Context';
 import Swal from 'sweetalert2';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { submitLeaveRequest } from './Utilities/api';
+import { submitLeaveRequest } from '../../api';
 
 const LeaveRequest = () => {
     const { user } = useContext(UserContext);

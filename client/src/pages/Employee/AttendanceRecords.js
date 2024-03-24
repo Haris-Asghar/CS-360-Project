@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { UserContext } from '../../components/User_Context';
-import { fetchAttendanceInfo } from './Utilities/api';
+import { fetchAttendanceInfo } from '../../api';
 import { formatDate, getDayOfWeek, formatTime } from './Utilities/dateUtils';
 
 const AttendanceRecords = () => {

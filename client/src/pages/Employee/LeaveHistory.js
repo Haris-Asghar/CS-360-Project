@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { UserContext } from '../../components/User_Context';
-import { fetchEmployeeLeaveHistory } from './Utilities/api';
+import { fetchEmployeeLeaveHistory } from '../../api';
 
 const LeaveHistory = () => {
     const { user } = useContext(UserContext);
