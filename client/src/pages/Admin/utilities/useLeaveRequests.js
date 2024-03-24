@@ -1,7 +1,5 @@
-// useLeaveRequests.js
-
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { fetchLeaveHistory, approveLeave, rejectLeave } from './api';
 
 const useLeaveRequests = () => {
     const [leaveHistory, setLeaveHistory] = useState([]);
@@ -9,10 +7,10 @@ const useLeaveRequests = () => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        const fetchLeaveHistory = async () => {
+        const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:3001/leave/leave-requests');
-                setLeaveHistory(response.data);
+                const data = await fetchLeaveHistory();
+                setLeaveHistory(data);
                 setLoading(false);
             } catch (error) {
                 setError(error.message);
@@ -20,12 +18,12 @@ const useLeaveRequests = () => {
             }
         };
 
-        fetchLeaveHistory();
+        fetchData();
     }, []);
 
     const handleApproveLeave = async (id) => {
         try {
-            await axios.put(`http://localhost:3001/leave/approve-leave/${id}`);
+            await approveLeave(id);
             const updatedLeaveHistory = leaveHistory.map(leave => {
                 if (leave._id === id) {
                     leave.status = 'Approved';
@@ -40,7 +38,7 @@ const useLeaveRequests = () => {
 
     const handleRejectLeave = async (id) => {
         try {
-            await axios.put(`http://localhost:3001/leave/reject-leave/${id}`);
+            await rejectLeave(id);
             const updatedLeaveHistory = leaveHistory.map(leave => {
                 if (leave._id === id) {
                     leave.status = 'Rejected';

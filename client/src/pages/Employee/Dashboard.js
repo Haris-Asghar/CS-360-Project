@@ -1,6 +1,6 @@
 import React from 'react';
 import AttendanceDetails from './AttendanceDetails';
-import "./Employee.css"
+import "./Utilities/Employee.css"
 
 const EmployeeDashboard = () => {
     return (

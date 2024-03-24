@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { UserContext } from '../../components/User_Context';
 import { formatCurrentDateTime, datesFromTodayToStartOfMonth, datesMatcher } from './Utilities/dateUtils';
-import { fetchAttendanceData } from './Utilities/api';
+import { fetchAttendanceData } from '../../api';
 import MyCalendar from "../../components/Calendar";
 import Clock from 'react-clock';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';

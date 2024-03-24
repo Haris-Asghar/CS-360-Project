@@ -1,7 +1,5 @@
-// AdminDashboard.js
-
 import React from 'react';
-import useLeaveRequests from '../Admin/utilities/useLeaveRequests';
+import useLeaveRequests from './Utilities/useLeaveRequests';
 import './adminDashboard.css'; // Import CSS file
 
 const AdminDashboard = () => {

@@ -1,5 +1,3 @@
-// AdminDashboard.js
-
 import React from 'react';
 import { useContext } from 'react';
 import { UserContext } from '../../components/User_Context';

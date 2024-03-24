@@ -1,7 +1,7 @@
-import axios from 'axios';
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../components/User_Context';
+import { login } from '../api';
 import Swal from 'sweetalert2';
 
 const Auth = () => {
@@ -22,24 +22,21 @@ const Auth = () => {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        axios
-            .post('https://cs-360.vercel.app/auth/login', { role, username, password })
-            .then((response) => {
-                showAlert(username);
-                setUser({ "username": username, "role": role });
-                if (response.data.employeeRole === 'Admin') {
-                    navigate('/admin/home');
-                }
-                else {
-                    navigate('/employee/home');
-                }
-            })
-            .catch((error) => {
-                setErrors({ user: error.response.data });
-            });
-        setErrors({});
+
+        try {
+            const response = await login({ role, username, password });
+            showAlert(username);
+            setUser({ "username": username, "role": role });
+            if (response.employeeRole === 'Admin') {
+                navigate('/admin/home');
+            } else {
+                navigate('/employee/home');
+            }
+        } catch (error) {
+            setErrors({ user: error });
+        }
     };
 
     // Sign in form

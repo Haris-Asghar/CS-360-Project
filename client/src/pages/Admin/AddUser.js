@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import { registerUser } from '../../api';
 import Swal from 'sweetalert2';
 
 const AddUser = () => {
@@ -26,7 +26,7 @@ const AddUser = () => {
         const timer = setTimeout(() => {
             window.location.reload();
             clearTimeout(timer);
-        } , 2000);
+        }, 2000);
     };
 
     const validatePassword = (value) => {
@@ -58,7 +58,7 @@ const AddUser = () => {
 
     const validateSalary = (value) => {
         const phoneNumberRegex = /^[0-9]+$/;
-        console.log((value < 0 ), isNaN(value));
+        console.log((value < 0), isNaN(value));
         if (value < 0 || !phoneNumberRegex.test(value)) {
             setErrors({ ...errors, salary: 'Salary must be a positive value' });
         } else {
@@ -66,117 +66,114 @@ const AddUser = () => {
         }
     };
 
-    const handleSubmit = (e) => {
-        setSuccess(false);
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        //  check if no errors, otherwise return
+        setSuccess(false);
         if (errors.password || errors.email || errors.pnumber || errors.salary) {
             return;
         }
-        axios
-            .post('http://localhost:3001/auth/register', {role, username, fname, lname, salary, email, pnumber, password})
-            .then((response) => {
-                showAlert(username);
-                setSuccess(true);
-            })
-            .catch((error) => {
-                setErrors({ user: error.response.data });
-            });
+        try {
+            await registerUser({ role, username, fname, lname, salary, email, pnumber, password });
+            showAlert(username);
+            setSuccess(true);
+        } catch (error) {
+            setErrors({ user: error.message });
+        }
         setErrors({});
     };
 
     return (
         <div className="container auth-container">
             <h1 className='leave__leave-request-title'>Add New User</h1>
-                <form className="auth-form" onSubmit={handleSubmit}>
-                    <label htmlFor="role">Role</label>
-                    <select
-                        id="role"
-                        required
-                        value={role}
-                        onChange={(e) => setRole(e.target.value)}
-                    >
-                        <option value="">Select Role</option>
-                        <option value="Admin">Admin</option>
-                        <option value="Employee">Employee</option>
-                    </select>
-                    <label htmlFor="username">Username</label>
-                    <input
-                        type="text"
-                        id="username"
-                        required
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                    />
-                    {errors.user && <p className="error-message">{errors.user}</p>}
-                    <label htmlFor="password">Password</label>
-                    <input
-                        type="password"
-                        id="password"
-                        required
-                        value={password}
-                        onChange={(e) => {
-                            setPassword(e.target.value);
-                            validatePassword(e.target.value);
-                        }}
-                    />
-                    {errors.password && <p className="error-message">{errors.password}</p>}
-                    <label htmlFor="fname">First Name</label>
-                    <input
-                        type="text"
-                        id="fname"
-                        required
-                        value={fname}
-                        onChange={(e) => setFname(e.target.value)}
-                    />
-                    <label htmlFor="lname">Last Name</label>
-                    <input
-                        type="text"
-                        id="lname"
-                        required
-                        value={lname}
-                        onChange={(e) => setLname(e.target.value)}
-                    />
-                    <label htmlFor="salary">Salary</label>
-                    <input
-                        type="text"
-                        id="salary"
-                        required
-                        value={salary}
-                        onChange={(e) => {
-                            setSalary(e.target.value);
-                            validateSalary(e.target.value);
-                        }}
-                    />
-                    {errors.salary && <p className="error-message">{errors.salary}</p>}
-                    <label htmlFor="email">Email</label>
-                    <input
-                        type="text"
-                        id="email"
-                        required
-                        value={email}
-                        onChange={(e) => {
-                            setEmail(e.target.value);
-                            validateEmail(e.target.value);
-                        }}
-                    />
-                    {errors.email && <p className="error-message">{errors.email}</p>}
-                    <label htmlFor="pnumber">Phone Number</label>
-                    <input
-                        type="text"
-                        id="pnumber"
-                        required
-                        value={pnumber}
-                        onChange={(e) => {
-                            setPnumber(e.target.value);
-                            validatePhoneNumber(e.target.value);
-                        }}
-                    />
-                    {errors.pnumber && <p className="error-message">{errors.pnumber}</p>}
-                    {success && <p className="success-message">User Added</p>}
-                    <button className="button" type="submit">Add User</button>
-                </form>
-            </div>
+            <form className="auth-form" onSubmit={handleSubmit}>
+                <label htmlFor="role">Role</label>
+                <select
+                    id="role"
+                    required
+                    value={role}
+                    onChange={(e) => setRole(e.target.value)}
+                >
+                    <option value="">Select Role</option>
+                    <option value="Admin">Admin</option>
+                    <option value="Employee">Employee</option>
+                </select>
+                <label htmlFor="username">Username</label>
+                <input
+                    type="text"
+                    id="username"
+                    required
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                />
+                {errors.user && <p className="error-message">{errors.user}</p>}
+                <label htmlFor="password">Password</label>
+                <input
+                    type="password"
+                    id="password"
+                    required
+                    value={password}
+                    onChange={(e) => {
+                        setPassword(e.target.value);
+                        validatePassword(e.target.value);
+                    }}
+                />
+                {errors.password && <p className="error-message">{errors.password}</p>}
+                <label htmlFor="fname">First Name</label>
+                <input
+                    type="text"
+                    id="fname"
+                    required
+                    value={fname}
+                    onChange={(e) => setFname(e.target.value)}
+                />
+                <label htmlFor="lname">Last Name</label>
+                <input
+                    type="text"
+                    id="lname"
+                    required
+                    value={lname}
+                    onChange={(e) => setLname(e.target.value)}
+                />
+                <label htmlFor="salary">Salary</label>
+                <input
+                    type="text"
+                    id="salary"
+                    required
+                    value={salary}
+                    onChange={(e) => {
+                        setSalary(e.target.value);
+                        validateSalary(e.target.value);
+                    }}
+                />
+                {errors.salary && <p className="error-message">{errors.salary}</p>}
+                <label htmlFor="email">Email</label>
+                <input
+                    type="text"
+                    id="email"
+                    required
+                    value={email}
+                    onChange={(e) => {
+                        setEmail(e.target.value);
+                        validateEmail(e.target.value);
+                    }}
+                />
+                {errors.email && <p className="error-message">{errors.email}</p>}
+                <label htmlFor="pnumber">Phone Number</label>
+                <input
+                    type="text"
+                    id="pnumber"
+                    required
+                    value={pnumber}
+                    onChange={(e) => {
+                        setPnumber(e.target.value);
+                        validatePhoneNumber(e.target.value);
+                    }}
+                />
+                {errors.pnumber && <p className="error-message">{errors.pnumber}</p>}
+                {success && <p className="success-message">User Added</p>}
+                <button className="button" type="submit">Add User</button>
+            </form>
+        </div>
     );
 };
 
