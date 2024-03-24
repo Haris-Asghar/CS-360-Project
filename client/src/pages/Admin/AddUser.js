@@ -11,6 +11,7 @@ const AddUser = () => {
     const [salary, setSalary] = useState('');
     const [email, setEmail] = useState('');
     const [pnumber, setPnumber] = useState('');
+    const [biometricData, setBiometricData] = useState("");
     const [errors, setErrors] = useState({});
     const [success, setSuccess] = useState(false);
 
@@ -66,6 +67,25 @@ const AddUser = () => {
         }
     };
 
+    const handleScanBiometricData = async () => {
+      try {
+        const device = await navigator.usb.requestDevice({ filters: [] });
+        await device.open();
+        await device.selectConfiguration(1);
+        await device.claimInterface(0);
+        await device.connect()
+        // Code to interact with USB device and capture biometric data
+        // For simplicity, let's assume biometric data is captured as a string
+        setBiometricData("Captured biometric data");
+        setSuccess(true);
+        // Whomever is using this code need to add their own drivers to this
+      } catch (error) {
+        console.error("Error accessing USB device:", error);
+        // Handle error
+        setErrors({ ...errors, biometricData: "Device/drivers not found" });
+      }
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setSuccess(false);
@@ -73,8 +93,8 @@ const AddUser = () => {
             return;
         }
         try {
-            await registerUser({role, username, fname, lname, salary, email, pnumber, password});
-            showAlert(username); // Assuming showAlert is defined elsewhere
+            await registerUser({role, username, fname, lname, salary, email, pnumber, password, biometricData});
+            showAlert(username);
             setSuccess(true);
         } catch (error) {
             setErrors({ user: error.message });
@@ -169,6 +189,9 @@ const AddUser = () => {
                             validatePhoneNumber(e.target.value);
                         }}
                     />
+                    <button className="button" type="button" onClick={handleScanBiometricData}>Scan Biometric Data</button>
+                    {success && <p className="success-message">Biometric data captured successfully</p>}
+                    {errors.biometricData && <p className="error-message">{errors.biometricData}</p>}
                     {errors.pnumber && <p className="error-message">{errors.pnumber}</p>}
                     {success && <p className="success-message">User Added</p>}
                     <button className="button" type="submit">Add User</button>
