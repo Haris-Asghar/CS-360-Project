@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import { registerUser } from '../../api';
 import Swal from 'sweetalert2';
 
 const AddUser = () => {
@@ -66,23 +66,19 @@ const AddUser = () => {
         }
     };
 
-    const handleSubmit = (e) => {
-        setSuccess(false);
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        //  check if no errors, otherwise return
+        setSuccess(false);
         if (errors.password || errors.email || errors.pnumber || errors.salary) {
             return;
         }
-        axios
-            .post('https://cs-360.vercel.app/auth/register', {role, username, fname, lname, salary, email, pnumber, password})
-            .then((response) => {
-                showAlert(username);
-                setSuccess(true);
-            })
-            .catch((error) => {
-                console.log(error)
-                setErrors({ user: error.response.data });
-            });
+        try {
+            const response = await registerUser({role, username, fname, lname, salary, email, pnumber, password});
+            showAlert(username); // Assuming showAlert is defined elsewhere
+            setSuccess(true);
+        } catch (error) {
+            setErrors({ user: error.message });
+        }
         setErrors({});
     };
 
