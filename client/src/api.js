@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const url = process.env.REACT_APP_URL;
+// const url = 'https://cs-360.vercel.app/';
+const url = "http://localhost:3000/";
 
 // General functions
 export const login = async ({ role, username, password }) => {
