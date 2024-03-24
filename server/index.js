@@ -10,9 +10,10 @@ import { leaveRequestRouter } from "./src/routes/LeaveRequest.js";
 dotenv.config();
 
 const app = express();
-const username = "segroup9";
-const password = "segroup9pass";
-const dbName = "cs360";
+// access via .env file
+const username = process.env.DB_USER_NAME;
+const password = process.env.DB_PASSWORD;
+const dbName = process.env.DB_CLUSTER_NAME;
 
 app.use(express.json());
 app.use(cors(
@@ -29,7 +30,7 @@ mongoose.connect(`mongodb+srv://${username}:${password}@${dbName}.c0zyvyg.mongod
     app.listen(3001, () => console.log("\x1b[33m%s\x1b[0m", "Listening at port 3001"));
   })
   .catch((err) => {
-    console.error("\x1b[31m%s\x1b[0m", "DB connection error");
+    console.error("\x1b[31m%s\x1b[0m", err);
   });
 
 app.use("/auth", employeeRouter);
