@@ -1,6 +1,9 @@
 import express from "express";
 import LeaveRequestModel from "../models/leaveRequest.js";
 import EmployeeModel from "../models/Employee.js";
+import moment from "moment";
+import AttendanceModel from "../models/Attendance.js";
+
 
 const router = express.Router();
 
@@ -108,9 +111,40 @@ router.put("/approve-leave/:id", async (req, res) => {
         const { id } = req.params;
 
         // Find the leave request by id and update its status to "Approved"
-        const updatedLeaveRequest = await LeaveRequestModel.findByIdAndUpdate(id, { status: "Approved" }, { new: true });
+        const leaveRequest = await LeaveRequestModel.findById(id);
+        if (!leaveRequest) {
+            return res.status(404).json({ error: "Leave request not found" });
+        }
 
-        res.status(200).json(updatedLeaveRequest);
+        // Update the leave request status to "Approved"
+        await LeaveRequestModel.findByIdAndUpdate(id, { status: "Approved" });
+
+        // If start date and end date are the same, add a single record
+        if (moment(leaveRequest.startDate).isSame(leaveRequest.endDate, 'day')) {
+            console.log("same")
+            await AttendanceModel.create({
+                username: leaveRequest.username,
+                log: leaveRequest.startDate,
+                leave: true
+            });
+        } else {
+            // Add new attendance records for each day in the duration of the leave
+            const startDate = moment(leaveRequest.startDate);
+            const endDate = moment(leaveRequest.endDate);
+            let duration = moment.duration(endDate.diff(startDate)).asDays();
+            duration+=1
+            
+            for (let i = 0; i <= duration; i++) {
+                const date = moment(startDate).add(i, 'days');
+                await AttendanceModel.create({
+                    username: leaveRequest.username,
+                    log: date.toDate(),
+                    leave: true
+                });
+            }
+        }
+
+        res.status(200).json({ message: "Leave approved successfully" });
     } catch (error) {
         console.error("Error approving leave request:", error);
         res.status(500).json({ error: "Internal Server Error" });

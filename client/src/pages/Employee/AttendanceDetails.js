@@ -84,7 +84,7 @@ const AttendanceDetails = () => {
                             <div className='progress__bar'>
                                 <CircularProgressbar
                                     value={leavePercentage}
-                                    text={`${attendanceData.numAbsencesThisMonth}/${leavesAllowed}`}
+                                    text={`${attendanceData.numAbsencesThisMonth}/${attendanceData.totalDaysThisMonth}`}
                                     background
                                     backgroundPadding={6}
                                     styles={buildStyles({
@@ -97,16 +97,20 @@ const AttendanceDetails = () => {
                             </div>
                         ) : <div className="loader-container"><div className="loader"></div></div>}
                         <div className='progress__text'>
-                            <p className='progress_heading'>Leaves</p>
+                            <p className='progress_heading'>Absences</p>
                             <table>
                                 <tbody>
                                     <tr>
-                                        <td>Remaining (Allowed):</td>
+                                        <td>Num of Absences:</td>
+                                        <td>{attendanceData ? attendanceData.numAbsencesThisMonth : 0}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Leaves Remaining:</td>
                                         <td>{attendanceData ? attendanceData.numLeavesRemaining : 0}</td>
                                     </tr>
                                     <tr>
                                         <td>Leaves Taken:</td>
-                                        <td>{attendanceData ? attendanceData.numAbsencesThisMonth : 0}</td>
+                                        <td>{attendanceData ? attendanceData.numLeavesTaken : 0}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -160,8 +164,8 @@ const AttendanceDetails = () => {
                     </div>
                     <div className='dashboard__graph'>
                         <BarChart
-                            xAxis={[{ scaleType: 'band', data: ['Days of Job', 'Present', 'Allowed Leaves', "Leaves Taken"] }]}
-                            series={[{ data: [attendanceData ? attendanceData.totalDaysThisMonth : 0, attendanceData ? attendanceData.numAttendancesThisMonth : 0, attendanceData ? attendanceData.numLeavesRemaining : 0,attendanceData ? attendanceData.numAbsencesThisMonth : 0] }]}
+                            xAxis={[{ scaleType: 'band', data: ['Days of Job', 'Present', 'Absent', "Leaves Taken"] }]}
+                            series={[{ data: [attendanceData ? attendanceData.totalDaysThisMonth : 0, attendanceData ? attendanceData.numAttendancesThisMonth : 0, attendanceData ? attendanceData.numAbsencesThisMonth : 0,attendanceData ? attendanceData.numLeavesTaken : 0] }]}
                             width={500}
                             height={300}
                         />

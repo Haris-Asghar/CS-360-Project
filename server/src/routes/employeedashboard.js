@@ -14,31 +14,46 @@ router.get("/attendance-info/:username", async (req, res) => {
         const today = moment();
         const currentMonth = today.month() + 1; // Adding 1 to get the correct month format
         const currentYear = today.year();
-        // Total number of days in the current month
-        const totalDaysThisMonth = moment().date(); // Get total days in the current month
+        const totalDaysThisMonth = moment().date(); // Get total days up to today in the current month
+        // Calculate the number of Saturdays and Sundays until today in the current month
+        let numWeekendDays = 0;
+        for (let i = 1; i <= totalDaysThisMonth; i++) {
+            const currentDate = moment().date(i);
+            if (currentDate.day() === 0 || currentDate.day() === 6) {
+                numWeekendDays++;
+            }
+        }
+        // Subtract the number of Saturdays and Sundays from the total days in the month
+        const adjustedTotalDaysThisMonth = totalDaysThisMonth - numWeekendDays;
         // Number of days with attendance records for the current month (unique days)
         const attendanceRecordsThisMonth = new Map(); // Using Map to store unique days
+        let numLeavesTaken = 0;
         allAttendances.forEach(attendance => {
             const logDate = moment.utc(attendance.log).local(); // Adjust time zone to local time
             if (logDate.month() + 1 === currentMonth && logDate.year() === currentYear) {
                 const logDateFormatted = logDate.format("YYYY-MM-DD");
-                if (!attendanceRecordsThisMonth.has(logDateFormatted)) {
-                    attendanceRecordsThisMonth.set(logDateFormatted, logDate.format("HH:mm:ss"));
+                if (!attendance.leave) {
+                    if (!attendanceRecordsThisMonth.has(logDateFormatted)) {
+                        attendanceRecordsThisMonth.set(logDateFormatted, logDate.format("HH:mm:ss"));
+                    }
+                } else {
+                    numLeavesTaken++;
                 }
             }
         });
-        // Number of absences (days without attendance) for the current month
+        // Number of days with attendance records for the current month
         const numDaysWithAttendance = attendanceRecordsThisMonth.size;
-        const numAbsencesThisMonth = totalDaysThisMonth - numDaysWithAttendance;
-        // Number of leaves remaining (assuming 3 leaves allowed by default)
-        let numLeavesRemaining = 3 - numAbsencesThisMonth;
+        const numAbsencesThisMonth = adjustedTotalDaysThisMonth - numDaysWithAttendance;
+        let numLeavesRemaining = 3 - numAbsencesThisMonth - numLeavesTaken;
         if (numLeavesRemaining < 0) {
             numLeavesRemaining = 0;
         }
+
         res.status(200).json({ 
-            totalDaysThisMonth, 
+            totalDaysThisMonth: adjustedTotalDaysThisMonth, 
             numAttendancesThisMonth: numDaysWithAttendance, 
             numAbsencesThisMonth, 
+            numLeavesTaken,
             numLeavesRemaining,
             attendanceRecordsThisMonth: Array.from(attendanceRecordsThisMonth, ([logDate, logTime]) => ({ logDate, logTime }))
         });
