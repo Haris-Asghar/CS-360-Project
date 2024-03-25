@@ -304,3 +304,41 @@ textarea{
 :is(.auth-form button:is(:focus-within, :hover)) {
   background-color: var(--accent-color);
 }
+
+
+/* EmployeeList in Admin */
+
+#employeeTableContainer {
+  font-family: 'Arial', sans-serif;
+  margin: 0 auto;
+  width: 80%;
+  max-width: 1000px;
+}
+
+.employee-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.employee-table th,
+.employee-table td {
+  text-align: left;
+  padding: 8px;
+  border: 1px solid #ddd;
+}
+
+.employee-table th {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.employee-table tr:hover {
+  background-color: rgb(197, 177, 65);
+}
+
+#employeeTableContainer h1{
+  text-align: center;
+  margin: 20px;
+  font-weight: bold;
+}

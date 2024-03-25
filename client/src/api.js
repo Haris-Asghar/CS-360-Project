@@ -120,3 +120,12 @@ export const fetchPresentEmployeesAttendance = async () => {
         throw new Error('Failed to fetch present employees attendance.');
     }
 };
+
+export const getAllEmployees = async () => {
+    try {
+        const response = await axios.get(url + 'list/list-of-all-employees');
+        return response.data;
+    } catch (error) {
+        throw new Error('Failed to fetch all employees.');
+    }
+}

@@ -7,6 +7,7 @@ import { logattendanceRouter } from "./src/routes/logattendance.js";
 import { attendanceRouter } from "./src/routes/employeedashboard.js";
 import { leaveRequestRouter } from "./src/routes/LeaveRequest.js";
 import { admindashboardRouter } from "./src/routes/admindashboard.js";
+import { employeeListRouter } from "./src/routes/ListOfAllEmployees.js";
 
 dotenv.config();
 
@@ -33,3 +34,4 @@ app.use("/attendance",attendanceRouter);
 app.use("/leave", leaveRequestRouter);
 app.use("/log", logattendanceRouter);
 app.use("/present", admindashboardRouter);
+app.use("/list",employeeListRouter)
