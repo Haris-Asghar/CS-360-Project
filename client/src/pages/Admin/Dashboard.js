@@ -1,17 +1,30 @@
-import React, { useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { UserContext } from '../../components/User_Context';
 import PresentEmployeesTable from '../../components/Present_Employees_Table';
 import MyClock from '../../components/Clock';
+import { fetchPresentEmployeesAttendance } from '../../api';
 
 const AdminDashboard = () => {
     const { user } = useContext(UserContext);
+    const [presentEmployees, setPresentEmployees] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
-    // Dummy data for demonstration
-    const presentEmployees = [
-        { name: 'Employee 1', attendanceTime: '09:00 AM' },
-        { name: 'Employee 2', attendanceTime: '09:15 AM' },
-        { name: 'Employee 3', attendanceTime: '09:30 AM' },
-    ];
+    useEffect(() => {
+        const fetchAttendance = async () => {
+            try {
+                const data = await fetchPresentEmployeesAttendance();
+                console.log(data)
+                setPresentEmployees(data);
+                setLoading(false);
+            } catch (error) {
+                setError(error.message);
+                setLoading(false);
+            }
+        };
+
+        fetchAttendance();
+    }, []);
 
     return (
         <div>
@@ -23,7 +36,10 @@ const AdminDashboard = () => {
                 <h2>Clock</h2>
                 <MyClock />
             </div>
-            <PresentEmployeesTable presentEmployees={presentEmployees} />
+            {loading && <p>Loading...</p>}
+            {error && <p>Error: {error}</p>}
+            {!loading && !error && <PresentEmployeesTable presentEmployees={presentEmployees} />}
+
         </div>
     );
 };

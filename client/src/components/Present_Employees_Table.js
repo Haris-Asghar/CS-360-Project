@@ -1,6 +1,7 @@
 import React from 'react';
 
 const PresentEmployeesTable = ({ presentEmployees }) => {
+    console.log(presentEmployees)
     return (
         <div className="present-employees-table">
             <h2>Present Employees Today</h2>

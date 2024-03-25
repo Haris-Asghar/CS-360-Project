@@ -111,3 +111,12 @@ export const handleRejectLeave = async (id) => {
         throw new Error('Failed to reject leave.');
     }
 };
+
+export const fetchPresentEmployeesAttendance = async () => {
+    try {
+        const response = await axios.get(url + 'attendance/present-employees');
+        return response.data;
+    } catch (error) {
+        throw new Error('Failed to fetch present employees attendance.');
+    }
+};
