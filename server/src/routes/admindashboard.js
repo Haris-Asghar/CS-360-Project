@@ -1,8 +1,45 @@
-import express from 'express';
-import AttendanceModel from '../models/Attendance.js';
-import { EmployeeModel } from '../models/Employee.js'; // Import the EmployeeModel
+import express from "express";
+import AttendanceModel from "../models/Attendance.js";
+import { EmployeeModel } from "../models/Employee.js";
 
 const router = express.Router();
+
+router.get("/all_employee_info", async (req, res) => {
+    const { username, role } = req.body;
+    try {
+       const today = new Date();
+       // Set hours, minutes, seconds, and milliseconds to 0 to consider the entire day
+       const startOfDay = new Date(today);
+       startOfDay.setHours(0, 0, 0, 0);
+       // Set hours to 23, minutes to 59, seconds to 59, and milliseconds to 999 to consider end of day
+       const endOfDay = new Date(today);
+
+       endOfDay.setHours(23, 59, 59, 999);
+
+       const totalEmployees = await EmployeeModel.countDocuments();
+
+       // Number of employees present today
+       const presentEmployees = await AttendanceModel.countDocuments({
+         log: { $gte: startOfDay, $lte: endOfDay },
+         leave: false,
+       });
+
+       // Number of employees absent today
+       const absentEmployees = totalEmployees - presentEmployees;
+
+       res.status(200).json({ 
+            totalEmployees, 
+            presentEmployees, 
+            absentEmployees, 
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Internal Server Error");
+    }
+});
+
+
+
 
 // Endpoint to fetch attendance records for employees present today
 router.get('/present-employees', async (req, res) => {
