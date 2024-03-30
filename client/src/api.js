@@ -114,7 +114,7 @@ export const handleRejectLeave = async (id) => {
 
 export const employeeInfo = async () => {
   try {
-    const response = await axios.get(url + `info/all_employee_info`);
+    const response = await axios.get(url + `present/all_employee_info`);
     return response.data;
   } catch (error) {
     throw new Error("Failed to get employeeInfo.");
