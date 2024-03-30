@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { fetchLeaveHistory, handleApproveLeave, handleRejectLeave } from '../../api';
 
-const AdminDashboard = () => {
+const LeaveofAll = () => {
     const [leaveHistory, setLeaveHistory] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -53,7 +53,7 @@ const AdminDashboard = () => {
     };
 
     if (loading) {
-        return <div className="loading">Loading...</div>;
+        return <div className="loader-container"><div className="loader"></div></div>;
     }
 
     if (error) {
@@ -111,4 +111,4 @@ const AdminDashboard = () => {
     );
 }
 
-export default AdminDashboard;
+export default LeaveofAll;
