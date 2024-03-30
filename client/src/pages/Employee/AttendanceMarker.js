@@ -33,9 +33,9 @@ const AttendanceMarker = () => {
 
     return (
         <div className='container'>
-            <div className="action-item">
+            <div className="employee__records">
                 <h2>Mark Attendance</h2>
-                <button onClick={attendanceHandler}>Mark</button>
+                <button className='button' onClick={attendanceHandler}>Mark</button>
             </div>
         </div>
     );
