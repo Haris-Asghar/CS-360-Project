@@ -35,5 +35,17 @@ router.post("/log-attendance", async (req, res) => {
     }
 });
 
+router.post("/log-attendance2", async (req, res) => {
+    try { 
+        // Extract username from request body
+        const { biometricData } = req.body;
+
+        res.status(201).json({ message: "Backend Logic is upto client" });
+    } catch (error) {
+        console.error("Error logging attendance:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
+
 export { router as logattendanceRouter };
 

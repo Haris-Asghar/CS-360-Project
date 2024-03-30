@@ -40,6 +40,14 @@ export const markAttendance = async (username) => {
     }
 };
 
+export const markAttendance2 = async (biometricData) => {
+    try {
+        await axios.post(url + "log/log-attendance2", { biometricData });
+    } catch (error) {
+        throw new Error('Attendance already marked for the day!');
+    }
+};
+
 export const fetchAttendanceInfo = async (username) => {
     try {
         const response = await axios.get(url + `attendance/attendance-info/${username}`);
