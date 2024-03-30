@@ -61,9 +61,9 @@ const AdminDashboard = () => {
     }
 
     return (
-        <div className="container1">
-            <h1 className="dashboard-title">Leave History</h1>
-            <div className="leave-history">
+        <div className="container">
+            <div className="employee__records">
+                <h2>Leave History</h2>
                 <table>
                     <thead>
                         <tr>
@@ -80,7 +80,7 @@ const AdminDashboard = () => {
                     </thead>
                     <tbody>
                         {!loading && leaveHistory && leaveHistory.map((leave, index) => (
-                            <tr key={index} className={leave.status.toLowerCase()}>
+                            <tr key={index} className={leave.status}>
                                 <td>{leave.username}</td>
                                 <td>{leave.firstName}</td>
                                 <td>{leave.lastName}</td>
@@ -90,10 +90,15 @@ const AdminDashboard = () => {
                                 <td>{leave.otherReason}</td>
                                 <td>{leave.status}</td>
                                 <td>
-                                    {leave.status === 'Pending' && (
+                                    {leave.status === 'Pending' ? (
                                         <>
-                                            <button onClick={() => handleApprove(leave._id)}>Approve</button>
-                                            <button onClick={() => handleReject(leave._id)}>Reject</button>
+                                            <button className='enabled enabled__success' onClick={() => handleApprove(leave._id)}>Approve</button>
+                                            <button className='enabled enabled__reject' onClick={() => handleReject(leave._id)}>Reject</button>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <button className='disabled' disabled>Approve</button>
+                                            <button className='disabled' disabled>Reject</button>
                                         </>
                                     )}
                                 </td>
@@ -104,6 +109,6 @@ const AdminDashboard = () => {
             </div>
         </div>
     );
-}    
+}
 
 export default AdminDashboard;

@@ -177,8 +177,30 @@ textarea{
   transition: background-color 0.5s ease;
 }
 
-.button:hover {
+.button:is(:focus-within, :hover){
   background-color: var(--accent-color);
+}
+
+.disabled{
+  background-color: inherit;
+  color: var(--text-color);
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.enabled{
+  background-color: inherit;
+  color: var(--text-color);
+  cursor: pointer;
+  border: 1px solid var(--border-color);
+}
+
+.enabled__success:is(:focus-within, :hover){
+  background-color: var(--success-color);
+}
+
+.enabled__reject:is(:focus-within, :hover){
+  background-color: var(--error-color);
 }
 
 .card{
