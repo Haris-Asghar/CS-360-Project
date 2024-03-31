@@ -31,11 +31,17 @@
 
 .dashboard__progress{
   width: 45%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .progress{
   display: flex;
   gap: 1.5em;
+  width: 100%;
 }
 
 .progress__bar
@@ -79,6 +85,10 @@
   gap: 1em;
   justify-content: space-between;
   align-items: center;
+}
+
+.only__graph{
+  justify-content: center;
 }
 
 .dashboard__graph{

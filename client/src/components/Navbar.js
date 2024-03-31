@@ -19,9 +19,6 @@ const Navbar = () => {
                 {role === "Admin" ? (
                     <>
                         <Link to="/admin/home">Home</Link>
-                        <Link to="/admin/addUser">Add User</Link>
-                        <Link to='/admin/leaveOfAll'>View Leave History All Employees</Link>
-                        <Link to='/admin/employeeList'>List of All Employees</Link>
                     </>
                 ) : (
                     <>

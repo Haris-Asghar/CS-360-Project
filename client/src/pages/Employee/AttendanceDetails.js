@@ -24,8 +24,6 @@ const AttendanceDetails = () => {
     const [markedDates, setMarkedDates] = useState([]);
     const [value, setValue] = useState(new Date());
 
-    useEffect(() => {
-    }, []);
 
     useEffect(() => {
         const intervalId = setInterval(() => {

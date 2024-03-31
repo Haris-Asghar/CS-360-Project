@@ -1,69 +1,163 @@
 import React, { useEffect, useState, useContext } from "react";
+import Clock from 'react-clock';
 import { UserContext } from "../../components/User_Context";
-import PresentEmployeesTable from "../../components/Present_Employees_Table";
-import MyClock from "../../components/Clock";
 import { employeeInfo } from "../../api";
-import { fetchPresentEmployeesAttendance } from '../../api';
+import { Link } from 'react-router-dom';
+import { formatCurrentDateTime} from './Utilities/dateUtils';
+import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+import { BarChart } from '@mui/x-charts/BarChart';
+import 'react-circular-progressbar/dist/styles.css';
+import 'react-clock/dist/Clock.css';
 
 const AdminDashboard = () => {
-    const { user } = useContext(UserContext);
-    const [presentEmployees, setPresentEmployees] = useState([]);
-    const [attendanceData, setAttendanceData] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+  const { user } = useContext(UserContext);
+  const [attendanceData, setAttendanceData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [currentTime, setCurrentTime] = useState(formatCurrentDateTime(true));
+  const [currentDate, setCurrentDate] = useState(formatCurrentDateTime(false));
+  const [currentDay, setCurrentDay] = useState('');
+  const [value, setValue] = useState(new Date());
 
-    useEffect(() => {
-        const fetchAttendance = async () => {
-            try {
-                const data = await fetchPresentEmployeesAttendance();
-                console.log(data)
-                setPresentEmployees(data);
-                setLoading(false);
-            } catch (error) {
-                setError(error.message);
-                setLoading(false);
-            }
-        };
 
-        fetchAttendance();
-    }, []);
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setCurrentTime(formatCurrentDateTime(true));
+      setCurrentDate(formatCurrentDateTime(false));
+      setCurrentDay(new Date().toLocaleString('default', { weekday: 'long' }));
+      setValue(new Date());
+    }, 1000);
+    return () => clearInterval(intervalId);
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const data = await employeeInfo();
         setAttendanceData(data);
+        setLoading(false);
       } catch (error) {
         setError(error.message);
+        setLoading(false);
       }
     };
     fetchData();
-  }, [user.role]);
+  }, [user.username]);
 
 
   return (
-    <div>
-      {/* <AdminNavbar /> */}
-      <p>Username: {user.username}</p>
-      <p>Role: {user.role}</p>
-      <h1>Welcome to Employee Attendance System</h1>
-      <div className="clock-section">
-        <h2>Clock</h2>
-        <MyClock />
-      {/* </div>
-      <PresentEmployeesTable presentEmployees={presentEmployees} />
-      <div> */}
-        <h3>Employee Stats</h3>
-        {attendanceData && (
-          <div>
-            <p>Total Employees: {attendanceData.totalEmployees}</p>
-            <p>Present Employees: {attendanceData.presentEmployees}</p>
-            <p>Absent Employees: {attendanceData.absentEmployees}</p>
+    <>
+      <div className='container'>
+        <div className='dashboard__details'>
+          <div className='dashboard__clock__and__progress'>
+            <div className='card dashboard__clock'>
+              <div className='dashboard__clock__info'>
+                <Clock value={value} />
+                <time>{currentTime}</time>
+                <time>{currentDate}</time>
+                <p>{currentDay}</p>
+              </div>
+              <div className='dashboard_links'>
+                <Link to="/admin/addUser">
+                  <button className='button'>Add User</button>
+                </Link>
+              </div>
+            </div>
+            <div className='dashboard__progress'>
+              <div className='card progress'>
+                {attendanceData ? (
+                  <div className='progress__bar'>
+                    <CircularProgressbar
+                      value={100}
+                      text={`${attendanceData.presentEmployees}/${attendanceData.totalEmployees}`}
+                      background
+                      backgroundPadding={6}
+                      styles={buildStyles({
+                        backgroundColor: "#3e98c7",
+                        textColor: "#fff",
+                        pathColor: "#fff",
+                        trailColor: "transparent"
+                      })}
+                    />
+                  </div>
+                ) : <div className="loader-container"><div className="loader"></div></div>}
+                <div className='progress__text'>
+                  <p className='progress_heading'>Employees Present</p>
+                  <table>
+                    <tbody>
+                      <tr>
+                        <td>Total Employees:</td>
+                        <td>{attendanceData ? attendanceData.totalEmployees : 0}</td>
+                      </tr>
+                      <tr>
+                        <td>Total Present:</td>
+                        <td>{attendanceData ? attendanceData.presentEmployees : 0}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <Link to="/admin/employeeList">
+                    <button className='button'>List of Employees</button>
+                  </Link>
+                </div>
+              </div>
+              <div className='card progress'>
+                {attendanceData ? (
+                  <div className='progress__bar'>
+                    <CircularProgressbar
+                      value={100}
+                      text={`${attendanceData.absentEmployees}/${attendanceData.totalEmployees}`}
+                      background
+                      backgroundPadding={6}
+                      styles={buildStyles({
+                        backgroundColor: "#3e98c7",
+                        textColor: "#fff",
+                        pathColor: "#fff",
+                        trailColor: "transparent"
+                      })}
+                    />
+                  </div>
+                ) : <div className="loader-container"><div className="loader"></div></div>}
+                <div className='progress__text'>
+                  <p className='progress_heading'>Employees Absent</p>
+                  <table>
+                    <tbody>
+                      <tr>
+                        <td>Total Employees:</td>
+                        <td>{attendanceData ? attendanceData.totalEmployees : 0}</td>
+                      </tr>
+                      <tr>
+                        <td>Total Absent:</td>
+                        <td>{attendanceData ? attendanceData.absentEmployees : 0}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <Link to="/admin/leaveOfAll">
+                    <button className='button'>View Leave History</button>
+                  </Link>
+                </div>
+              </div>
+            </div>
           </div>
-        )}
-        {error && <p>Error: {error}</p>}
+          {!loading && !error && attendanceData && (
+            <div className='dashboard__calendar__and__graph only__graph'>
+              <div className='dashboard__graph'>
+                <BarChart
+                  xAxis={[{ scaleType: 'band', data: ['Total', 'Present', 'Absent'] }]}
+                  series={[{ data: [attendanceData ? attendanceData.totalEmployees : 0, attendanceData ? attendanceData.presentEmployees : 0, attendanceData ? attendanceData.absentEmployees : 0] }]}
+                  width={500}
+                  height={300}
+                />
+              </div>
+
+            </div>
+          )}
+          {loading && <div className="loader-container"><div className="loader"></div></div>}
+          {error && <div className="error">Error: {error}</div>}
+          {!loading && !attendanceData && <div className="error">No attendance data available</div>}
+        </div>
       </div>
-    </div>
+
+    </>
   );
 };
 
