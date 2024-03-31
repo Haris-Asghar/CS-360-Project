@@ -3,11 +3,24 @@ import Clock from 'react-clock';
 import { UserContext } from "../../components/User_Context";
 import { employeeInfo } from "../../api";
 import { Link } from 'react-router-dom';
-import { formatCurrentDateTime} from './Utilities/dateUtils';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import { BarChart } from '@mui/x-charts/BarChart';
 import 'react-circular-progressbar/dist/styles.css';
 import 'react-clock/dist/Clock.css';
+
+const formatCurrentDateTime = (showTime) => {
+  const currentDate = new Date();
+  if (showTime) {
+      const options = { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true };
+      return currentDate.toLocaleTimeString('en-US', options);
+  } else {
+      const options = { day: 'numeric', month: 'long', year: 'numeric' };
+      const formattedDate = currentDate.toLocaleDateString('en-US', options);
+      const day = currentDate.getDate();
+      const suffix = (day === 1 || day === 21 || day === 31) ? 'st' : (day === 2 || day === 22) ? 'nd' : (day === 3 || day === 23) ? 'rd' : 'th';
+      return formattedDate.replace(',', suffix + ',');
+  }
+};
 
 const AdminDashboard = () => {
   const { user } = useContext(UserContext);
