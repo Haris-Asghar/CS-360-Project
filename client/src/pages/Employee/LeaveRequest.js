@@ -41,6 +41,7 @@ const LeaveRequest = () => {
             } , 2000);
         } catch (error) {
             setLoading(false);
+            setError(error.message);
             Swal.fire({
                 title: 'Leave Request Failed!',
                 text: error.message,
