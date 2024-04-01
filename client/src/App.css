@@ -91,14 +91,16 @@ select {
   }
 }
 
+/* Inside your CSS file or style section */
 /* Custom Variables */
 :root {
-  --primary-color: rgb(81, 113, 165); /* Main color for buttons, links, and highlights */
-  --secondary-color: rgb(81, 113, 165); /* Secondary color for accents */
+  --primary-color: #1A2238; /* Main color for buttons, links, and highlights */
+  --secondary-color: #1A2238; /* Secondary color for accents */
   --text-color: white; /* Main text color */
-  --background-color: rgb(57, 47, 62); /* Background color for the entire page */
-  --accent-color: rgb(152, 185, 171); /* Accent color for call-to-action buttons or elements */
-  --border-color: #ddd; /* Border color for elements */
+  --text-color2: #1A2238;
+  --background-color: #ddd; /* Background color for the entire page */
+  --accent-color: #F4DB7D; /* Accent color for call-to-action buttons or elements */
+  --border-color: #000000; /* Border color for elements */
   --error-color: rgb(131, 33, 97);
   --success-color: rgb(21, 122, 110);
   --pending-color: rgb(213, 185, 66);
@@ -106,22 +108,21 @@ select {
 
 body{
   background-color: var(--background-color);
-  color: var(--text-color);
+  color: var(--text-color2);
 }
 
 form{
   gap: 1.5em;
-  color: var(--text-color);
 }
 
 input{
   background-color: var(--background-color);
-  color: var(--text-color);
+  color: var(--text-color2);
   border: 1px solid var(--border-color);
 }
 
 ::placeholder{
-  color: var(--text-color);
+  color: var(--text-color2);
 }
 
 label {
@@ -131,7 +132,6 @@ label {
 
 select {
   background-color: var(--background-color);
-  color: var(--text-color);
   border: 1px solid var(--border-color);
 }
 
@@ -140,6 +140,10 @@ textarea{
   height: 200px;
   background-color: var(--background-color);
   border: 1px solid var(--border-color);
+}
+
+table th, table a{
+  color: var(--text-color2) !important;
 }
 
 /* General */
@@ -177,30 +181,8 @@ textarea{
   transition: background-color 0.5s ease;
 }
 
-.button:is(:focus-within, :hover){
+.button:hover {
   background-color: var(--accent-color);
-}
-
-.disabled{
-  background-color: inherit;
-  color: var(--text-color);
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.enabled{
-  background-color: inherit;
-  color: var(--text-color);
-  cursor: pointer;
-  border: 1px solid var(--border-color);
-}
-
-.enabled__success:is(:focus-within, :hover){
-  background-color: var(--success-color);
-}
-
-.enabled__reject:is(:focus-within, :hover){
-  background-color: var(--error-color);
 }
 
 .card{
@@ -275,7 +257,6 @@ textarea{
   border: 2px solid var(--border-color);
 }
 
-
 /* Auth Page */
 .auth-container > *{
   width: 60%;
@@ -293,6 +274,7 @@ textarea{
   border: 1px solid var(--border-color);
   padding: 2em;
   border-radius: 15px;
+  color: var(--text-color2);
 }
 
 :is(.auth-form input, .auth-form select) {
@@ -301,12 +283,14 @@ textarea{
   width: 100%;
   margin: 1em 0;
   border-radius: 0.5em;
-  border: 2px solid var(--border-color);
+  border: 2px solid var(--text-color2);
   transition: 0.5s;
+  background-color: var(--background-color);
 }
 
 :is(.auth-form input:is(:focus-within, :hover), .auth-form select:is(:focus-within, :hover)) {
   background-color: var(--background-color);
+  color: var(--text-color2);
   outline: none;
 }
 
@@ -327,40 +311,41 @@ textarea{
   background-color: var(--accent-color);
 }
 
-
-/* EmployeeList in Admin */
-
-#employeeTableContainer {
-  font-family: 'Arial', sans-serif;
-  margin: 0 auto;
-  width: 80%;
-  max-width: 1000px;
+/* Table Styles */
+.table-container {
+  padding: 20px; /* Add padding to the container */
+  max-width: 800px; /* Limit the maximum width of the container */
+  margin: 0 auto; /* Center the container horizontally */
 }
 
-.employee-table {
+.table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
+  color: var(--text-color2);
 }
 
-.employee-table th,
-.employee-table td {
-  text-align: left;
+.table th,
+.table td {
   padding: 8px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border-color);
+  text-align: left;
 }
 
-.employee-table th {
-  background-color: #4CAF50;
-  color: white;
+.table th {
+  padding: 8px;
+  border: 1px solid var(--border-color);
+  text-align: left;
+  color: #ffffff; /* Set text color of table headers to white */
+  font-weight: normal; /* Set font weight to normal */
+  background-color: #1A2238;
 }
 
-.employee-table tr:hover {
-  background-color: rgb(197, 177, 65);
+.table tbody tr:nth-child(even) {
+  background-color: var(--background-color);
 }
 
-#employeeTableContainer h1{
-  text-align: center;
-  margin: 20px;
-  font-weight: bold;
+.main-header {
+  background-color: #1A2238; /* Update to the main color */
+  color: #ffffff;
+  padding: 10px;
 }
