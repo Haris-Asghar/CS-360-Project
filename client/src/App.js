@@ -13,6 +13,7 @@ import AttendanceRecords from './pages/Employee/AttendanceRecords';
 import AttendanceMarker from './pages/Employee/AttendanceMarker';
 import LeaveHistory from './pages/Employee/LeaveHistory';
 import EmployeeList from './pages/Admin/ListEmployee';
+import ForAdminDashboard from './pages/Employee/ForAdminDashboard';
 
 function App() {
   return (
@@ -34,8 +35,12 @@ function App() {
           <Route path="/employee/attendance-records" element={<ProtectedRoute role="Employee"><AttendanceRecords /></ProtectedRoute>} />
           <Route path="/employee/mark-attendance" element={<ProtectedRoute role="Employee"><AttendanceMarker /></ProtectedRoute>} />
           <Route path="/employee/leaveHistory" element={<ProtectedRoute role="Employee"><LeaveHistory /></ProtectedRoute>} />
+          <Route path="/employee/forAdmin" element={<ProtectedRoute role="Admin"><ForAdminDashboard/></ProtectedRoute>}/>
+          {/* Dynamic route for ForAdminDashboard */}
+          <Route path="/employee/forAdmin/:username" element={<ProtectedRoute role="Admin"><ForAdminDashboard/></ProtectedRoute>}/>
+          <Route path="/admin/attendance-records" element={<AttendanceRecords />} />
+          <Route path="/admin/leaveHistory" element={<LeaveHistory />} />
 
-          
           {/* Page Not Found */}
           <Route path="*" element={<h1>Page Not Found</h1>} />
         </Routes>
