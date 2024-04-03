@@ -113,7 +113,7 @@ const ForAdminDashboard = () => {
                                     </tr>
                                 </tbody>
                             </table>
-                            <Link to="/admin/leaveHistory">
+                            <Link to={`/admin/leaveHistory/${username}`}>
                                 <button className='button'>View Leaves</button>
                             </Link>
                         </div>
@@ -149,7 +149,7 @@ const ForAdminDashboard = () => {
                                     </tr>
                                 </tbody>
                             </table>
-                            <Link to="/admin/attendance-records">
+                            <Link to={`/admin/attendance-records/${username}`}>
                                 <button className='button'>View Attendance</button>
                             </Link>
                         </div>

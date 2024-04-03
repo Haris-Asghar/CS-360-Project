@@ -7,8 +7,6 @@ const EmployeeList = () => {
   const [employees, setEmployees] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  //const [selectedEmployee, setSelectedEmployee] = useState(null);
-  //const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {

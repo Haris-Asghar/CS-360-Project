@@ -19,19 +19,23 @@ const dbName = process.env.DB_CLUSTER_NAME;
 
 app.use(express.json());
 app.use(cors());
-
-mongoose.connect(`mongodb+srv://${username}:${password}@${dbName}.c0zyvyg.mongodb.net/${dbName}?retryWrites=true&w=majority&appName=${dbName}`)
+mongoose
+  .connect(
+    `mongodb+srv://${username}:${password}@${dbName}.c0zyvyg.mongodb.net/${dbName}?retryWrites=true&w=majority&appName=${dbName}`
+  )
   .then(() => {
-    console.log("\x1b[34m%s\x1b[0m", "DB connected"); 
-    app.listen(3001, () => console.log("\x1b[33m%s\x1b[0m", "Listening at port 3001"));
+    console.log("\x1b[34m%s\x1b[0m", "DB connected");
+    app.listen(3001, () =>
+      console.log("\x1b[33m%s\x1b[0m", "Listening at port 3001")
+    );
   })
   .catch((err) => {
     console.error("\x1b[31m%s\x1b[0m", err);
   });
 
 app.use("/auth", employeeRouter);
-app.use("/attendance",attendanceRouter);
+app.use("/attendance", attendanceRouter);
 app.use("/leave", leaveRequestRouter);
 app.use("/log", logattendanceRouter);
 app.use("/present", admindashboardRouter);
-app.use("/list",employeeListRouter)
+app.use("/list", employeeListRouter);

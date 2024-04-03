@@ -6,7 +6,6 @@ const router = express.Router();
 
 router.get("/attendance-info/:username", async (req, res) => {
     const { username } = req.params;
-
     try {
         // Get all attendance records for the user
         const allAttendances = await AttendanceModel.find({ username });
@@ -48,7 +47,6 @@ router.get("/attendance-info/:username", async (req, res) => {
         if (numLeavesRemaining < 0) {
             numLeavesRemaining = 0;
         }
-
         res.status(200).json({ 
             totalDaysThisMonth: adjustedTotalDaysThisMonth, 
             numAttendancesThisMonth: numDaysWithAttendance, 
