@@ -171,8 +171,8 @@ table th, table a{
 }
 
 .button {
-  background-color: var(--primary-color);
-  color: var(--text-color);
+  background-color: var(--background-color);
+  color: var(--text-color2);
   border: 2px solid var(--border-color);
   padding: 1rem 2rem;
   border-radius: 5px;
@@ -185,15 +185,42 @@ table th, table a{
   background-color: var(--accent-color);
 }
 
-.card{
-  border: 2px solid var(--border-color);
-  margin: 1em 0;
-  padding: 1em;
-  border-radius: 0.5em;
-  background-color: var(--secondary-color);
-  color: var(--text-color);
-  min-width: 100px;
-  transition: 0.5s;
+.card {
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 20px;
+  margin: 10px;
+  background-color: var(--background-color); /* Add background color */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow for elevation */
+}
+
+.progress__bar {
+  margin-bottom: 20px;
+}
+
+.progress_heading {
+  font-size: 18px; /* Increase font size for headings */
+  margin-bottom: 10px;
+}
+
+.progress__text {
+  font-size: 16px; /* Adjust font size */
+}
+
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+}
+
+.loader {
+  border: 6px solid var(--border-color); /* Light grey */
+  border-top: 6px solid var(--accent-color);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: loading 2s linear infinite; /* Apply the animation */
 }
 
 .card:is(:focus-within, :hover){
@@ -231,30 +258,39 @@ table th, table a{
   color: var(--text-color);
   border: 2px solid var(--border-color);
   display: flex;
-  justify-content: center;
+  justify-content: space-between; /* Adjust alignment */
   align-items: center;
-  flex-direction: column;
   padding: 1em;
   font-size: larger;
   font-weight: bolder;
 }
 
-.nav-links{
+.nav-links {
   display: flex;
-  text-decoration: none;
+  align-items: center;
 }
 
-.nav-links a{
-  padding: 1em;
-  margin: 0 2em;
+.nav-links a {
+  padding: 0.5em 1em; /* Adjust padding */
+  margin: 0 1em; /* Adjust margin */
   color: var(--text-color);
   border: 2px solid transparent;
   border-radius: 0.5em;
-  transition: 0.5s;
+  transition: 0.3s;
+  display: flex;
+  align-items: center;
 }
 
-.nav-links a:is(:focus-within, :hover){
+.nav-links a:hover {
   border: 2px solid var(--border-color);
+}
+
+.nav-links a i {
+  margin-right: 0.5em; /* Add space between icon and text */
+}
+
+.nav-links a:hover {
+  background-color: var(--accent-color); /* Change background color on hover */
 }
 
 /* Auth Page */
@@ -348,4 +384,8 @@ table th, table a{
   background-color: #1A2238; /* Update to the main color */
   color: #ffffff;
   padding: 10px;
+}
+
+.graph-container {
+  background-color: var(--background-color); /* Use the CSS variable */
 }

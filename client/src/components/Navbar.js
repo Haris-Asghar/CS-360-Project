@@ -18,14 +18,20 @@ const Navbar = () => {
             <div className="nav-links">
                 {role === "Admin" ? (
                     <>
-                        <Link to="/admin/home">Home</Link>
+                        <Link to="/admin/home">
+                            <i className="fas fa-home"></i> Home
+                        </Link>
                     </>
                 ) : (
                     <>
-                        <Link to="/employee/home">Home</Link>
+                        <Link to="/employee/home">
+                            <i className="fas fa-home"></i> Home
+                        </Link>
                     </>
                 )}
-                <Link to="/" onClick={signOutHandler}>Sign Out</Link>
+                <Link to="/" onClick={signOutHandler}>
+                    <i className="fas fa-sign-out-alt"></i> Sign Out
+                </Link>
             </div>
         </div>
     );
