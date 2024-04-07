@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { Link} from 'react-router-dom';
-import '../../App.css';
-import { getAllEmployees } from '../../api';
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import "../../App.css";
+import { getAllEmployees } from "../../api";
 
 const EmployeeList = () => {
   const [employees, setEmployees] = useState([]);
@@ -22,12 +22,11 @@ const EmployeeList = () => {
     fetchData();
   }, []);
 
-
   return (
     <>
       {!loading && !error && employees && (
         <div className="container">
-          <div className='employee__records'>
+          <div className="employee__records">
             <h2>List of All Employees</h2>
             <table>
               <thead>
@@ -40,14 +39,26 @@ const EmployeeList = () => {
                 </tr>
               </thead>
               <tbody>
-                {employees.map(employee => (
+                {employees.map((employee) => (
                   <tr key={employee.username}>
-                    <td>
-                      {/* Link to redirect onClick */}
-                      <Link to={`/employee/forAdmin/${employee.username}`}>
-                        {employee.username}
+                    <td
+                      style={{ textDecoration: "underline", cursor: "pointer" }}
+                    >
+                      <Link
+                        to={`/employee/forAdmin/${employee.username}`}
+                        style={{ color: "#000" }}
+                      >
+                        <span
+                          style={{
+                            textDecoration: "none",
+                            transition: "text-decoration 0.3s ease",
+                          }}
+                        >
+                          {employee.username}
+                        </span>
                       </Link>
                     </td>
+
                     <td>{employee.firstname}</td>
                     <td>{employee.lastname}</td>
                     <td>{employee.numofattendances}</td>
@@ -60,7 +71,11 @@ const EmployeeList = () => {
         </div>
       )}
 
-      {loading && <div className="loader-container"><div className="loader"></div></div>}
+      {loading && (
+        <div className="loader-container">
+          <div className="loader"></div>
+        </div>
+      )}
       {error && <div className="error">Error: {error}</div>}
     </>
   );

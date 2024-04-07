@@ -1,14 +1,14 @@
 import express from "express";
 import moment from "moment";
-import EmployeeModel from "../models/Employee.js";
+import { EmployeeModel } from "../models/Employee.js";
 import AttendanceModel from "../models/Attendance.js";
 
 const router = express.Router();
 
 router.get("/list-of-all-employees", async (req, res) => {
     try {
-        // Retrieve all employees
-        const employees = await EmployeeModel.find({}, { _id: 0, username: 1, fname: 1, lname: 1 });
+        // Retrieve employees with role "Employee"
+        const employees = await EmployeeModel.find({ role: "Employee" }, { _id: 0, username: 1, fname: 1, lname: 1 });
 
         // Fetch attendance records for each employee
         const employeesWithAttendanceInfo = await Promise.all(employees.map(async (employee) => {
