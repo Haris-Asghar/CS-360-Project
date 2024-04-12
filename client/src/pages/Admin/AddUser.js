@@ -193,12 +193,12 @@ const AddUser = () => {
                             validatePhoneNumber(e.target.value);
                         }}
                     />
-                    <button className="button" type="button" onClick={handleScanBiometricData}>Scan Biometric Data</button>
+                    {errors.pnumber && <p className="error-message">{errors.pnumber}</p>}
+                    <button className="button button2" type="button" onClick={handleScanBiometricData}>Scan Biometric Data</button>
                     {success && <p className="success-message">Biometric data captured successfully</p>}
                     {errors.biometricData && <p className="error-message">{errors.biometricData}</p>}
-                    {errors.pnumber && <p className="error-message">{errors.pnumber}</p>}
                     {success && <p className="success-message">User Added</p>}
-                    <button className="button" type="submit">Add User</button>
+                    <button className="button button2" type="submit">Add User</button>
                 </form>
             </div>
     );

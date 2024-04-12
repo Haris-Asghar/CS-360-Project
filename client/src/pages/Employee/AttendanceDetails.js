@@ -67,7 +67,7 @@ const AttendanceDetails = () => {
                         <time>{currentDate}</time>
                         <p>{currentDay}</p>
                     </div>
-                    <div className='dashboard_links'>
+                    <div className='dashboard_links marker__buttons'>
                         <Link to="/employee/applyLeave">
                             <button className='button'>Request for Leave</button>
                         </Link>

@@ -2,6 +2,17 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../../App.css";
 import { getAllEmployees } from "../../api";
+import Swal from 'sweetalert2';
+
+const showAlert = (username, firstname, lastname, numofattendances, numofabsences) => {
+    Swal.fire({
+        title: 'More Info',
+        html: `Username: ${username} <br> First Name: ${firstname} <br> Last Name: ${lastname} <br> No. of Attendance: ${numofattendances} <br> No. of Absences: ${numofabsences}`,
+        icon: 'info',
+        showConfirmButton: false,
+        timer: 10000
+    });
+};
 
 const EmployeeList = () => {
   const [employees, setEmployees] = useState([]);
@@ -32,10 +43,11 @@ const EmployeeList = () => {
               <thead>
                 <tr>
                   <th>Username</th>
-                  <th>First Name</th>
-                  <th>Last Name</th>
-                  <th>Number of Attendances</th>
-                  <th>Number of Absences</th>
+                  <th className='mobile'>First Name</th>
+                  <th className='mobile'>Last Name</th>
+                  <th>No. of Attendance</th>
+                  <th>No. of Absences</th>
+                  <th className='desktop'>Info&#43;</th>
                 </tr>
               </thead>
               <tbody>
@@ -59,10 +71,11 @@ const EmployeeList = () => {
                       </Link>
                     </td>
 
-                    <td>{employee.firstname}</td>
-                    <td>{employee.lastname}</td>
+                    <td className='mobile'>{employee.firstname}</td>
+                    <td className='mobile'>{employee.lastname}</td>
                     <td>{employee.numofattendances}</td>
                     <td>{employee.numofabsences}</td>
+                    <td className='info__icon desktop'><btn onClick={() => showAlert(employee.username, employee.firstname, employee.lastname, employee.numofattendances, employee.numofabsences)}>&#9432;</btn></td>
                   </tr>
                 ))}
               </tbody>

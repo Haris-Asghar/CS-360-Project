@@ -1,6 +1,17 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { UserContext } from '../../components/User_Context';
 import { fetchEmployeeLeaveHistory } from '../../api';
+import Swal from 'sweetalert2';
+
+const showAlert = (sdate, edate, reason, explanation) => {
+    Swal.fire({
+        title: 'More Info',
+        html: `Start Date: ${new Date(sdate).toLocaleDateString()} <br> End Date: ${new Date(edate).toLocaleDateString()} <br> Leave Reason: ${reason} <br> Explanation: ${explanation}`,
+        icon: 'info',
+        showConfirmButton: false,
+        timer: 10000
+    });
+};
 
 const LeaveHistory = () => {
     const { user } = useContext(UserContext);
@@ -39,32 +50,32 @@ const LeaveHistory = () => {
         <div className="container">
             <div className="employee__records">
                 <h2>Your Leave History</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Start Date</th>
-                            <th>End Date</th>
-                            <th>Leave Reason</th>
-                            <th>Explanation</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {employeeLeaveHistory.map((leave, index) => (
-                            <tr className={leave.status} key={index}>
-                                <td>{leave.firstName}</td>
-                                <td>{leave.lastName}</td>
-                                <td>{new Date(leave.startDate).toLocaleDateString()}</td>
-                                <td>{new Date(leave.endDate).toLocaleDateString()}</td>
-                                <td>{leave.leaveReason}</td>
-                                <td>{leave.otherReason}</td>
-                                <td>{leave.status}</td>
+                <div className='employee__records__table'>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th className='mobile'>Leave Reason</th>
+                                <th className='mobile'>Explanation</th>
+                                <th>Status</th>
+                                <th className='desktop'>Info&#43;</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {employeeLeaveHistory.map((leave, index) => (
+                                <tr className={leave.status} key={index}>
+                                    <td>{new Date(leave.startDate).toLocaleDateString()}</td>
+                                    <td>{new Date(leave.endDate).toLocaleDateString()}</td>
+                                    <td className='mobile'>{leave.leaveReason}</td>
+                                    <td className='mobile'>{leave.otherReason}</td>
+                                    <td>{leave.status}</td>
+                                    <td className='info__icon desktop'><btn onClick={() => showAlert(leave.startDate, leave.endDate, leave.leaveReason, leave.otherReason)}>&#9432;</btn></td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     );

@@ -106,10 +106,10 @@ const Auth = () => {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                     />
-                    <button className="button" type="button" onClick={handleScanBiometricData}>Scan Biometric Data</button>
-                    {errors.biometricData && <p className="error-message">{errors.biometricData}</p>}
                     {errors.user && <p className="error-message">{errors.user}</p>}
-                    <button className='button' type="submit">Sign In</button>
+                    <button className="button button2" type="button" onClick={handleScanBiometricData}>Scan Biometric Data</button>
+                    {errors.biometricData && <p className="error-message">{errors.biometricData}</p>}
+                    <button className='button button2' type="submit">Sign In</button>
                 </form>
             </div>
     );

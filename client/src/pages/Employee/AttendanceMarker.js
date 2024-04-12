@@ -66,8 +66,10 @@ const AttendanceMarker = () => {
         <div className='container'>
             <div className="employee__records">
                 <h2>Mark Attendance</h2>
-                <button className='button' onClick={attendanceHandler}>Mark</button>
+                <div className="marker__buttons">
                 <button className="button" type="button" onClick={handleScanBiometricData}>Scan Biometric Data</button>
+                <button className='button' onClick={attendanceHandler}>Mark</button>
+                </div>
                 {success && <p className="success-message">Biometric data captured successfully</p>}
                 {errors.biometricData && <p className="error-message">{errors.biometricData}</p>}
             </div>

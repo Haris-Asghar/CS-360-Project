@@ -1,5 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { fetchLeaveHistory, handleApproveLeave, handleRejectLeave } from '../../api';
+import Swal from 'sweetalert2';
+
+const showAlert = (username, firstName, lastName, startDate, endDate, leaveReason, otherReason, status) => {
+    Swal.fire({
+        title: 'More Info',
+        html: `Username: ${username} <br> First Name: ${firstName} <br> Last Name: ${lastName} <br> Start Date: ${new Date(startDate).toLocaleDateString()} <br> End Date: ${new Date(endDate).toLocaleDateString()} <br> Leave Reason: ${leaveReason} <br> Explanation: ${otherReason} <br> Status: ${status}`,
+        icon: 'info',
+        showConfirmButton: false,
+        timer: 10000
+    });
+};
 
 const LeaveofAll = () => {
     const [leaveHistory, setLeaveHistory] = useState([]);
@@ -68,27 +79,28 @@ const LeaveofAll = () => {
                     <thead>
                         <tr>
                             <th>Username</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Start Date</th>
-                            <th>End Date</th>
-                            <th>Leave Reason</th>
-                            <th>Explanation</th>
-                            <th>Status</th>
+                            <th className='mobile'>First Name</th>
+                            <th className='mobile'>Last Name</th>
+                            <th className='mobile'>Start Date</th>
+                            <th className='mobile'>End Date</th>
+                            <th className='mobile'>Leave Reason</th>
+                            <th className='mobile'>Explanation</th>
+                            <th className='mobile'>Status</th>
                             <th>Action</th>
+                            <th className='desktop'>Info&#43;</th>
                         </tr>
                     </thead>
                     <tbody>
                         {!loading && leaveHistory && leaveHistory.map((leave, index) => (
                             <tr key={index} className={leave.status}>
                                 <td>{leave.username}</td>
-                                <td>{leave.firstName}</td>
-                                <td>{leave.lastName}</td>
-                                <td>{new Date(leave.startDate).toLocaleDateString()}</td>
-                                <td>{new Date(leave.endDate).toLocaleDateString()}</td>
-                                <td>{leave.leaveReason}</td>
-                                <td>{leave.otherReason}</td>
-                                <td>{leave.status}</td>
+                                <td className='mobile'>{leave.firstName}</td>
+                                <td className='mobile'>{leave.lastName}</td>
+                                <td className='mobile'>{new Date(leave.startDate).toLocaleDateString()}</td>
+                                <td className='mobile'>{new Date(leave.endDate).toLocaleDateString()}</td>
+                                <td className='mobile'>{leave.leaveReason}</td>
+                                <td className='mobile'>{leave.otherReason}</td>
+                                <td className='mobile'>{leave.status}</td>
                                 <td>
                                     {leave.status === 'Pending' ? (
                                         <>
@@ -102,6 +114,7 @@ const LeaveofAll = () => {
                                         </>
                                     )}
                                 </td>
+                                <td className='info__icon desktop'><btn onClick={() => showAlert(leave.username, leave.firstName, leave.lastName, leave.startDate, leave.endDate, leave.leaveReason, leave.otherReason, leave.status)}>&#9432;</btn></td>
                             </tr>
                         ))}
                     </tbody>

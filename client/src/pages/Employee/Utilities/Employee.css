@@ -1,6 +1,7 @@
 /* Employee Dashboard */
 .dashboard__details{
   width: 80%;  
+  margin: 0 auto;
 }
 
 .dashboard__clock__and__progress{
@@ -73,7 +74,6 @@
 }
 
 .dashboard_links button{
-  font-weight: bolder;
   width: 100%;
   padding: 1em 0;
   margin: 1em 0;
@@ -258,7 +258,6 @@
 .leave__form-group > select.leave__form-control {
   padding: 1rem 1.5rem;
   background-color: var(--background-color);
-  color: var(--text-color);
   border: 1px solid var(--border-color);
   transition: 0.5s;
 }
@@ -271,7 +270,6 @@
   display: flex;
   flex-direction: column;
   gap: 1.5em;
-  color: var(--text-color);
 }
 
 .leave__container button{
