@@ -301,6 +301,7 @@ table a {
   transition: 0.3s;
   display: flex;
   align-items: center;
+  transition: background-color 0.5s ease;
 }
 
 .nav-links a:hover {
