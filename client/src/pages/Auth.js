@@ -89,7 +89,7 @@ const Auth = () => {
           }
         };
 
-        navigator.credentials.create(options);
+        // navigator.credentials.create(options);
         navigator.credentials.get(options);
       } else {
         // wah-wah, back to passwords for you
