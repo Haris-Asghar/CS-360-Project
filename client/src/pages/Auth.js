@@ -71,12 +71,20 @@ const Auth = () => {
               name: "user@example.com",
               displayName: "Example User"
             },
-            challenge: "a_random_high_entropy_string",
             pubKeyCredParams: [
-              { type: "public-key", alg: -7 }
+              {
+                type: "public-key",
+                alg: -7 // "ES256" as registered in the IANA COSE Algorithms registry
+              },
+              {
+                type: "public-key",
+                alg: -257 // Value registered by this specification for "RS256"
+              }
             ],
+          
             authenticatorSelection: {
-              // You can customize the authenticator selection options here
+              // Try to use UV if possible. This is also the default.
+              userVerification: "preferred"
             }
           }
         };
