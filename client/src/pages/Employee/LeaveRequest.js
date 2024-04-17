@@ -16,6 +16,17 @@ const LeaveRequest = () => {
 
     const handleLeaveSubmit = async (e) => {
         e.preventDefault();
+        if (startDate > endDate) {
+            setLoading(false);
+            setError("Start Date can't be greater than End Date!");
+            Swal.fire({
+                title: 'Leave Request Failed!',
+                text: "Start Date can't be greater than End Date!",
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+            return;
+        }
         setLoading(true);
         const leaveData = {
             username: user.username,
@@ -50,16 +61,15 @@ const LeaveRequest = () => {
             });
         }
     };
-    
-    
 
     if (loading) {
         return <div className="loader-container"><div className="loader"></div></div>;
     }
 
     if (error) {
-        return <div className="error">Error: {error}</div>;
+        setError(error.message);
     }
+
 
     return (
         <div className="container leave__container">

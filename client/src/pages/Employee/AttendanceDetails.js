@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import html2canvas from 'html2canvas';
 import { UserContext } from '../../components/User_Context';
 import { formatCurrentDateTime, datesFromTodayToStartOfMonth, datesMatcher } from './Utilities/dateUtils';
 import { fetchAttendanceData } from '../../api';
@@ -56,6 +57,19 @@ const AttendanceDetails = () => {
             setAttendancePercentage((attendanceData.numAttendancesThisMonth / attendanceData.totalDaysThisMonth) * 100);
         }
     }, [attendanceData, leavesAllowed]);
+
+    const captureScreenshot = () => {
+        const element = document.querySelector('.dashboard__calendar__and__graph');
+        html2canvas(element).then(canvas => {
+            const screenshotUrl = canvas.toDataURL(); // Convert canvas to base64 encoded image data URL
+            const a = document.createElement('a');
+            a.href = screenshotUrl;
+            a.download = `${currentDate}.png`; // Specify the filename for the downloaded screenshot
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        });
+    };
 
     return (
         <div className='dashboard__details'>
@@ -156,19 +170,22 @@ const AttendanceDetails = () => {
                 </div>
             </div>
             {!loading && !error && attendanceData && (
-                <div className='dashboard__calendar__and__graph'>
-                    <div className='dashboard__calendar'>
-                        <MyCalendar markedDates={markedDates} />
-                    </div>
-                    <div className='dashboard__graph'>
-                        <BarChart
-                            xAxis={[{ scaleType: 'band', data: ['Days of Job', 'Present', 'Absent', "Leaves Taken"] }]}
-                            series={[{ data: [attendanceData ? attendanceData.totalDaysThisMonth : 0, attendanceData ? attendanceData.numAttendancesThisMonth : 0, attendanceData ? attendanceData.numAbsencesThisMonth : 0,attendanceData ? attendanceData.numLeavesTaken : 0] }]}
-                            width={500}
-                            height={300}
-                        />
-                    </div>
+                <div className="dash_c_g">
+                    <div className='dashboard__calendar__and__graph'>
+                        <div className='dashboard__calendar'>
+                            <MyCalendar markedDates={markedDates} />
+                        </div>
+                        <div className='dashboard__graph'>
+                            <BarChart
+                                xAxis={[{ scaleType: 'band', data: ['Days of Job', 'Present', 'Absent', "Leaves Taken"] }]}
+                                series={[{ data: [attendanceData ? attendanceData.totalDaysThisMonth : 0, attendanceData ? attendanceData.numAttendancesThisMonth : 0, attendanceData ? attendanceData.numAbsencesThisMonth : 0, attendanceData ? attendanceData.numLeavesTaken : 0] }]}
+                                width={500}
+                                height={300}
+                            />
+                        </div>
 
+                    </div>
+                    <button className='button' onClick={captureScreenshot}>Download</button>
                 </div>
             )}
             {loading && <div className="loader-container"><div className="loader"></div></div>}

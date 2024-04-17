@@ -203,6 +203,10 @@ table a {
   background-color: var(--accent-color);
 }
 
+.button__margin{
+  margin-top: 1em;
+}
+
 .card {
   border: 1px solid var(--border-color);
   border-radius: 8px;
@@ -317,6 +321,10 @@ table a {
 }
 
 /* Auth Page */
+.leave__form-control{
+  color: var(--text-color2);
+}
+
 .auth-container > * {
   width: 60%;
 }

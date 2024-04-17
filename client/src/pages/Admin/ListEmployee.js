@@ -33,6 +33,35 @@ const EmployeeList = () => {
     fetchData();
   }, []);
 
+  const getCurrentMonthName = () => {
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const currentDate = new Date();
+    const currentMonth = months[currentDate.getMonth()];
+    return currentMonth;
+  };
+
+  const convertJsonToCsv = () => {
+    const jsonData = employees;
+
+    // Extract headers from the first object in jsonData, excluding certain keys
+    const headers = Object.keys(jsonData[0]).filter(key => key !== '_id' && key !== '__v');
+
+    // Construct CSV content with headers
+    let csvContent = "data:text/csv;charset=utf-8," + headers.join(',') + "\n";
+
+    // Add data rows, excluding certain keys
+    csvContent += jsonData.map(row => {
+        return headers.map(header => row[header]).join(',');
+    }).join('\n');
+
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", `${getCurrentMonthName()}_attendance.csv`);
+    document.body.appendChild(link);
+    link.click();
+};
+
   return (
     <>
       {!loading && !error && employees && (
@@ -81,6 +110,7 @@ const EmployeeList = () => {
               </tbody>
             </table>
           </div>
+          <button className='button button__margin' onClick={convertJsonToCsv}>Download CSV</button>
         </div>
       )}
 

@@ -29,6 +29,26 @@ const AttendanceRecords = () => {
         fetchData();
     }, [user.username]);
 
+    const convertJsonToCsv = () => {
+        const jsonData = attendanceData.attendanceRecordsThisMonth;
+
+        // Extract headers from the first object in jsonData
+        const headers = Object.keys(jsonData[0]);
+
+        // Construct CSV content with headers
+        let csvContent = "data:text/csv;charset=utf-8," + headers.join(',') + "\n";
+
+        // Add data rows
+        csvContent += jsonData.map(row => Object.values(row).join(',')).join('\n');
+
+        const encodedUri = encodeURI(csvContent);
+        const link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", `${user.username}_${currentMonth}_attendance.csv`);
+        document.body.appendChild(link);
+        link.click();
+    };
+
     if (loading) {
         return <div className="loader-container"><div className="loader"></div></div>;
     }
@@ -66,6 +86,7 @@ const AttendanceRecords = () => {
                     </tbody>
                 </table>
             </div>
+            <button className='button button__margin' onClick={convertJsonToCsv}>Download CSV</button>
         </div>
     );
 };

@@ -80,6 +80,14 @@
   min-width: 150px;
 }
 
+.dash_c_g{
+  display: flex;
+  gap: 1em;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
 .dashboard__calendar__and__graph{
   display: flex;
   gap: 1em;
@@ -92,6 +100,11 @@
 }
 
 .dashboard__graph{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 1em;
   width: 50%;
 }
 
@@ -104,7 +117,7 @@
 }
 
 :is(.css-10vg0a6-MuiResponsiveChart-container, .css-rccht4):is(:hover, :focus-within) {
-  border: 1px solid var(--secondary-color) !important;
+  border: 2px solid var(--secondary-color) !important;
 }
 
 .MuiChartsAxis-tickLabel{

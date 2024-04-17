@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import Clock from 'react-clock';
+import html2canvas from 'html2canvas';
 import { UserContext } from "../../components/User_Context";
 import { employeeInfo } from "../../api";
 import { Link } from 'react-router-dom';
@@ -11,14 +12,14 @@ import 'react-clock/dist/Clock.css';
 const formatCurrentDateTime = (showTime) => {
   const currentDate = new Date();
   if (showTime) {
-      const options = { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true };
-      return currentDate.toLocaleTimeString('en-US', options);
+    const options = { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true };
+    return currentDate.toLocaleTimeString('en-US', options);
   } else {
-      const options = { day: 'numeric', month: 'long', year: 'numeric' };
-      const formattedDate = currentDate.toLocaleDateString('en-US', options);
-      const day = currentDate.getDate();
-      const suffix = (day === 1 || day === 21 || day === 31) ? 'st' : (day === 2 || day === 22) ? 'nd' : (day === 3 || day === 23) ? 'rd' : 'th';
-      return formattedDate.replace(',', suffix + ',');
+    const options = { day: 'numeric', month: 'long', year: 'numeric' };
+    const formattedDate = currentDate.toLocaleDateString('en-US', options);
+    const day = currentDate.getDate();
+    const suffix = (day === 1 || day === 21 || day === 31) ? 'st' : (day === 2 || day === 22) ? 'nd' : (day === 3 || day === 23) ? 'rd' : 'th';
+    return formattedDate.replace(',', suffix + ',');
   }
 };
 
@@ -57,6 +58,20 @@ const AdminDashboard = () => {
     fetchData();
   }, [user.username]);
 
+  const captureScreenshot = () => {
+    const element = document.querySelector('.admin__graph');
+    html2canvas(element).then(canvas => {
+      const screenshotUrl = canvas.toDataURL(); // Convert canvas to base64 encoded image data URL
+      const a = document.createElement('a');
+      a.href = screenshotUrl;
+      a.download = `${currentDate}.png`; // Specify the filename for the downloaded screenshot
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    });
+  };
+
+
 
   return (
     <>
@@ -81,7 +96,7 @@ const AdminDashboard = () => {
                 {attendanceData ? (
                   <div className='progress__bar'>
                     <CircularProgressbar
-                      value={100}
+                      value={100*(attendanceData.presentEmployees / attendanceData.totalEmployees)}
                       text={`${attendanceData.presentEmployees}/${attendanceData.totalEmployees}`}
                       background
                       backgroundPadding={6}
@@ -117,7 +132,7 @@ const AdminDashboard = () => {
                 {attendanceData ? (
                   <div className='progress__bar'>
                     <CircularProgressbar
-                      value={100}
+                      value={100*(attendanceData.absentEmployees/attendanceData.totalEmployees)}
                       text={`${attendanceData.absentEmployees}/${attendanceData.totalEmployees}`}
                       background
                       backgroundPadding={6}
@@ -154,14 +169,16 @@ const AdminDashboard = () => {
           {!loading && !error && attendanceData && (
             <div className='dashboard__calendar__and__graph only__graph'>
               <div className='dashboard__graph'>
-                <BarChart
-                  xAxis={[{ scaleType: 'band', data: ['Total', 'Present', 'Absent'] }]}
-                  series={[{ data: [attendanceData ? attendanceData.totalEmployees : 0, attendanceData ? attendanceData.presentEmployees : 0, attendanceData ? attendanceData.absentEmployees : 0] }]}
-                  width={500}
-                  height={300}
-                />
+                <div className="admin__graph">
+                  <BarChart
+                    xAxis={[{ scaleType: 'band', data: ['Total', 'Present', 'Absent'] }]}
+                    series={[{ data: [attendanceData ? attendanceData.totalEmployees : 0, attendanceData ? attendanceData.presentEmployees : 0, attendanceData ? attendanceData.absentEmployees : 0] }]}
+                    width={500}
+                    height={300}
+                  />
+                </div>
+                <button className='button' onClick={captureScreenshot}>Download Graph</button>
               </div>
-
             </div>
           )}
           {loading && <div className="loader-container"><div className="loader"></div></div>}
