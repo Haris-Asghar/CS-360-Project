@@ -95,7 +95,7 @@
   width: 50%;
 }
 
-.css-10vg0a6-MuiResponsiveChart-container{
+.css-10vg0a6-MuiResponsiveChart-container, .css-rccht4{
   background-color: var(--secondary-color) !important;
   width: 100% !important;
   height: 100% !important;
@@ -103,11 +103,11 @@
   border: 1px solid var(--border-color);
 }
 
-.css-10vg0a6-MuiResponsiveChart-container:is(:hover, :focus-within) {
+:is(.css-10vg0a6-MuiResponsiveChart-container, .css-rccht4):is(:hover, :focus-within) {
   border: 1px solid var(--secondary-color) !important;
 }
 
-.css-1k2u9zb-MuiChartsAxis-root .MuiChartsAxis-tickLabel{
+.MuiChartsAxis-tickLabel{
   fill: var(--text-color) !important;
 }
 
