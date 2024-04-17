@@ -470,4 +470,7 @@ table a {
     align-items: center;
     flex-direction: column;
   }
+  .dashboard__calendar{
+    width: 100% !important;
+  }
 }
