@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { UserContext } from '../../components/User_Context';
 import Swal from 'sweetalert2';
 import { markAttendance, markAttendance2 } from '../../api';
+import faceIO from '@faceio/fiojs'
 
 const AttendanceMarker = () => {
     const { user } = useContext(UserContext);

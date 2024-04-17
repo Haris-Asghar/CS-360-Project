@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { registerUser, registerUser2 } from '../../api';
 import Swal from 'sweetalert2';
 import { useEffect } from 'react';
+import faceIO from '@faceio/fiojs'
 
 const AddUser = () => {
  
