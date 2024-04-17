@@ -14,7 +14,7 @@ const Auth_Route = ({ children, actual_role }) => {
     };
 
     if (!username) {
-        if (window.location.pathname !== "/") {
+        if (window.location.pathname !== "/" && window.location.pathname !== "/auth") {
             return <>
                 You are not logged in. Please log in to view this page.
                 <p>Username: {user.username}</p>
@@ -26,7 +26,7 @@ const Auth_Route = ({ children, actual_role }) => {
     }
     else {
         if (username) {
-            if (window.location.pathname !== "/") {
+            if (window.location.pathname !== "/" && window.location.pathname !== "/auth") {
                 if (actual_role !== role) {
                     return <>
                         You are not authorized to view this page.

@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Landing from './pages/LandingPage';
 import Auth from './pages/Auth';
 import AddUser from './pages/Admin/AddUser';
 import AdminDashboard from './pages/Admin/Dashboard';
@@ -23,7 +24,8 @@ function App() {
       <Router>
         <Routes>
           {/* Public Routes */}
-          <Route path="/" element={<AuthRoute><Auth /></AuthRoute>} />
+          <Route path="/" element={<AuthRoute><Landing /></AuthRoute>} />
+          <Route path="/auth" element={<AuthRoute><Auth /></AuthRoute>} />
 
           {/* Admin Routes */}
           <Route path="/admin/home" element={<ProtectedRoute role="Admin"><AdminDashboard /></ProtectedRoute>} />
