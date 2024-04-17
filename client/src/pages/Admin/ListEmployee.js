@@ -76,6 +76,7 @@ const EmployeeList = () => {
                   <th className='mobile'>Last Name</th>
                   <th>No. of Attendance</th>
                   <th>No. of Absences</th>
+                  <th>Today Status</th>
                   <th className='desktop'>Info&#43;</th>
                 </tr>
               </thead>
@@ -104,6 +105,7 @@ const EmployeeList = () => {
                     <td className='mobile'>{employee.lastname}</td>
                     <td>{employee.numofattendances}</td>
                     <td>{employee.numofabsences}</td>
+                    <td>{employee.todayStatus}</td>
                     <td className='info__icon desktop'><btn onClick={() => showAlert(employee.username, employee.firstname, employee.lastname, employee.numofattendances, employee.numofabsences)}>&#9432;</btn></td>
                   </tr>
                 ))}
