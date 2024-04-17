@@ -30,7 +30,7 @@ const AttendanceMarker = () => {
                 setAccountExistString("Your account exists, Please Sign In");
             }
             if (error === 9 || error === 6) {
-                setAccountExistString("Something went wrog! Please try again!");
+                setAccountExistString("Something went wrong! Please try again!");
             }
             if (error === 13) {
                 window.location.reload();

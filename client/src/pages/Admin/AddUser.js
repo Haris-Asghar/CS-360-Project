@@ -16,7 +16,7 @@ const AddUser = () => {
     const [biometricData, setBiometricData] = useState('');
     const [errors, setErrors] = useState({});
     const [success, setSuccess] = useState(false);
-    const [faceId, setFaceId] = useState('');
+    const [setFaceId] = useState('');
     const [facesuccess, setfacesuccess] = useState(false)
 
     let faceio;
@@ -120,7 +120,7 @@ const AddUser = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setSuccess(false);
-        if (facesuccess==false){
+        if (facesuccess===false){
             console.log("face success")
             return
         }
