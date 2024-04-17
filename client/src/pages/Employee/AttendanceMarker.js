@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { UserContext } from '../../components/User_Context';
 import Swal from 'sweetalert2';
 import { markAttendance, markAttendance2 } from '../../api';
@@ -8,6 +8,49 @@ const AttendanceMarker = () => {
     const [biometricData, setBiometricData] = useState("");
     const [errors, setErrors] = useState({});
     const [success, setSuccess] = useState(false);
+    const [faceid, setFaceId] = useState(null);
+    const [accountExistString, setAccountExistString] = useState("");
+    const [facevalidation, setFaceValidation]=useState(false)
+
+    let faceio;
+
+    useEffect(() => {
+        faceio = new faceIO("fioa6b02");
+    }, []);
+
+    const handleNewFaceUser = async () => {
+        try {
+            let response = await faceio.enroll({
+                locale: "auto"
+            });
+            setFaceId(response.facialId);
+        } catch (error) {
+            console.log("error", error);
+            if (error === 20) {
+                setAccountExistString("Your account exists, Please Sign In");
+            }
+            if (error === 9 || error === 6) {
+                setAccountExistString("Something went wrog! Please try again!");
+            }
+            if (error === 13) {
+                window.location.reload();
+            }
+        }
+    };
+
+    const handleAuthenticationFaceUser = async () => {
+        try {
+            let response = await faceio.authenticate({
+                locale: "auto"
+            });
+            setFaceId(response.facialId);
+            setFaceValidation(true)
+        } catch (error) {
+            if (error === 20) {
+                window.location.reload();
+            }
+        }
+    };
 
     const showAlert = (title, text, icon) => {
         Swal.fire({
@@ -28,13 +71,12 @@ const AttendanceMarker = () => {
         }
         try {
             if (biometricData) {
-                try{
+                try {
                     await markAttendance2(biometricData);
-                }catch(error){
+                } catch (error) {
                     showAlert("Error!", error.message, "error");
                 }
-            }
-            else{
+            } else {
                 await markAttendance(user.username);
                 showAlert("Successful!", "Attendance Marked", "success");
             }
@@ -44,22 +86,8 @@ const AttendanceMarker = () => {
     };
 
     const handleScanBiometricData = async () => {
-      try {
-        const device = await navigator.usb.requestDevice({ filters: [] });
-        await device.open();
-        await device.selectConfiguration(1);
-        await device.claimInterface(0);
-        await device.connect();
-        // Code to interact with USB device and capture biometric data
-        // For simplicity, let's assume biometric data is captured as a string
-        setBiometricData("Captured biometric data");
-        setSuccess(true);
-        // Whomever is using this code need to add their own drivers to this
-      } catch (error) {
-        console.error("Error accessing USB device:", error);
-        // Handle error
-        setErrors({ ...errors, biometricData: "Device/drivers not found" });
-      }
+        // Call function to scan biometric data here
+        // Depending on the scenario, either call handleNewFaceUser() or handleAuthenticationFaceUser()
     };
 
     return (
@@ -67,14 +95,17 @@ const AttendanceMarker = () => {
             <div className="employee__records">
                 <h2>Mark Attendance</h2>
                 <div className="marker__buttons">
-                <button className="button" type="button" onClick={handleScanBiometricData}>Scan Biometric Data</button>
-                <button className='button' onClick={attendanceHandler}>Mark</button>
+                    <button className="button" type="button" onClick={handleScanBiometricData}>Scan Biometric Data</button>
+                    {facevalidation && <button className='button' onClick={attendanceHandler}>Mark</button>}
+                    <button className='button' onClick={handleAuthenticationFaceUser}>Authenticate Face User</button>
                 </div>
                 {success && <p className="success-message">Biometric data captured successfully</p>}
                 {errors.biometricData && <p className="error-message">{errors.biometricData}</p>}
+                {accountExistString && <p className="error-message">{accountExistString}</p>}
             </div>
         </div>
     );
+    
 };
 
 export default AttendanceMarker;

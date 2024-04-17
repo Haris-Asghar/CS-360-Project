@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const url = 'https://cs-360.vercel.app/';
-//  const url = "http://localhost:3001/";
+//const url = 'https://cs-360.vercel.app/';
+const url = "http://localhost:3001/";
 
 // General functions
 export const login = async ({ role, username, password }) => {
