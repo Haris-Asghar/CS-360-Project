@@ -95,7 +95,7 @@ function Landing() {
           <nav>
             <div class="nav__bar">
               <div class="logo">
-                <img src="/assets/group-logo.webp" alt="logo" />
+                <img src="/assets/logo.png" alt="logo" />
               </div>
               <div class="nav__menu__btn" id="menu-btn">
                 <i class="ri-menu-line"></i>
@@ -115,7 +115,7 @@ function Landing() {
 
         <section class="section__container about__container" id="about">
           <div class="about__image">
-            <img src="/assets/employee-dash.png" alt="Employee Dashboard" />
+            <img src="/assets/emp-dash.png" alt="Employee Dashboard" />
           </div>
           <div class="about__content">
             <p class="section__subheader">ABOUT THE SYSTEM</p>
@@ -140,7 +140,7 @@ function Landing() {
 
             <div class="room__card">
               <div class="room__card__image">
-                <img src="/assets/admin-dash.png" alt="Admin dashboard" />
+                <img src="/assets/adm-dash.png" alt="Admin dashboard" />
                 <div class="room__card__icons">
 
                   <span><i class="ri-shield-star-line"></i></span>
@@ -160,7 +160,7 @@ function Landing() {
 
             <div class="room__card">
               <div class="room__card__image">
-                <img src="/assets/employee-tab.png" alt="Employee Table" />
+                <img src="/assets/emp-table.png" alt="Employee Table" />
                 <div class="room__card__icons">
 
                   <span><i class="ri-shield-star-line"></i></span>
@@ -180,7 +180,7 @@ function Landing() {
 
             <div class="room__card">
               <div class="room__card__image">
-                <img src="/assets/leave-manage.png" alt="Leave Management" />
+                <img src="/assets/l-m.png" alt="Leave Management" />
                 <div class="room__card__icons">
 
                   <span><i class="ri-shield-star-line"></i></span>
@@ -228,7 +228,7 @@ function Landing() {
           <div class="section__container footer__container">
             <div class="footer__col">
               <div class="logo">
-                <a href="#home"><img src="/assets/group-logo.webp" alt="logo" /></a>
+                <a href="#home"><img src="/assets/logo.png" alt="logo" /></a>
               </div>
               <p class="section__description">
                 Our application is dedicated to ensuring that all your management needs are fulfilled.
