@@ -121,10 +121,6 @@ const AddUser = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setSuccess(false);
-        if (facesuccess===false){
-            console.log("face success")
-            return
-        }
         if (errors.password || errors.email || errors.pnumber || errors.salary || errors.biometricData) {
             return;
         }
