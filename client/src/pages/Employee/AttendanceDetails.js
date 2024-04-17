@@ -52,7 +52,7 @@ const AttendanceDetails = () => {
 
     useEffect(() => {
         if (attendanceData) {
-            setLeavePercentage((attendanceData.numAbsencesThisMonth / leavesAllowed) * 100);
+            setLeavePercentage((attendanceData.numAbsencesThisMonth / attendanceData.totalDaysThisMonth) * 100);
             setAttendancePercentage((attendanceData.numAttendancesThisMonth / attendanceData.totalDaysThisMonth) * 100);
         }
     }, [attendanceData, leavesAllowed]);
