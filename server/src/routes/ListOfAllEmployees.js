@@ -68,11 +68,11 @@ router.get("/list-of-all-employees", async (req, res) => {
             let todayStatus = 'Absent'; // Default status
             const todayAttendance = allAttendances.find(attendance => {
                 const logDate = moment.utc(attendance.log).local(); // Adjust time zone to local time
-                return logDate.isSame(today, 'day') && !attendance.leave;
+                return logDate.isSame(today, 'day');
             });
 
             if (todayAttendance) {
-                todayStatus = 'Present';
+                todayStatus = todayAttendance.leave ? 'On Leave' : 'Present';
             }
 
             return {
