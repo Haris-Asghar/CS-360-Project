@@ -18,7 +18,7 @@ const AddUser = () => {
     const [errors, setErrors] = useState({});
     const [success, setSuccess] = useState(false);
     const [setFaceId] = useState('');
-    const [facesuccess, setfacesuccess] = useState(false)
+    const [facesuccess, setfacesuccess] = useState(false);
 
     let faceio;
 

@@ -11,7 +11,7 @@ const AttendanceMarker = () => {
     const [success, setSuccess] = useState(false);
     const [faceid, setFaceId] = useState(null);
     const [accountExistString, setAccountExistString] = useState("");
-    const [facevalidation, setFaceValidation]=useState(false)
+    const [facevalidation, setFaceValidation]=useState(false);
 
     let faceio;
 
