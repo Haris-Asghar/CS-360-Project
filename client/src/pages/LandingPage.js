@@ -242,7 +242,11 @@ function Landing() {
             <div class="footer__col">
               <h4>CONTACT US</h4>
               <ul class="footer__links">
-                <li></li>
+                <li>24100168@lums.edu.pk</li>
+                <li>24100174@lums.edu.pk</li>
+                <li>24100108@lums.edu.pk</li>
+                <li>24100187@lums.edu.pk</li>
+                <li>25100328@lums.edu.pk</li>
               </ul>
             </div>
           </div>

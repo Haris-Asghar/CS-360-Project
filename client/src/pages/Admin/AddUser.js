@@ -144,101 +144,103 @@ const AddUser = () => {
     };
 
     return (
-        <div className="container auth-container">
-            <h1 className='leave__leave-request-title'>Add New User</h1>
-            {!facesuccess && <button className="button button2" onClick={handleNewFaceUser} type="submit">Add Face of User</button>}
-            {facesuccess && <form className="auth-form" onClick={handleSubmit}>
-                <label htmlFor="role">Role</label>
-                <select
-                    id="role"
-                    required
-                    value={role}
-                    onChange={(e) => setRole(e.target.value)}
-                >
-                    <option value="">Select Role</option>
-                    <option value="Admin">Admin</option>
-                    <option value="Employee">Employee</option>
-                </select>
-                <label htmlFor="username">Username</label>
-                <input
-                    type="text"
-                    id="username"
-                    required
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                />
-                {errors.user && <p className="error-message">{errors.user}</p>}
-                <label htmlFor="password">Password</label>
-                <input
-                    type="password"
-                    id="password"
-                    required
-                    value={password}
-                    onChange={(e) => {
-                        setPassword(e.target.value);
-                        validatePassword(e.target.value);
-                    }}
-                />
-                {errors.password && <p className="error-message">{errors.password}</p>}
-                <label htmlFor="fname">First Name</label>
-                <input
-                    type="text"
-                    id="fname"
-                    required
-                    value={fname}
-                    onChange={(e) => setFname(e.target.value)}
-                />
-                <label htmlFor="lname">Last Name</label>
-                <input
-                    type="text"
-                    id="lname"
-                    required
-                    value={lname}
-                    onChange={(e) => setLname(e.target.value)}
-                />
-                <label htmlFor="salary">Salary</label>
-                <input
-                    type="text"
-                    id="salary"
-                    required
-                    value={salary}
-                    onChange={(e) => {
-                        setSalary(e.target.value);
-                        validateSalary(e.target.value);
-                    }}
-                />
-                {errors.salary && <p className="error-message">{errors.salary}</p>}
-                <label htmlFor="email">Email</label>
-                <input
-                    type="text"
-                    id="email"
-                    required
-                    value={email}
-                    onChange={(e) => {
-                        setEmail(e.target.value);
-                        validateEmail(e.target.value);
-                    }}
-                />
-                {errors.email && <p className="error-message">{errors.email}</p>}
-                <label htmlFor="pnumber">Phone Number</label>
-                <input
-                    type="text"
-                    id="pnumber"
-                    required
-                    value={pnumber}
-                    onChange={(e) => {
-                        setPnumber(e.target.value);
-                        validatePhoneNumber(e.target.value);
-                    }}
-                />
-                {errors.pnumber && <p className="error-message">{errors.pnumber}</p>}
-                <button className="button button2" type="button" onClick={handleScanBiometricData}>Scan Biometric Data</button>
-                {success && <p className="success-message">Biometric data captured successfully</p>}
-                {errors.biometricData && <p className="error-message">{errors.biometricData}</p>}
-                {facesuccess && success && <p className="success-message">User Added</p>}
-                {facesuccess && <button className="button button2" type="submit">Add User</button>}
+        <div className="p_container">
+            <div className="container auth-container">
+                <h1 className='leave__leave-request-title'>Add New User</h1>
+                {!facesuccess && <button className="button button2" onClick={handleNewFaceUser} type="submit">Add Face of User</button>}
+                {facesuccess && <form className="auth-form" onClick={handleSubmit}>
+                    <label htmlFor="role">Role</label>
+                    <select
+                        id="role"
+                        required
+                        value={role}
+                        onChange={(e) => setRole(e.target.value)}
+                    >
+                        <option value="">Select Role</option>
+                        <option value="Admin">Admin</option>
+                        <option value="Employee">Employee</option>
+                    </select>
+                    <label htmlFor="username">Username</label>
+                    <input
+                        type="text"
+                        id="username"
+                        required
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                    />
+                    {errors.user && <p className="error-message">{errors.user}</p>}
+                    <label htmlFor="password">Password</label>
+                    <input
+                        type="password"
+                        id="password"
+                        required
+                        value={password}
+                        onChange={(e) => {
+                            setPassword(e.target.value);
+                            validatePassword(e.target.value);
+                        }}
+                    />
+                    {errors.password && <p className="error-message">{errors.password}</p>}
+                    <label htmlFor="fname">First Name</label>
+                    <input
+                        type="text"
+                        id="fname"
+                        required
+                        value={fname}
+                        onChange={(e) => setFname(e.target.value)}
+                    />
+                    <label htmlFor="lname">Last Name</label>
+                    <input
+                        type="text"
+                        id="lname"
+                        required
+                        value={lname}
+                        onChange={(e) => setLname(e.target.value)}
+                    />
+                    <label htmlFor="salary">Salary</label>
+                    <input
+                        type="text"
+                        id="salary"
+                        required
+                        value={salary}
+                        onChange={(e) => {
+                            setSalary(e.target.value);
+                            validateSalary(e.target.value);
+                        }}
+                    />
+                    {errors.salary && <p className="error-message">{errors.salary}</p>}
+                    <label htmlFor="email">Email</label>
+                    <input
+                        type="text"
+                        id="email"
+                        required
+                        value={email}
+                        onChange={(e) => {
+                            setEmail(e.target.value);
+                            validateEmail(e.target.value);
+                        }}
+                    />
+                    {errors.email && <p className="error-message">{errors.email}</p>}
+                    <label htmlFor="pnumber">Phone Number</label>
+                    <input
+                        type="text"
+                        id="pnumber"
+                        required
+                        value={pnumber}
+                        onChange={(e) => {
+                            setPnumber(e.target.value);
+                            validatePhoneNumber(e.target.value);
+                        }}
+                    />
+                    {errors.pnumber && <p className="error-message">{errors.pnumber}</p>}
+                    <button className="button button2" type="button" onClick={handleScanBiometricData}>Scan Biometric Data</button>
+                    {success && <p className="success-message">Biometric data captured successfully</p>}
+                    {errors.biometricData && <p className="error-message">{errors.biometricData}</p>}
+                    {facesuccess && success && <p className="success-message">User Added</p>}
+                    {facesuccess && <button className="button button2" type="submit">Add User</button>}
 
-            </form>}
+                </form>}
+            </div>
         </div>
     );
 };

@@ -96,7 +96,6 @@ const AttendanceMarker = () => {
             <div className="employee__records">
                 <h2>Mark Attendance</h2>
                 <div className="marker__buttons">
-                    <button className="button" type="button" onClick={handleScanBiometricData}>Scan Biometric Data</button>
                     {facevalidation && <button className='button' onClick={attendanceHandler}>Mark</button>}
                     <button className='button' onClick={handleAuthenticationFaceUser}>Authenticate Face User</button>
                 </div>
