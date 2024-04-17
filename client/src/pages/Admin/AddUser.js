@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { registerUser, registerUser2 } from '../../api';
 import Swal from 'sweetalert2';
+import { useEffect } from 'react';
 
 const AddUser = () => {
+ 
     const [role, setRole] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -14,6 +16,35 @@ const AddUser = () => {
     const [biometricData, setBiometricData] = useState('');
     const [errors, setErrors] = useState({});
     const [success, setSuccess] = useState(false);
+    const [faceId, setFaceId] = useState('');
+    const [facesuccess, setfacesuccess] = useState(false)
+
+    let faceio;
+
+    useEffect(() => {
+        faceio = new faceIO("fioa6b02");
+    }, []);
+
+    const handleNewFaceUser = async () => {
+        try {
+            let response = await faceio.enroll({
+                locale: "auto"
+            });
+            setFaceId(response.facialId);
+            setfacesuccess(true)
+        } catch (error) {
+            console.log("error", error);
+            if (error === 20) {
+                setErrors({ ...errors, accountExistString: "Your account exists, Please Sign In" });
+            }
+            if (error === 9 || error === 6) {
+                setErrors({ ...errors, accountExistString: "Something went wrong! Please try again!" });
+            }
+            if (error === 13) {
+                window.location.reload();
+            }
+        }
+    };
 
     const showAlert = (username) => {
         Swal.fire({
@@ -89,6 +120,10 @@ const AddUser = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setSuccess(false);
+        if (facesuccess==false){
+            console.log("face success")
+            return
+        }
         if (errors.password || errors.email || errors.pnumber || errors.salary || errors.biometricData) {
             return;
         }
@@ -109,7 +144,8 @@ const AddUser = () => {
     return (
         <div className="container auth-container">
             <h1 className='leave__leave-request-title'>Add New User</h1>
-                <form className="auth-form" onSubmit={handleSubmit}>
+            {!facesuccess && <button className="button button2" onClick={handleNewFaceUser} type="submit">Add Face of User</button>}
+                {facesuccess && <form className="auth-form" onClick={handleSubmit}>
                     <label htmlFor="role">Role</label>
                     <select
                         id="role"
@@ -197,9 +233,10 @@ const AddUser = () => {
                     <button className="button button2" type="button" onClick={handleScanBiometricData}>Scan Biometric Data</button>
                     {success && <p className="success-message">Biometric data captured successfully</p>}
                     {errors.biometricData && <p className="error-message">{errors.biometricData}</p>}
-                    {success && <p className="success-message">User Added</p>}
-                    <button className="button button2" type="submit">Add User</button>
-                </form>
+                    {facesuccess&& success && <p className="success-message">User Added</p>}
+                    {facesuccess && <button className="button button2" type="submit">Add User</button>}
+
+                </form>}
             </div>
     );
 };
