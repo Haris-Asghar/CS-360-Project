@@ -17,7 +17,7 @@ const AddUser = () => {
     const [biometricData, setBiometricData] = useState('');
     const [errors, setErrors] = useState({});
     const [success, setSuccess] = useState(false);
-    const [setFaceId] = useState('');
+    const [faceId, setFaceId] = useState('');
     const [facesuccess, setfacesuccess] = useState(false);
 
     let faceio;
