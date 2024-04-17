@@ -64,13 +64,24 @@ router.get("/list-of-all-employees", async (req, res) => {
             let numLeavesRemaining = 3 - numAbsencesThisMonth - numLeavesTaken;
             numLeavesRemaining = Math.max(numLeavesRemaining, 0); // Ensure numLeavesRemaining is not negative
 
-            // Return employee info with attendance stats
+            // Determine today's status for the employee
+            let todayStatus = 'Absent'; // Default status
+            const todayAttendance = allAttendances.find(attendance => {
+                const logDate = moment.utc(attendance.log).local(); // Adjust time zone to local time
+                return logDate.isSame(today, 'day') && !attendance.leave;
+            });
+
+            if (todayAttendance) {
+                todayStatus = 'Present';
+            }
+
             return {
                 username,
                 firstname: employee.fname,
                 lastname: employee.lname,
                 numofattendances: numDaysWithAttendance,
-                numofabsences: numAbsencesThisMonth
+                numofabsences: numAbsencesThisMonth,
+                todayStatus
             };
         }));
 
