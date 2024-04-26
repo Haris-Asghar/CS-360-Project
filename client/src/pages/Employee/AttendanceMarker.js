@@ -16,7 +16,7 @@ const AttendanceMarker = () => {
     let faceio;
 
     useEffect(() => {
-        faceio = new faceIO("fioa6b02");
+        faceio = new faceIO("fioac816");
     }, []);
 
     const handleNewFaceUser = async () => {
